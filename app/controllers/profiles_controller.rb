@@ -1,5 +1,6 @@
 class ProfilesController < ApplicationController
-  before_action :set_profile, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
+  before_action :set_profile, only: [ :show, :edit, :update, :destroy ]
 
   # GET /profiles or /profiles.json
   def index
@@ -21,7 +22,7 @@ class ProfilesController < ApplicationController
 
   # POST /profiles or /profiles.json
   def create
-    @profile = Profile.new(profile_params)
+    @profile = current_user.build_profile(profile_params)
 
     respond_to do |format|
       if @profile.save
@@ -60,6 +61,7 @@ class ProfilesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_profile
+      @profile = current_user.profile
       @profile = Profile.find(params.expect(:id))
     end
 

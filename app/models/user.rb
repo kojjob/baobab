@@ -4,6 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  # Associations
+  has_one :profile, dependent: :destroy
+
 
   # Active Storage avatar attachment
   has_one_attached :avatar do |attachable|

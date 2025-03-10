@@ -1,0 +1,47 @@
+<%# _stats.html.erb - Stats Section Partial %>
+<section class="py-16 bg-gray-50 dark:bg-gray-800 relative overflow-hidden">
+  <%# Ghana Flag inspired accent stripes %>
+  <div class="absolute top-0 inset-x-0 h-1 bg-red-500"></div>
+  <div class="absolute top-1 inset-x-0 h-1 bg-yellow-400"></div>
+  <div class="absolute top-2 inset-x-0 h-1 bg-green-500"></div>
+  
+  <div class="container mx-auto px-4 lg:px-8 relative z-10">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
+      <%# Stat 1: Active Users %>
+      <%= render partial: 'shared/stat_card', locals: {
+        icon: 'users',
+        value: '250,000+',
+        label: 'Active Users',
+        color: 'green',
+        data_to: 250000
+      } %>
+      
+      <%# Stat 2: Monthly Transactions %>
+      <%= render partial: 'shared/stat_card', locals: {
+        icon: 'transactions',
+        value: '5M+',
+        label: 'Monthly Transactions',
+        color: 'yellow',
+        data_to: 5000000
+      } %>
+      
+      <%# Stat 3: Marketplace Vendors %>
+      <%= render partial: 'shared/stat_card', locals: {
+        icon: 'shop',
+        value: '10,000+',
+        label: 'Marketplace Vendors',
+        color: 'red',
+        data_to: 10000
+      } %>
+      
+      <%# Stat 4: Regions Covered %>
+      <%= render partial: 'shared/stat_card', locals: {
+        icon: 'map',
+        value: '16',
+        label: 'Regions Covered',
+        color: 'blue',
+        data_to: 16
+      } %>
+    </div>
+  </div>
+</section>

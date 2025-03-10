@@ -1,0 +1,93 @@
+<%# _hero.html.erb - Hero Section Partial %>
+<section class="relative overflow-hidden py-20 md:py-32" data-controller="parallax">
+  <%# Background Patterns %>
+  <div class="absolute inset-0 opacity-10 dark:opacity-5 pattern-adinkra"></div>
+  <div class="absolute inset-0 bg-gradient-to-br from-yellow-400 via-green-500 to-red-500 dark:from-yellow-700 dark:via-green-800 dark:to-red-800 opacity-20"></div>
+  
+  <%# Ghana Flag Accent Colors %>
+  <div class="absolute top-0 left-0 w-full h-1 bg-red-500"></div>
+  <div class="absolute top-1 left-0 w-full h-1 bg-yellow-400"></div>
+  <div class="absolute top-2 left-0 w-full h-1 bg-green-500"></div>
+  
+  <%# Parallax Elements %>
+  <div data-parallax-target="layer" data-depth="0.2" class="absolute -bottom-8 right-0 w-64 h-64 bg-yellow-300 dark:bg-yellow-600 rounded-full filter blur-3xl opacity-20 transform translate-x-1/4"></div>
+  <div data-parallax-target="layer" data-depth="0.1" class="absolute top-1/4 -left-12 w-48 h-48 bg-green-400 dark:bg-green-700 rounded-full filter blur-3xl opacity-20"></div>
+  <div data-parallax-target="layer" data-depth="0.3" class="absolute bottom-1/3 left-1/3 w-40 h-40 bg-red-400 dark:bg-red-700 rounded-full filter blur-3xl opacity-20"></div>
+  
+  <div class="container mx-auto px-4 lg:px-8 relative z-10">
+    <div class="flex flex-col lg:flex-row items-center gap-16">
+      <%# Left Column: Hero Text %>
+      <div class="w-full lg:w-1/2 space-y-8" data-parallax-target="layer" data-depth="0.05">
+        <%# Ghana Flag Colors Accent Bar %>
+        <div class="flex space-x-1 mb-4">
+          <div class="w-12 h-2 bg-red-500 rounded-full"></div>
+          <div class="w-12 h-2 bg-yellow-400 rounded-full"></div>
+          <div class="w-12 h-2 bg-green-500 rounded-full"></div>
+        </div>
+        
+        <h1 class="text-4xl md:text-6xl font-bold leading-tight">
+          <span class="block" data-controller="text-appear" data-text-appear-target="text">One App,</span>
+          <span class="block mt-2 bg-gradient-to-r from-yellow-400 via-green-500 to-red-500 dark:from-yellow-300 dark:via-green-400 dark:to-red-400 text-transparent bg-clip-text" data-controller="text-appear" data-text-appear-target="text" data-delay="0.3">Infinite Possibilities</span>
+        </h1>
+        
+        <p class="text-xl text-gray-700 dark:text-gray-300 max-w-lg" data-controller="text-appear" data-text-appear-target="text" data-delay="0.6">
+          Experience Ghana's most powerful super app with mobile money, messaging, social commerce, and more — all in one place.
+        </p>
+        
+        <%# CTA Buttons with Ghanaian phrases %>
+        <div class="flex flex-col sm:flex-row gap-4" data-controller="text-appear" data-text-appear-target="text" data-delay="0.9">
+          <button data-controller="button-pulse" class="px-8 py-4 bg-gradient-to-r from-green-500 to-yellow-400 hover:from-green-600 hover:to-yellow-500 dark:from-green-600 dark:to-yellow-500 dark:hover:from-green-700 dark:hover:to-yellow-600 rounded-xl text-white font-bold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
+            <span>Join Beta</span>
+            <span class="block text-xs mt-1 opacity-80">Yɛbɛka wo ho</span> <%# "We'll add you" in Twi %>
+          </button>
+          <button class="px-8 py-4 border-2 border-gray-300 dark:border-gray-700 hover:border-green-500 dark:hover:border-green-500 rounded-xl text-gray-700 dark:text-gray-300 font-medium hover:text-green-600 dark:hover:text-green-400 transition-all duration-300 group">
+            <span>Watch Demo</span>
+            <span class="block text-xs mt-1 opacity-80 group-hover:opacity-100">Hwɛ sɛnea ɛyɛ adwuma</span> <%# "See how it works" in Twi %>
+          </button>
+        </div>
+        
+        <%# User stats %>
+        <div class="flex flex-wrap gap-4 pt-4">
+          <div class="flex items-center gap-2">
+            <div class="flex -space-x-2">
+              <div class="w-8 h-8 rounded-full bg-yellow-400 border-2 border-white dark:border-gray-900"></div>
+              <div class="w-8 h-8 rounded-full bg-green-500 border-2 border-white dark:border-gray-900"></div>
+              <div class="w-8 h-8 rounded-full bg-red-500 border-2 border-white dark:border-gray-900"></div>
+            </div>
+            <p class="text-sm text-gray-600 dark:text-gray-400">
+              <span class="font-semibold">12K+</span> beta users
+            </p>
+          </div>
+          <div class="h-8 border-r border-gray-300 dark:border-gray-700"></div>
+          <div class="flex items-center">
+            <div class="flex space-x-1">
+              <%= render partial: 'shared/star_rating', locals: { count: 5 } %>
+            </div>
+            <p class="text-sm text-gray-600 dark:text-gray-400 ml-2">
+              <span class="font-semibold">4.9/5</span> ratings
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <%# Right Column: Phone Mockup %>
+      <div class="w-full lg:w-1/2 flex justify-center lg:justify-end relative" data-parallax-target="layer" data-depth="0.1">
+        <%# Decorative Elements %>
+        <div class="absolute z-10 top-4 right-4 w-16 h-16 rounded-full bg-yellow-300 dark:bg-yellow-600 opacity-70 animate-pulse" style="animation-duration: 3s;"></div>
+        <div class="absolute z-10 bottom-4 left-4 w-12 h-12 rounded-full bg-green-400 dark:bg-green-700 opacity-70 animate-pulse" style="animation-duration: 4s;"></div>
+        
+        <%# Phone Device Frame %>
+        <%= render partial: 'shared/phone_mockup' %>
+        
+        <%# Animated Trotro bus (CSS-only) %>
+        <div class="absolute bottom-8 left-0 right-0 h-8 overflow-hidden">
+          <div class="trotro-bus">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="h-8 w-auto text-yellow-500 dark:text-yellow-400">
+              <path fill="currentColor" d="M488 96H152C68.1 96 0 164.1 0 248v56c0 13.3 10.7 24 24 24h48c0 53 43 96 96 96s96-43 96-96h128c0 53 43 96 96 96s96-43 96-96h48c13.3 0 24-10.7 24-24v-56c0-83.9-68.1-152-152-152zm-24 224c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm-256 0c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm296-144H328V58.7l80 48c12.3 7.4 27.9 3.6 35.3-8.7s3.6-27.9-8.7-35.3l-80-48c-20.6-12.4-46.8 1.7-46.8 25.3V176H136c-22.1 0-40 17.9-40 40v16h408v-16c0-22.1-17.9-40-40-40z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

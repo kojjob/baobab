@@ -1,0 +1,46 @@
+<%# _feature_card.html.erb - Feature Card Component with fixed icon lookup %>
+<div class="feature-card bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-xl transform transition-all duration-500 relative overflow-hidden group" data-controller="card-hover">
+  <%# Card Accent Line %>
+  <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r <%= accent_gradient %>"></div>
+  
+  <%# Adinkra Symbol background %>
+  <div class="absolute top-6 right-6 w-20 h-20 text-gray-100 dark:text-gray-700 opacity-30 transform rotate-12 group-hover:rotate-0 transition-transform duration-500">
+    <%= render partial: "shared/adinkra_symbols/#{adinkra_symbol}" %>
+  </div>
+  
+  <div class="relative z-10">
+    <%# Feature Icon - Fixed to use the provided icon parameter directly or convert the title safely %>
+    <div class="w-16 h-16 <%= icon_bg_class %> rounded-2xl flex items-center justify-center mb-6 <%= icon_hover_bg_class %> transition-colors duration-300">
+      <% 
+        # Define a icon_name that properly handles special characters
+        icon_name = local_assigns[:icon] || title.parameterize(separator: '_').gsub('&', 'and')
+      %>
+      <%= render partial: "shared/icons/#{icon_name}" %>
+    </div>
+    
+    <%# Feature Content %>
+    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3"><%= title %></h3>
+    <p class="text-gray-600 dark:text-gray-400 mb-6">
+      <%= description %>
+    </p>
+    
+    <%# Feature Tags %>
+    <div class="flex flex-wrap gap-2 mb-6">
+      <% tags.each do |tag| %>
+        <span class="text-xs font-medium <%= tag[:bg_class] %> <%= tag[:text_class] %> py-1 px-2 rounded-full"><%= tag[:text] %></span>
+      <% end %>
+    </div>
+    
+    <%# Feature Footer %>
+    <div class="flex justify-between items-center">
+      <div class="text-sm text-gray-500 dark:text-gray-400">
+        <span class="font-bold <%= footer_highlight[:highlight_class] %>"><%= footer_highlight[:text] %></span> <%= footer_text %>
+      </div>
+      <div class="w-10 h-10 rounded-full bg-<%= icon_bg_class.split('-')[1] %>-50 dark:<%= icon_bg_class.split('-')[2] %> flex items-center justify-center <%= icon_hover_bg_class %> transition-colors duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 <%= icon_text_class %> group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>

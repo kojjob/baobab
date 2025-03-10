@@ -1,0 +1,55 @@
+<%# _cta.html.erb - Call to Action Section Partial %>
+<section class="py-20 relative overflow-hidden">
+  <%# Background with Adinkra Pattern %>
+  <div class="absolute inset-0 bg-gradient-to-br from-green-500 to-yellow-400 dark:from-green-600 dark:to-yellow-500 opacity-90"></div>
+  <div class="absolute inset-0 opacity-10 pattern-adinkra"></div>
+  
+  <%# Animated elements %>
+  <div class="absolute top-1/4 right-1/4 w-40 h-40 bg-white rounded-full filter blur-3xl opacity-20 animate-pulse" style="animation-duration: 6s;"></div>
+  <div class="absolute bottom-1/4 left-1/4 w-40 h-40 bg-white rounded-full filter blur-3xl opacity-20 animate-pulse" style="animation-duration: 8s;"></div>
+  
+  <div class="container mx-auto px-4 lg:px-8 relative z-10">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">Ready to Join Ghana's Super App Revolution?</h2>
+      <p class="text-xl text-white opacity-90 mb-10 max-w-3xl mx-auto">
+        Be among the first to experience the future of mobile services in Ghana. One app for payments, messaging, shopping, and more.
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <button data-controller="button-pulse" class="px-8 py-4 bg-white text-green-600 hover:text-green-700 font-bold rounded-xl transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
+          <span>Join Beta Now</span>
+          <span class="block text-xs mt-1 opacity-80">Limited Spots Available</span>
+        </button>
+        <button class="px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-xl hover:bg-white hover:bg-opacity-10 transform hover:scale-105 transition-all duration-300">
+          <span>Watch Demo</span>
+          <span class="block text-xs mt-1 opacity-80">3 minute video</span>
+        </button>
+      </div>
+      
+      <%# App Store Buttons %>
+      <div class="flex flex-wrap justify-center gap-4 mt-10">
+        <%= render partial: 'shared/app_store_button', locals: { store: 'apple' } %>
+        <%= render partial: 'shared/app_store_button', locals: { store: 'google' } %>
+      </div>
+      
+      <%# Trusted Network %>
+      <div class="mt-16">
+        <p class="text-sm text-white opacity-70 mb-6">Trusted by Ghana's leading organizations</p>
+        <div class="flex flex-wrap justify-center gap-8 opacity-80">
+          <% partners = [
+            { name: 'MTN', color: 'text-green-600' },
+            { name: 'Vodafone', color: 'text-red-600' },
+            { name: 'AirtelTigo', color: 'text-blue-600' },
+            { name: 'GCB Bank', color: 'text-yellow-600' }
+          ] %>
+          
+          <% partners.each do |partner| %>
+            <div class="flex items-center justify-center">
+              <div class="w-24 h-12 bg-white rounded-md flex items-center justify-center <%= partner[:color] %> font-bold"><%= partner[:name] %></div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

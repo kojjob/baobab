@@ -1,0 +1,117 @@
+<%= form_with(model: profile, class: "contents") do |form| %>
+  <% if profile.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+      <h2><%= pluralize(profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
+
+      <ul class="list-disc ml-6">
+        <% profile.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :first_name %>
+    <%= form.text_field :first_name, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": profile.errors[:first_name].none?, "border-red-400 focus:outline-red-600": profile.errors[:first_name].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :last_name %>
+    <%= form.text_field :last_name, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": profile.errors[:last_name].none?, "border-red-400 focus:outline-red-600": profile.errors[:last_name].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :profile_username %>
+    <%= form.text_field :profile_username, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": profile.errors[:profile_username].none?, "border-red-400 focus:outline-red-600": profile.errors[:profile_username].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :profile_phone_number %>
+    <%= form.text_field :profile_phone_number, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": profile.errors[:profile_phone_number].none?, "border-red-400 focus:outline-red-600": profile.errors[:profile_phone_number].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :profile_date_of_birth %>
+    <%= form.date_field :profile_date_of_birth, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": profile.errors[:profile_date_of_birth].none?, "border-red-400 focus:outline-red-600": profile.errors[:profile_date_of_birth].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :profile_bio %>
+    <%= form.textarea :profile_bio, rows: 4, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": profile.errors[:profile_bio].none?, "border-red-400 focus:outline-red-600": profile.errors[:profile_bio].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :profile_location %>
+    <%= form.text_field :profile_location, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": profile.errors[:profile_location].none?, "border-red-400 focus:outline-red-600": profile.errors[:profile_location].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :profile_website %>
+    <%= form.text_field :profile_website, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": profile.errors[:profile_website].none?, "border-red-400 focus:outline-red-600": profile.errors[:profile_website].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :profile_gender %>
+    <%= form.number_field :profile_gender, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": profile.errors[:profile_gender].none?, "border-red-400 focus:outline-red-600": profile.errors[:profile_gender].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :profile_language %>
+    <%= form.text_field :profile_language, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": profile.errors[:profile_language].none?, "border-red-400 focus:outline-red-600": profile.errors[:profile_language].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :profile_views_count %>
+    <%= form.number_field :profile_views_count, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": profile.errors[:profile_views_count].none?, "border-red-400 focus:outline-red-600": profile.errors[:profile_views_count].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :profile_last_seen_at %>
+    <%= form.datetime_field :profile_last_seen_at, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": profile.errors[:profile_last_seen_at].none?, "border-red-400 focus:outline-red-600": profile.errors[:profile_last_seen_at].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :profile_verification_status %>
+    <%= form.number_field :profile_verification_status, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": profile.errors[:profile_verification_status].none?, "border-red-400 focus:outline-red-600": profile.errors[:profile_verification_status].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :profile_referral_code %>
+    <%= form.text_field :profile_referral_code, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": profile.errors[:profile_referral_code].none?, "border-red-400 focus:outline-red-600": profile.errors[:profile_referral_code].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :profile_social_links %>
+    <%= form.text_field :profile_social_links, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": profile.errors[:profile_social_links].none?, "border-red-400 focus:outline-red-600": profile.errors[:profile_social_links].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :profile_privacy_settings %>
+    <%= form.text_field :profile_privacy_settings, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": profile.errors[:profile_privacy_settings].none?, "border-red-400 focus:outline-red-600": profile.errors[:profile_privacy_settings].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :profile_tags %>
+    <%= form.text_field :profile_tags, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": profile.errors[:profile_tags].none?, "border-red-400 focus:outline-red-600": profile.errors[:profile_tags].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :profile_interests %>
+    <%= form.text_field :profile_interests, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": profile.errors[:profile_interests].none?, "border-red-400 focus:outline-red-600": profile.errors[:profile_interests].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :profile_completion %>
+    <%= form.number_field :profile_completion, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": profile.errors[:profile_completion].none?, "border-red-400 focus:outline-red-600": profile.errors[:profile_completion].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :deleted_at %>
+    <%= form.datetime_field :deleted_at, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": profile.errors[:deleted_at].none?, "border-red-400 focus:outline-red-600": profile.errors[:deleted_at].any?}] %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>

@@ -1,0 +1,173 @@
+<%# _navbar.html.erb - Refactored with user authentication %>
+<nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300" data-controller="navbar">
+  <%# Ghana Flag accent colors %>
+  <div class="h-1 w-full bg-red-500"></div>
+  <div class="h-1 w-full bg-yellow-400"></div>
+  <div class="h-1 w-full bg-green-500"></div>
+  
+  <%# Main navbar content %>
+  <div class="bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg shadow-md">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 md:h-20">
+        <%# Logo %>
+        <div class="flex items-center">
+          <a href="#" class="flex items-center space-x-2 group">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-r from-green-500 to-yellow-400 dark:from-green-600 dark:to-yellow-500 flex items-center justify-center relative overflow-hidden transition-all duration-300 group-hover:shadow-lg">
+              <svg class="w-6 h-6 text-white" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M13,5.3l1.35-0.95c1.82,0.56,3.37,1.76,4.38,3.34l-0.39,1.34l-1.35,0.46L13,6.7V5.3z M9.65,4.35L11,5.3v1.4L7.01,9.49L5.66,9.03L5.27,7.69C6.28,6.12,7.83,4.92,9.65,4.35z M7.08,17.11l-1.14,0.1C4.73,15.81,4,13.99,4,12c0-0.12,0.01-0.23,0.02-0.35l1-0.73L6.4,11.4l1.46,4.34L7.08,17.11z M14.5,19.59C13.71,19.85,12.87,20,12,20s-1.71-0.15-2.5-0.41l-0.69-1.49L9.45,17h5.11l0.64,1.11L14.5,19.59z M14.27,15H9.73l-1.35-4.02L12,8.44l3.63,2.54L14.27,15z M18.06,17.21l-1.14-0.1l-0.79-1.37l1.46-4.34l1.39-0.47l1,0.73C19.99,11.77,20,11.88,20,12C20,13.99,19.27,15.81,18.06,17.21z"/>
+              </svg>
+              <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-shimmer"></div>
+            </div>
+            <span class="text-xl font-bold text-gray-900 dark:text-white">Supper</span>
+          </a>
+        </div>
+
+        <%# Desktop Navigation (hidden on mobile) %>
+        <div class="hidden md:block">
+          <div class="flex items-center space-x-1">
+            <a href="#" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-green-900/30 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200">Home</a>
+            
+            <%# Rest of the desktop navigation remains the same %>
+            <%# ... (previous dropdown menus) %>
+          </div>
+        </div>
+
+        <%# Authentication and User Actions %>
+        <div class="hidden md:flex items-center space-x-4">
+          <% if user_signed_in? %>
+            <%# User Dropdown Menu %>
+            <div class="relative" data-controller="dropdown">
+              <button 
+                data-action="click->dropdown#toggle" 
+                class="flex items-center space-x-2 text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200"
+              >
+                <%# User Avatar or Initials %>
+                <div class="w-8 h-8 rounded-full font-bold bg-green-500 text-white flex items-center justify-center font-medium text-sm">
+                  <%= user_avatar(current_user, size: :medium) %>
+                  <%= current_user.username&.split&.first&.upcase || current_user.email.split('@').first.upcase %>
+                </div>
+                <span class="font-medium"><%= current_user.username.split.first %></span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-200" data-dropdown-target="arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              <%# User Dropdown Menu %>
+              <div 
+                data-dropdown-target="menu" 
+                class="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-lg py-1 hidden z-10 border border-gray-200 dark:border-gray-700 overflow-hidden"
+              >
+                <div class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
+                  <p class="text-sm font-medium text-gray-900 dark:text-white">
+                    <%= current_user.username %>
+                  </p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">
+                    <%= current_user.email %>
+                  </p>
+                </div>
+                
+                <a 
+                  href="<%= edit_user_registration_path %>" 
+                  class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-green-900/30 hover:text-green-600 dark:hover:text-green-400" 
+                  data-action="dropdown#close"
+                >
+                  Profile & Settings
+                </a>
+                
+                <a 
+                  href="#" 
+                  class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-green-900/30 hover:text-green-600 dark:hover:text-green-400" 
+                  data-action="dropdown#close"
+                >
+                  My Orders
+                </a>
+                
+                <a 
+                  href="#" 
+                  class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-green-900/30 hover:text-green-600 dark:hover:text-green-400" 
+                  data-action="dropdown#close"
+                >
+                  Help Center
+                </a>
+                
+                <div class="border-t border-gray-200 dark:border-gray-700">
+                  <%= button_to destroy_user_session_path, 
+                      method: :delete, 
+                      class: "w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors duration-200" do %>
+                    Sign Out
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% else %>
+            <%# Unauthenticated State %>
+            <a 
+              href="<%= new_user_session_path %>" 
+              class="text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 font-medium transition-colors duration-200"
+            >
+              Sign in
+            </a>
+            <a 
+              href="<%= new_user_registration_path %>" 
+              class="px-4 py-2 bg-gradient-to-r from-green-500 to-yellow-400 hover:from-green-600 hover:to-yellow-500 dark:from-green-600 dark:to-yellow-500 dark:hover:from-green-700 dark:hover:to-yellow-600 text-white font-medium rounded-lg transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105"
+            >
+              Get Started
+            </a>
+          <% end %>
+        </div>
+
+        <%# Language Selector and Mobile Menu (remains the same) %>
+        <%# ... (previous language selector and mobile menu code) %>
+      </div>
+    </div>
+  </div>
+
+  <%# Mobile Navigation (add conditional rendering for mobile) %>
+  <div data-navbar-target="mobileMenu" class="hidden md:hidden bg-white dark:bg-gray-900 shadow-lg rounded-b-xl border-t border-gray-200 dark:border-gray-800 overflow-hidden">
+    <% if user_signed_in? %>
+      <%# Mobile User Header %>
+      <div class="px-4 py-4 border-b border-gray-200 dark:border-gray-800 flex items-center space-x-4">
+        <div class="w-12 h-12 rounded-full bg-green-500 text-white flex items-center justify-center font-medium text-xl">
+          <%= current_user.username.first.upcase %>
+        </div>
+        <div>
+          <p class="text-lg font-semibold text-gray-900 dark:text-white">
+            <%= current_user.username %>
+          </p>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            <%= current_user.email %>
+          </p>
+        </div>
+      </div>
+    <% end %>
+
+    <%# Rest of mobile navigation (remains the same) %>
+    <%# ... (previous mobile menu code) %>
+
+    <%# Mobile Authentication Section %>
+    <div class="pt-4 pb-5 border-t border-gray-200 dark:border-gray-800">
+      <div class="px-4 space-y-3">
+        <% if user_signed_in? %>
+          <%= button_to destroy_user_session_path, 
+              method: :delete, 
+              class: "block w-full px-4 py-3 text-center font-medium text-white bg-red-500 hover:bg-red-600 rounded-lg transition-colors duration-200" do %>
+            Sign Out
+          <% end %>
+        <% else %>
+          <a 
+            href="<%= new_user_session_path %>" 
+            class="block w-full px-4 py-3 text-center font-medium text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200"
+          >
+            Sign in
+          </a>
+          <a 
+            href="<%= new_user_registration_path %>" 
+            class="block w-full px-4 py-3 text-center font-medium text-white bg-gradient-to-r from-green-500 to-yellow-400 hover:from-green-600 hover:to-yellow-500 dark:from-green-600 dark:to-yellow-500 dark:hover:from-green-700 dark:hover:to-yellow-600 rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
+          >
+            Get Started
+          </a>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</nav>

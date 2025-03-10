@@ -63,3 +63,12 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+# Authentication
+gem "devise", "~> 4.9"
+gem "devise-two-factor"
+gem "phony_rails"  # Phone number validation
+gem "twilio-ruby" # SMS verification
+
+# Biometric Authentication
+gem "webauthn" # Web Authentication API

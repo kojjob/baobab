@@ -1,1 +1,87 @@
 @import "tailwindcss";
+
+/* Navbar Style */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+
+/* <!-- Adinkra Pattern CSS and Animations --> */
+.trotro-bus {
+  animation: drive 20s linear infinite;
+  position: absolute;
+  bottom: 0;
+  transform: translateX(-100%);
+}
+
+@keyframes drive {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(calc(100vw + 100%));
+  }
+}
+
+/* CSS for Adinkra pattern background */
+.pattern-adinkra {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='0.1' fill-rule='evenodd'%3E%3Cpath d='M30 30c0-4.97 4.03-9 9-9s9 4.03 9 9-4.03 9-9 9-9-4.03-9-9zm0-18c0-4.97 4.03-9 9-9s9 4.03 9 9-4.03 9-9 9-9-4.03-9-9zm0 36c0-4.97 4.03-9 9-9s9 4.03 9 9-4.03 9-9 9-9-4.03-9-9zm-18-18c0-4.97 4.03-9 9-9s9 4.03 9 9-4.03 9-9 9-9-4.03-9-9zm0-18c0-4.97 4.03-9 9-9s9 4.03 9 9-4.03 9-9 9-9-4.03-9-9zm0 36c0-4.97 4.03-9 9-9s9 4.03 9 9-4.03 9-9 9-9-4.03-9-9zM12 12c4.97 0 9 4.03 9 9s-4.03 9-9 9-9-4.03-9-9 4.03-9 9-9zm0 18c4.97 0 9 4.03 9 9s-4.03 9-9 9-9-4.03-9-9 4.03-9 9-9z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Feature card hover effects */
+.feature-card {
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.feature-card:hover {
+  transform: translateY(-10px) rotateZ(1deg);
+}
+
+/* Testimonials carousel */
+.testimonials-carousel {
+  max-width: 100%;
+}
+
+.testimonials-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+/* Text appear animation */
+[data-controller="text-appear"] [data-text-appear-target="text"] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+[data-controller="text-appear"] [data-text-appear-target="text"].visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* For dark mode toggle */
+.dark body {
+  color-scheme: dark;
+}
+
+@media (max-width: 640px) {
+  .testimonial-slide {
+    width: 100%;
+  }
+}
+
+
+
+
+
+
+

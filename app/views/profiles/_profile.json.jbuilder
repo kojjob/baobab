@@ -1,0 +1,2 @@
+json.extract! profile, :id, :first_name, :last_name, :profile_username, :profile_phone_number, :profile_date_of_birth, :profile_bio, :profile_location, :profile_website, :profile_gender, :profile_language, :profile_views_count, :profile_last_seen_at, :profile_verification_status, :profile_referral_code, :profile_social_links, :profile_privacy_settings, :profile_tags, :profile_interests, :profile_completion, :deleted_at, :created_at, :updated_at
+json.url profile_url(profile, format: :json)

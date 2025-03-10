@@ -1,0 +1,219 @@
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-32 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto">
+    <%# Profile Header %>
+    <div class="bg-white dark:bg-gray-800 shadow-xl rounded-lg overflow-hidden">
+      <%# Avatar and Basic Info Section %>
+      <div class="px-6 py-8 border-b border-gray-200 dark:border-gray-700 flex items-center space-x-6">
+        <%# Avatar Upload %>
+        <div class="relative group">
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, multipart: true, class: 'avatar-upload-form' }) do |f| %>
+            <%= render "devise/shared/error_messages", resource: resource %>
+            <div class="relative">
+              <% if current_user.avatar.attached? %>
+                <%= image_tag current_user.avatar.variant(resize_to_fill: [150, 150]), 
+                    class: "w-24 h-24 rounded-full object-cover border-4 border-white dark:border-gray-700 shadow-md group-hover:opacity-50 transition-opacity" %>
+              <% else %>
+                <div class="w-24 h-24 rounded-full bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center text-white text-3xl font-bold">
+                  <%= current_user.username.first.upcase %>
+                </div>
+              <% end %>
+              
+              <%# Avatar Upload Overlay %>
+              <label class="absolute inset-0 rounded-full cursor-pointer flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black bg-opacity-50 text-white">
+                <%= f.file_field :avatar, 
+                    class: "hidden", 
+                    accept: 'image/png,image/jpeg,image/gif',
+                    data: { 
+                      direct_upload_url: rails_direct_uploads_url,
+                      max_file_size: 5.megabytes 
+                    } %>
+                <span class="text-sm">Change Photo</span>
+              </label>
+            </div>
+          <% end %>
+        </div>
+
+        <%# User Details %>
+        <div>
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+            <%= current_user.username %>
+          </h2>
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            <%= current_user.email %>
+          </p>
+          <div class="mt-2 flex items-center space-x-2">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+              Verified
+            </span>
+            <% if current_user.pro_member? %>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                Pro Member
+              </span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <%# Profile Tabs %>
+      <div class="border-b border-gray-200 dark:border-gray-700">
+        <nav class="-mb-px flex" aria-label="Tabs">
+          <a href="#profile" 
+             data-tab="profile" 
+             class="tab-link w-1/3 py-4 text-center text-sm font-medium border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 active:text-gray-900 dark:active:text-white active:border-gray-900 dark:active:border-white">
+            Profile
+          </a>
+          <a href="#account" 
+             data-tab="account" 
+             class="tab-link w-1/3 py-4 text-center text-sm font-medium border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600">
+            Account
+          </a>
+          <a href="#security" 
+             data-tab="security" 
+             class="tab-link w-1/3 py-4 text-center text-sm font-medium border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600">
+            Security
+          </a>
+        </nav>
+      </div>
+
+      <%# Profile Tab Content %>
+      <div id="profile-tab" class="tab-content p-6">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <%# Personal Information %>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                Personal Information
+              </h3>
+              
+              <div class="space-y-4">
+                <div>
+                  <%= f.label :username, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+                  <%= f.text_field :username, 
+                      class: "py-2 px-3 mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-green-500 focus:ring-green-500" %>
+                </div>
+
+                <div>
+                  <%= f.label :phone, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+                  <div class="mt-1 flex rounded-md shadow-sm">
+                    <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400">
+                      +233
+                    </span>
+                    <%= f.telephone_field :phone, 
+                        placeholder: "554 123 4567",
+                        class: "py-2 px-3 flex-1 block w-full rounded-none rounded-r-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-green-500 focus:ring-green-500" %>
+                  </div>
+                  <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                    Used for account recovery and notifications
+                  </p>
+                </div>
+
+                <div>
+                  <%= f.label :date_of_birth, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+                  <%= f.date_field :date_of_birth, 
+                      class: "py-2 px-3 mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-green-500 focus:ring-green-500" %>
+                </div>
+              </div>
+            </div>
+
+            <%# Location Information %>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                Location
+              </h3>
+              
+              <div class="space-y-4">
+                <div>
+                  <%= f.label :region, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+                  <%= f.select :region, 
+                      [
+                        'Greater Accra', 'Ashanti', 'Western', 'Central', 
+                        'Eastern', 'Volta', 'Northern', 'Upper East', 
+                        'Upper West', 'Brong Ahafo', 'Ahafo', 'Oti'
+                      ], 
+                      { prompt: 'Select Region' },
+                      class: "py-2 px-3 mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-green-500 focus:ring-green-500" %>
+                </div>
+
+                <div>
+                  <%= f.label :city, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+                  <%= f.text_field :city, 
+                      class: "py-2 px-3 mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-green-500 focus:ring-green-500" %>
+                </div>
+
+                <div>
+                  <%= f.label :address, "Detailed Address", class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+                  <%= f.text_area :address, 
+                      rows: 3,
+                      class: "px-3 mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-green-500 focus:ring-green-500" %>
+                </div>
+                <div>
+                  <%= f.label :current_password, "Current Password (required to save changes)", class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+                  <%= f.password_field :current_password, 
+                      autocomplete: "current-password", 
+                      class: "py-2 px-3 mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-green-500 focus:ring-green-500", 
+                      placeholder: "Enter your current password to confirm changes" %>
+                  <small class="text-muted">We need your current password to confirm your changes</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <%# Save Changes Button %>
+          <div class="mt-8 text-right">
+            <%= f.submit "Save Profile", 
+                class: "inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%# JavaScript for Dynamic Tab Switching and Avatar Upload %>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Tab Switching
+  const tabs = document.querySelectorAll('.tab-link');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Remove active states
+      tabs.forEach(t => {
+        t.classList.remove('active', 'text-gray-900', 'dark:text-white', 'border-gray-900', 'dark:border-white');
+        t.classList.add('text-gray-500', 'dark:text-gray-400');
+      });
+
+      // Add active state to clicked tab
+      this.classList.remove('text-gray-500', 'dark:text-gray-400');
+      this.classList.add('active', 'text-gray-900', 'dark:text-white', 'border-gray-900', 'dark:border-white');
+
+      // Hide all tab contents
+      tabContents.forEach(content => {
+        content.style.display = 'none';
+      });
+
+      // Show selected tab content
+      const targetTab = this.getAttribute('data-tab');
+      document.getElementById(`${targetTab}-tab`).style.display = 'block';
+    });
+  });
+
+  // Avatar Upload Preview
+  const avatarInput = document.querySelector('input[type="file"]');
+  const avatarPreview = document.querySelector('.avatar-upload-form img');
+
+  avatarInput.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        avatarPreview.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+});
+</script>

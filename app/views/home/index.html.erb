@@ -1,0 +1,25 @@
+<%# index.html.erb - Main Layout for Supper Ghana Landing Page %>
+<!-- Main Content - Supper Ghana Super App Landing Page -->
+<main class="min-h-screen w-full bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
+  <!-- Dark Mode Toggle -->
+  <div class="fixed top-6 right-6 z-50" data-controller="theme-toggle">
+    <button data-action="theme-toggle#toggle" class="p-2 rounded-full bg-gray-100 dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group">
+      <!-- Sun icon (shows in dark mode) -->
+      <svg data-theme-toggle-target="sunIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+      </svg>
+      <!-- Moon icon (shows in light mode) -->
+      <svg data-theme-toggle-target="moonIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Render all sections -->
+  <%= render 'hero' %>
+  <%= render 'features' %>
+  <%= render 'stats' %>
+  <%= render 'testimonials' %>
+  <%= render 'cta' %>
+</main>
+

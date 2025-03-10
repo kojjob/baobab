@@ -1,0 +1,8 @@
+<%# _stat_card.html.erb - Stat Card Component %>
+<div class="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 text-center">
+  <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-<%= color %>-100 dark:bg-<%= color %>-900 flex items-center justify-center">
+    <%= render partial: "shared/icons/#{icon}" %>
+  </div>
+  <div class="text-4xl font-bold text-gray-900 dark:text-white mb-2 counter" data-controller="counter" data-counter-target="number" data-from="0" data-to="<%= data_to %>"><%= value %></div>
+  <div class="text-sm text-gray-500 dark:text-gray-400"><%= label %></div>
+</div>

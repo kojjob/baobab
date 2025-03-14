@@ -53,7 +53,7 @@
                 <% end %>
               </div>
               
-              <p class="text-gray-600 mt-1">@<%= @profile.profile_username %></p>
+              <p class="text-gray-600 mt-1">@<%= @profile.username %></p>
               
               <!-- Location & Last Seen -->
               <div class="mt-2 flex flex-wrap items-center text-sm text-gray-500">
@@ -183,11 +183,11 @@
       <turbo-frame id="profile-tab-content" class="md:col-span-2">
         <div class="bg-white rounded-xl shadow-sm overflow-hidden p-6" data-profile-tabs-target="tabContent" data-tab="overview">
           <!-- Bio Section -->
-          <% if @profile.profile_bio.present? %>
+          <% if @profile.bio.present? %>
             <div class="mb-8">
               <h2 class="text-lg font-medium text-gray-900 mb-3">About</h2>
               <div class="text-gray-700 prose">
-                <%= simple_format(@profile.profile_bio) %>
+                <%= simple_format(@profile.bio) %>
               </div>
             </div>
           <% end %>
@@ -202,10 +202,10 @@
                   <dd class="mt-1 text-gray-900"><%= @profile.profile_gender %></dd>
                 </div>
               <% end %>
-              <% if @profile.profile_date_of_birth.present? && (current_user&.id == @profile.user_id || (@profile.profile_privacy_settings.present? && @profile.profile_privacy_settings["show_dob"] == true)) %>
+              <% if @profile.date_of_birth.present? && (current_user&.id == @profile.user_id || (@profile.profile_privacy_settings.present? && @profile.profile_privacy_settings["show_dob"] == true)) %>
                 <div>
                   <dt class="text-sm font-medium text-gray-500">Date of Birth</dt>
-                  <dd class="mt-1 text-gray-900"><%= @profile.profile_date_of_birth.strftime("%B %d, %Y") %></dd>
+                  <dd class="mt-1 text-gray-900"><%= @profile.date_of_birth.strftime("%B %d, %Y") %></dd>
                 </div>
               <% end %>
               
@@ -234,10 +234,10 @@
                 </div>
               <% end %>
               
-              <% if @profile.profile_phone_number.present? && (current_user&.id == @profile.user_id ||(@profile.profile_privacy_settings.present? && @profile.profile_privacy_settings["phone_visibility"] == "public")) %>
+              <% if @profile.phone_number.present? && (current_user&.id == @profile.user_id ||(@profile.profile_privacy_settings.present? && @profile.profile_privacy_settings["phone_visibility"] == "public")) %>
                 <div>
                   <dt class="text-sm font-medium text-gray-500">Phone</dt>
-                  <dd class="mt-1 text-gray-900"><%= @profile.profile_phone_number %></dd>
+                  <dd class="mt-1 text-gray-900"><%= @profile.phone_number %></dd>
                 </div>
               <% end %>
             </dl>
@@ -602,7 +602,7 @@
                       <% if profile.profile_location.present? %>
                         <%= profile.profile_location %>
                       <% else %>
-                        @<%= profile.profile_username %>
+                        @<%= profile.username %>
                       <% end %>
                     </p>
                   </div>

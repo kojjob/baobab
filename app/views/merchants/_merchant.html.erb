@@ -1,0 +1,34 @@
+<div id="<%= dom_id merchant %>" class="w-full sm:w-auto my-5 space-y-5">
+  <div>
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= merchant.name %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Description:</strong>
+    <%= merchant.description %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Phone:</strong>
+    <%= merchant.phone %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Location:</strong>
+    <%= merchant.location %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Logo:</strong>
+    <%= merchant.logo %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Active:</strong>
+    <%= merchant.active? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Verified:</strong>
+    <%= merchant.verified? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">User:</strong>
+    <%= merchant.user_id %>
+  </div>
+</div>

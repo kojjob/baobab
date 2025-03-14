@@ -1,31 +1,64 @@
-<% content_for :title, "Profiles" %>
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-6">User Profiles</h1>
 
-<div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
-  <% end %>
-
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Profiles</h1>
-    <%= link_to "New profile", new_profile_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
-  </div>
-
-  <div id="profiles" class="min-w-full divide-y divide-gray-200 space-y-5">
-    <% if @profiles.any? %>
+  <% if @profiles.any? %>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       <% @profiles.each do |profile| %>
-        <div class="flex flex-col sm:flex-row justify-between items-center pb-5 sm:pb-0">
-          <%= render profile %>
-          <div class="w-full sm:w-auto flex flex-col sm:flex-row space-x-2 space-y-2">
-            <%= link_to "Show", profile, class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-            <%= link_to "Edit", edit_profile_path(profile), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-            <div class="sm:inline-block">
-              <%= button_to "Destroy", profile, method: :delete, class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+          <div class="p-6">
+            <div class="flex items-center space-x-4 mb-4">
+              <% if profile.user.avatar.attached? %>
+                <%= image_tag profile.user.avatar.variant(resize_to_fill: [80, 80]), 
+                    class: "w-20 h-20 rounded-full object-cover" %>
+              <% else %>
+                <div class="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center">
+                  <%= profile.first_name.first.upcase %>
+                </div>
+              <% end %>
+              
+              <div>
+                <h2 class="text-xl font-semibold">
+                  <%= "#{profile.first_name} #{profile.last_name}" %>
+                </h2>
+                <p class="text-gray-600">@<%= profile.profile_username %></p>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <% if profile.profile_location.present? %>
+                <div class="flex items-center text-gray-600">
+                  <svg class="w-5 h-5 mr-2 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                  </svg>
+                  <%= profile.profile_location %>
+                </div>
+              <% end %>
+
+              <% if profile.profile_bio.present? %>
+                <p class="text-gray-700 line-clamp-2">
+                  <%= profile.profile_bio %>
+                </p>
+              <% end %>
+            </div>
+
+            <div class="mt-4 flex justify-between items-center">
+              <%= link_to "View Profile", profile_path(profile), 
+                  class: "inline-block px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition" %>
+              
+              <div class="flex items-center space-x-2 text-gray-500">
+                <span><%= profile.profile_views_count || 0 %> views</span>
+              </div>
             </div>
           </div>
         </div>
       <% end %>
-    <% else %>
-      <p class="text-center my-10">No profiles found.</p>
-    <% end %>
-  </div>
+    </div>
+  <% else %>
+    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+      <p class="text-yellow-700">
+        No profiles found. 
+        <%= link_to "Create your profile", new_profile_path, class: "underline" %>.
+      </p>
+    </div>
+  <% end %>
 </div>

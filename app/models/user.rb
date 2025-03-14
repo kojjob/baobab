@@ -8,6 +8,14 @@ class User < ApplicationRecord
   has_one :profile, dependent: :destroy
 
 
+  # Blog associations
+  has_many :posts, dependent: :nullify
+  has_many :comments, dependent: :nullify
+  has_many :post_views, dependent: :nullify
+
+  delegate :first_name, :last_name, to: :profile, allow_nil: true
+
+  has_one_attached :profi_image
   # Active Storage avatar attachment
   has_one_attached :avatar do |attachable|
     attachable.variant :thumb, resize_to_fill: [ 100, 100 ]
@@ -36,6 +44,26 @@ class User < ApplicationRecord
     avatar.attached? ? avatar.variant(:thumb) : default_avatar
   end
 
+  after_create :create_profile
+  # Active Storage for profile image
+  has_one_attached :profile_image if respond_to?(:has_one_attached)
+
+  # Post-related methods
+  def full_name
+    if first_name.present? || last_name.present?
+      "#{first_name} #{last_name}".strip
+    else
+      name
+    end
+  end
+
+  def is_author?
+    posts.published.exists?
+  end
+
+  def recent_posts(limit = 5)
+    posts.published.recent.limit(limit)
+  end
 
   # Soft delete support
   default_scope { where(deleted_at: nil) }
@@ -74,7 +102,25 @@ class User < ApplicationRecord
     only_deleted.where("deleted_at < ?", days.days.ago).destroy_all
   end
 
+  def profile_exists?
+    profile.present?
+  end
+
+  def ensure_profile
+    create_profile if profile.nil?
+  end
+
   private
+
+  def create_profile
+    # Build a basic profile with defaults
+    build_profile(
+      profile_username: username,
+      profile_phone_number: phone_number,
+      first_name: full_name&.split(" ")&.first || "",
+      last_name: full_name&.split(" ")&.drop(1)&.join(" ") || ""
+    ).save
+  end
 
   def default_avatar
     # Generate an SVG avatar with user's initials

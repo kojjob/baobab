@@ -1,173 +1,1011 @@
-<%# _navbar.html.erb - Refactored with user authentication %>
-<nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300" data-controller="navbar">
-  <%# Ghana Flag accent colors %>
-  <div class="h-1 w-full bg-red-500"></div>
-  <div class="h-1 w-full bg-yellow-400"></div>
-  <div class="h-1 w-full bg-green-500"></div>
-  
-  <%# Main navbar content %>
-  <div class="bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg shadow-md">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16 md:h-20">
-        <%# Logo %>
-        <div class="flex items-center">
-          <a href="#" class="flex items-center space-x-2 group">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-r from-green-500 to-yellow-400 dark:from-green-600 dark:to-yellow-500 flex items-center justify-center relative overflow-hidden transition-all duration-300 group-hover:shadow-lg">
-              <svg class="w-6 h-6 text-white" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M13,5.3l1.35-0.95c1.82,0.56,3.37,1.76,4.38,3.34l-0.39,1.34l-1.35,0.46L13,6.7V5.3z M9.65,4.35L11,5.3v1.4L7.01,9.49L5.66,9.03L5.27,7.69C6.28,6.12,7.83,4.92,9.65,4.35z M7.08,17.11l-1.14,0.1C4.73,15.81,4,13.99,4,12c0-0.12,0.01-0.23,0.02-0.35l1-0.73L6.4,11.4l1.46,4.34L7.08,17.11z M14.5,19.59C13.71,19.85,12.87,20,12,20s-1.71-0.15-2.5-0.41l-0.69-1.49L9.45,17h5.11l0.64,1.11L14.5,19.59z M14.27,15H9.73l-1.35-4.02L12,8.44l3.63,2.54L14.27,15z M18.06,17.21l-1.14-0.1l-0.79-1.37l1.46-4.34l1.39-0.47l1,0.73C19.99,11.77,20,11.88,20,12C20,13.99,19.27,15.81,18.06,17.21z"/>
-              </svg>
-              <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-shimmer"></div>
-            </div>
-            <span class="text-xl font-bold text-gray-900 dark:text-white">Supper</span>
-          </a>
-        </div>
-
-        <%# Desktop Navigation (hidden on mobile) %>
-        <div class="hidden md:block">
-          <div class="flex items-center space-x-1">
-            <a href="#" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-green-900/30 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200">Home</a>
-            
-            <%# Rest of the desktop navigation remains the same %>
-            <%# ... (previous dropdown menus) %>
-          </div>
-        </div>
-
-        <%# Authentication and User Actions %>
-        <div class="hidden md:flex items-center space-x-4">
-          <% if user_signed_in? %>
-            <%# User Dropdown Menu %>
-            <div class="relative" data-controller="dropdown">
-              <button 
-                data-action="click->dropdown#toggle" 
-                class="flex items-center space-x-2 text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200"
-              >
-                <%# User Avatar or Initials %>
-                <div class="w-8 h-8 rounded-full font-bold bg-green-500 text-white flex items-center justify-center font-medium text-sm">
-                  <%= user_avatar(current_user, size: :medium) %>
-                  <%= current_user.username&.split&.first&.upcase || current_user.email.split('@').first.upcase %>
-                </div>
-                <span class="font-medium"><%= current_user.username.split.first %></span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-200" data-dropdown-target="arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              
-              <%# User Dropdown Menu %>
-              <div 
-                data-dropdown-target="menu" 
-                class="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-lg py-1 hidden z-10 border border-gray-200 dark:border-gray-700 overflow-hidden"
-              >
-                <div class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
-                  <p class="text-sm font-medium text-gray-900 dark:text-white">
-                    <%= current_user.username %>
-                  </p>
-                  <p class="text-xs text-gray-500 dark:text-gray-400">
-                    <%= current_user.email %>
-                  </p>
-                </div>
-                
-                <a 
-                  href="<%= edit_user_registration_path %>" 
-                  class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-green-900/30 hover:text-green-600 dark:hover:text-green-400" 
-                  data-action="dropdown#close"
-                >
-                  Profile & Settings
-                </a>
-                
-                <a 
-                  href="#" 
-                  class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-green-900/30 hover:text-green-600 dark:hover:text-green-400" 
-                  data-action="dropdown#close"
-                >
-                  My Orders
-                </a>
-                
-                <a 
-                  href="#" 
-                  class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-green-900/30 hover:text-green-600 dark:hover:text-green-400" 
-                  data-action="dropdown#close"
-                >
-                  Help Center
-                </a>
-                
-                <div class="border-t border-gray-200 dark:border-gray-700">
-                  <%= button_to destroy_user_session_path, 
-                      method: :delete, 
-                      class: "w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors duration-200" do %>
-                    Sign Out
-                  <% end %>
-                </div>
-              </div>
-            </div>
-          <% else %>
-            <%# Unauthenticated State %>
-            <a 
-              href="<%= new_user_session_path %>" 
-              class="text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 font-medium transition-colors duration-200"
-            >
-              Sign in
-            </a>
-            <a 
-              href="<%= new_user_registration_path %>" 
-              class="px-4 py-2 bg-gradient-to-r from-green-500 to-yellow-400 hover:from-green-600 hover:to-yellow-500 dark:from-green-600 dark:to-yellow-500 dark:hover:from-green-700 dark:hover:to-yellow-600 text-white font-medium rounded-lg transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105"
-            >
-              Get Started
-            </a>
+<div data-controller="navbar theme" data-theme-target="container" data-navbar-announcement-visible="true" class="relative z-50 transition-colors duration-300" data-class-light="bg-white text-gray-800" data-class-dark="bg-gray-900 text-white">
+  <!-- Top announcement bar -->
+  <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-2 px-3 text-center text-sm font-medium relative overflow-hidden" 
+       data-navbar-target="announcement">
+    <!-- Animated background pattern -->
+    <div class="absolute inset-0 opacity-20">
+      <div class="absolute inset-0 transform rotate-45">
+        <div class="absolute h-full w-full top-0 left-0">
+          <% 5.times do |i| %>
+            <div class="absolute h-1 w-full bg-white opacity-10" style="top: <%= i * 20 %>%"></div>
+            <div class="absolute h-full w-1 bg-white opacity-10" style="left: <%= i * 20 %>%"></div>
           <% end %>
         </div>
+      </div>
+    </div>
 
-        <%# Language Selector and Mobile Menu (remains the same) %>
-        <%# ... (previous language selector and mobile menu code) %>
+    <div class="flex justify-between items-center max-w-7xl mx-auto relative">
+      <div class="hidden md:block w-1/4"></div>
+      <p class="w-full md:w-2/4">
+        🎉 Get free transfers for your first month! <a href="#" class="underline hover:text-yellow-200 transition font-medium">Learn more</a>
+      </p>
+      <div class="w-1/4 text-right">
+        <button aria-label="Close announcement" data-action="navbar#hideAnnouncement" class="hover:text-yellow-200 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
       </div>
     </div>
   </div>
 
-  <%# Mobile Navigation (add conditional rendering for mobile) %>
-  <div data-navbar-target="mobileMenu" class="hidden md:hidden bg-white dark:bg-gray-900 shadow-lg rounded-b-xl border-t border-gray-200 dark:border-gray-800 overflow-hidden">
-    <% if user_signed_in? %>
-      <%# Mobile User Header %>
-      <div class="px-4 py-4 border-b border-gray-200 dark:border-gray-800 flex items-center space-x-4">
-        <div class="w-12 h-12 rounded-full bg-green-500 text-white flex items-center justify-center font-medium text-xl">
-          <%= current_user.username.first.upcase %>
+  <!-- Main navigation bar -->
+  <div class="shadow-sm transition-all duration-300 border-b border-transparent"
+       data-class-light="border-gray-200"
+       data-class-dark="border-gray-700"
+       data-navbar-target="mainNav">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-4">
+        <!-- Logo and brand -->
+        <div class="flex items-center space-x-2">
+          <a href="/" class="flex items-center">
+            <!-- Logo with gradient -->
+            <div class="h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-xl shadow-lg">
+              SG
+            </div>
+            <!-- Brand name with gradient text -->
+            <span class="ml-2 text-2xl font-extrabold tracking-tight">
+              <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">
+                Supper Ghana
+              </span>
+            </span>
+          </a>
         </div>
-        <div>
-          <p class="text-lg font-semibold text-gray-900 dark:text-white">
-            <%= current_user.username %>
+
+        <!-- Desktop navigation -->
+        <div class="hidden md:flex md:items-center md:space-x-5">
+          <!-- Primary Navigation with colorful indicators -->
+          <nav class="flex space-x-1">
+            <!-- Home button -->
+            <a href="#" class="group relative flex items-center px-3 py-2 text-sm font-medium rounded-md transition-all duration-200"
+                data-class-light="hover:bg-gray-100"
+                data-class-dark="hover:bg-gray-800">
+              <span class="absolute inset-x-0 bottom-0 h-0.5 bg-blue-500 transform scale-x-0 origin-left transition-transform group-hover:scale-x-100"></span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 group-hover:text-blue-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+              Home
+            </a>
+            
+            <!-- Pay menu -->
+            <div class="relative" data-controller="dropdown">
+              <button class="group relative flex items-center px-3 py-2 text-sm font-medium rounded-md transition-all duration-200"
+                     data-class-light="hover:bg-gray-100"
+                     data-class-dark="hover:bg-gray-800"
+                     data-action="click->dropdown#toggle" aria-expanded="false">
+                <span class="absolute inset-x-0 bottom-0 h-0.5 bg-green-500 transform scale-x-0 origin-left transition-transform group-hover:scale-x-100"></span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 group-hover:text-green-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Pay
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              <!-- Pay dropdown -->
+              <div class="absolute z-99 left-0 mt-2 w-72 rounded-lg shadow-xl overflow-hidden transition-all duration-300 transform origin-top-left opacity-0 scale-95 pointer-events-none"
+                   data-dropdown-target="menu"
+                   data-class-light="bg-white ring-1 ring-black ring-opacity-5"
+                   data-class-dark="bg-gray-800 ring-1 ring-gray-700">
+                <div class="p-1">
+                  <a href="#" class="flex items-center px-4 py-3 rounded-md transition-colors"
+                     data-class-light="hover:bg-gray-100"
+                     data-class-dark="hover:bg-gray-700">
+                    <div class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-green-100 text-green-600">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                      </svg>
+                    </div>
+                    <div class="ml-4">
+                      <p class="text-sm font-medium" data-class-light="text-gray-900" data-class-dark="text-white">Send Money</p>
+                      <p class="text-xs" data-class-light="text-gray-500" data-class-dark="text-gray-400">Transfer to bank accounts or mobile money</p>
+                    </div>
+                  </a>
+                  
+                  <a href="#" class="flex items-center px-4 py-3 rounded-md transition-colors mt-1"
+                     data-class-light="hover:bg-gray-100"
+                     data-class-dark="hover:bg-gray-700">
+                    <div class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-blue-100 text-blue-600">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                      </svg>
+                    </div>
+                    <div class="ml-4">
+                      <p class="text-sm font-medium" data-class-light="text-gray-900" data-class-dark="text-white">Pay Bills</p>
+                      <p class="text-xs" data-class-light="text-gray-500" data-class-dark="text-gray-400">Utilities, education, and government services</p>
+                    </div>
+                  </a>
+                  
+                  <a href="#" class="flex items-center px-4 py-3 rounded-md transition-colors mt-1"
+                     data-class-light="hover:bg-gray-100"
+                     data-class-dark="hover:bg-gray-700">
+                    <div class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-purple-100 text-purple-600">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <div class="ml-4">
+                      <p class="text-sm font-medium" data-class-light="text-gray-900" data-class-dark="text-white">Airtime & Data</p>
+                      <p class="text-xs" data-class-light="text-gray-500" data-class-dark="text-gray-400">Top-up your mobile credit and data bundles</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Shop menu -->
+            <div class="relative" data-controller="dropdown">
+              <button class="group relative flex items-center px-3 py-2 text-sm font-medium rounded-md transition-all duration-200"
+                     data-class-light="hover:bg-gray-100"
+                     data-class-dark="hover:bg-gray-800"
+                     data-action="click->dropdown#toggle" aria-expanded="false">
+                <span class="absolute inset-x-0 bottom-0 h-0.5 bg-yellow-500 transform scale-x-0 origin-left transition-transform group-hover:scale-x-100"></span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 group-hover:text-yellow-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                </svg>
+                Shop
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              <!-- Shop dropdown -->
+              <div class="absolute z-99 left-0 mt-2 w-72 rounded-lg shadow-xl overflow-hidden transition-all duration-300 transform origin-top-left opacity-0 scale-95 pointer-events-none"
+                   data-dropdown-target="menu"
+                   data-class-light="bg-white ring-1 ring-black ring-opacity-5"
+                   data-class-dark="bg-gray-800 ring-1 ring-gray-700">
+                <div class="p-1">
+                  <a href="#" class="flex items-center px-4 py-3 rounded-md transition-colors"
+                     data-class-light="hover:bg-gray-100"
+                     data-class-dark="hover:bg-gray-700">
+                    <div class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-yellow-100 text-yellow-600">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                      </svg>
+                    </div>
+                    <div class="ml-4">
+                      <p class="text-sm font-medium" data-class-light="text-gray-900" data-class-dark="text-white">Marketplace</p>
+                      <p class="text-xs" data-class-light="text-gray-500" data-class-dark="text-gray-400">Browse and buy from local merchants</p>
+                    </div>
+                  </a>
+                  
+                  <a href="#" class="flex items-center px-4 py-3 rounded-md transition-colors mt-1"
+                     data-class-light="hover:bg-gray-100"
+                     data-class-dark="hover:bg-gray-700">
+                    <div class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-red-100 text-red-600">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <div class="ml-4">
+                      <p class="text-sm font-medium" data-class-light="text-gray-900" data-class-dark="text-white">Deals</p>
+                      <p class="text-xs" data-class-light="text-gray-500" data-class-dark="text-gray-400">Limited-time offers and discounts</p>
+                    </div>
+                  </a>
+                  
+                  <a href="#" class="flex items-center px-4 py-3 rounded-md transition-colors mt-1"
+                     data-class-light="hover:bg-gray-100"
+                     data-class-dark="hover:bg-gray-700">
+                    <div class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-green-100 text-green-600">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z" />
+                      </svg>
+                    </div>
+                    <div class="ml-4">
+                      <p class="text-sm font-medium" data-class-light="text-gray-900" data-class-dark="text-white">Food Delivery</p>
+                      <p class="text-xs" data-class-light="text-gray-500" data-class-dark="text-gray-400">Order from local restaurants</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Services menu -->
+            <div class="relative" data-controller="dropdown">
+              <button class="group relative flex items-center px-3 py-2 text-sm font-medium rounded-md transition-all duration-200"
+                     data-class-light="hover:bg-gray-100"
+                     data-class-dark="hover:bg-gray-800"
+                     data-action="click->dropdown#toggle" aria-expanded="false">
+                <span class="absolute inset-x-0 bottom-0 h-0.5 bg-purple-500 transform scale-x-0 origin-left transition-transform group-hover:scale-x-100"></span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 group-hover:text-purple-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                </svg>
+                Services
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              <!-- Services mega menu -->
+              <div class="absolute z-99 left-0 w-screen max-w-md mt-3 transform -translate-x-1/3 px-2 rounded-xl overflow-hidden shadow-xl transition-all duration-300 transform origin-top-left opacity-0 scale-95 pointer-events-none"
+                   data-dropdown-target="menu"
+                   data-class-light="bg-white ring-1 ring-black ring-opacity-5"
+                   data-class-dark="bg-gray-800 ring-1 ring-gray-700">
+                <div class="p-4">
+                  <div class="grid grid-cols-2 gap-4">
+                    <a href="#" class="flex flex-col items-center p-3 rounded-lg text-center transition-colors"
+                       data-class-light="hover:bg-gray-100"
+                       data-class-dark="hover:bg-gray-700">
+                      <div class="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-indigo-100 text-indigo-600 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                      </div>
+                      <span class="text-sm font-medium" data-class-light="text-gray-900" data-class-dark="text-white">Financial Services</span>
+                    </a>
+                    
+                    <a href="#" class="flex flex-col items-center p-3 rounded-lg text-center transition-colors"
+                       data-class-light="hover:bg-gray-100"
+                       data-class-dark="hover:bg-gray-700">
+                      <div class="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-yellow-100 text-yellow-600 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                        </svg>
+                      </div>
+                      <span class="text-sm font-medium" data-class-light="text-gray-900" data-class-dark="text-white">Transportation</span>
+                    </a>
+                    
+                    <a href="#" class="flex flex-col items-center p-3 rounded-lg text-center transition-colors"
+                       data-class-light="hover:bg-gray-100"
+                       data-class-dark="hover:bg-gray-700">
+                      <div class="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 text-red-600 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                        </svg>
+                      </div>
+                      <span class="text-sm font-medium" data-class-light="text-gray-900" data-class-dark="text-white">Health</span>
+                    </a>
+                    
+                    <a href="#" class="flex flex-col items-center p-3 rounded-lg text-center transition-colors"
+                       data-class-light="hover:bg-gray-100"
+                       data-class-dark="hover:bg-gray-700">
+                      <div class="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 text-green-600 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                      </div>
+                      <span class="text-sm font-medium" data-class-light="text-gray-900" data-class-dark="text-white">Education</span>
+                    </a>
+                    
+                    <a href="#" class="flex flex-col items-center p-3 rounded-lg text-center transition-colors"
+                       data-class-light="hover:bg-gray-100"
+                       data-class-dark="hover:bg-gray-700">
+                      <div class="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 text-blue-600 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <span class="text-sm font-medium" data-class-light="text-gray-900" data-class-dark="text-white">Entertainment</span>
+                    </a>
+                    
+                    <a href="#" class="flex flex-col items-center p-3 rounded-lg text-center transition-colors"
+                       data-class-light="hover:bg-gray-100"
+                       data-class-dark="hover:bg-gray-700">
+                      <div class="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-purple-100 text-purple-600 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <span class="text-sm font-medium" data-class-light="text-gray-900" data-class-dark="text-white">Agriculture</span>
+                    </a>
+                  </div>
+                  
+                  <div class="mt-5 text-sm border-t"
+                       data-class-light="border-gray-200"
+                       data-class-dark="border-gray-700">
+                    <a href="#" class="block font-medium pt-4 transition-colors" 
+                       data-class-light="text-blue-600 hover:text-blue-500"
+                       data-class-dark="text-blue-400 hover:text-blue-300">
+                      View all services <span aria-hidden="true">&rarr;</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+          
+          <!-- Right side actions -->
+          <div class="flex items-center space-x-4">
+            <!-- Search button -->
+            <button type="button" class="p-2 rounded-full transition-colors"
+                   data-class-light="hover:bg-gray-100"
+                   data-class-dark="hover:bg-gray-800"
+                   data-action="navbar#toggleSearch">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </button>
+            
+            <!-- Theme toggle button -->
+            <button type="button" class="p-2 rounded-full transition-colors"
+                   data-class-light="hover:bg-gray-100"
+                   data-class-dark="hover:bg-gray-800"
+                   data-action="theme#toggle">
+              <!-- Sun icon -->
+              <svg data-theme-target="lightIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+              
+              <!-- Moon icon -->
+              <svg data-theme-target="darkIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+              </svg>
+            </button>
+            
+            <!-- Language selector -->
+            <div class="relative" data-controller="dropdown">
+              <button type="button" class="flex items-center text-sm rounded-md transition-colors font-medium px-3 py-2"
+                     data-class-light="hover:bg-gray-100"
+                     data-class-dark="hover:bg-gray-800"
+                     data-action="click->dropdown#toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                </svg>
+                <span>EN</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              <!-- Language dropdown -->
+              <div class="absolute z-99 right-0 mt-2 w-48 rounded-md shadow-lg transition-all duration-300 transform origin-top-right opacity-0 scale-95 pointer-events-none"
+                   data-dropdown-target="menu"
+                   data-class-light="bg-white ring-1 ring-black ring-opacity-5"
+                   data-class-dark="bg-gray-800 ring-1 ring-gray-700">
+                <div class="py-1" role="menu" aria-orientation="vertical">
+                  <a href="#" class="block px-4 py-2 text-sm transition-colors" 
+                     data-class-light="text-gray-700 hover:bg-gray-100"
+                     data-class-dark="text-gray-200 hover:bg-gray-700" 
+                     role="menuitem">English</a>
+                  <a href="#" class="block px-4 py-2 text-sm transition-colors" 
+                     data-class-light="text-gray-700 hover:bg-gray-100"
+                     data-class-dark="text-gray-200 hover:bg-gray-700" 
+                     role="menuitem">Twi</a>
+                  <a href="#" class="block px-4 py-2 text-sm transition-colors" 
+                     data-class-light="text-gray-700 hover:bg-gray-100"
+                     data-class-dark="text-gray-200 hover:bg-gray-700" 
+                     role="menuitem">Hausa</a>
+                  <a href="#" class="block px-4 py-2 text-sm transition-colors" 
+                     data-class-light="text-gray-700 hover:bg-gray-100"
+                     data-class-dark="text-gray-200 hover:bg-gray-700" 
+                     role="menuitem">Ewe</a>
+                  <a href="#" class="block px-4 py-2 text-sm transition-colors"
+                     data-class-light="text-gray-700 hover:bg-gray-100"
+                     data-class-dark="text-gray-200 hover:bg-gray-700" 
+                     role="menuitem">Ga</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Authentication links -->
+            <% if current_user.present? %>
+              <!-- If user is authenticated -->
+              <div class="relative" data-controller="dropdown">
+                <button type="button" class="flex items-center space-x-2 transition focus:outline-none"
+                        data-action="click->dropdown#toggle">
+                  <div class="relative">
+                    <!-- Profile image with notification indicator -->
+                    <img class="h-8 w-8 rounded-full object-cover border-2 border-transparent" 
+                         src="<%= current_user.avatar.presence || asset_path('default_avatar.png') %>" 
+                         alt="<%= current_user.name %>">
+                    <div class="absolute -top-0.5 -right-0.5 h-3 w-3 bg-green-400 rounded-full border-2"
+                         data-class-light="border-white"
+                         data-class-dark="border-gray-900"></div>
+                  </div>
+                  <span class="text-sm font-medium hidden sm:block"><%= current_user.name %></span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 hidden sm:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                
+                <!-- User dropdown menu -->
+                <div class="absolute z-99 right-0 mt-2 w-56 rounded-lg shadow-xl overflow-hidden transition-all duration-300 transform origin-top-right opacity-0 scale-95 pointer-events-none z-10"
+                     data-dropdown-target="menu"
+                     data-class-light="bg-white ring-1 ring-black ring-opacity-5"
+                     data-class-dark="bg-gray-800 ring-1 ring-gray-700">
+                  <div class="p-3 border-b"
+                       data-class-light="border-gray-200"
+                       data-class-dark="border-gray-700">
+                    <div class="flex items-center">
+                      <img class="h-12 w-12 rounded-full object-cover" 
+                           src="<%= current_user.avatar.presence || asset_path('default_avatar.png') %>" 
+                           alt="<%= current_user.name %>">
+                      <div class="ml-3">
+                        <p class="text-sm font-semibold" data-class-light="text-gray-800" data-class-dark="text-white">
+                          <%= current_user.name %>
+                        </p>
+                        <p class="text-xs truncate" 
+                           data-class-light="text-gray-500"
+                           data-class-dark="text-gray-400">
+                          <%= current_user.email %>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="py-1" role="none">
+                    <div class="px-3 py-2">
+                      <p class="text-xs font-semibold text-transform: uppercase tracking-wide"
+                         data-class-light="text-gray-500"
+                         data-class-dark="text-gray-400">
+                        Account
+                      </p>
+                    </div>
+                    <a href="" class="flex items-center px-4 py-2 text-sm transition-colors" role="menuitem"
+                      data-class-light="text-gray-700 hover:bg-gray-100"
+                      data-class-dark="text-gray-200 hover:bg-gray-700">
+                      <svg class="h-4 w-4 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                      Profile
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2 text-sm transition-colors" role="menuitem"
+                      data-class-light="text-gray-700 hover:bg-gray-100"
+                      data-class-dark="text-gray-200 hover:bg-gray-700">
+                      <svg class="h-4 w-4 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      Settings
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2 text-sm transition-colors" role="menuitem"
+                      data-class-light="text-gray-700 hover:bg-gray-100"
+                      data-class-dark="text-gray-200 hover:bg-gray-700">
+                      <svg class="h-4 w-4 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                      </svg>
+                      Wallet
+                    </a>
+                    
+                    <div class="py-1 border-t"
+                         data-class-light="border-gray-200"
+                         data-class-dark="border-gray-700">
+                      <div class="px-3 py-2">
+                        <p class="text-xs font-semibold text-transform: uppercase tracking-wide"
+                           data-class-light="text-gray-500"
+                           data-class-dark="text-gray-400">
+                          More
+                        </p>
+                      </div>
+                      <a href="#" class="flex items-center px-4 py-2 text-sm transition-colors" role="menuitem"
+                        data-class-light="text-gray-700 hover:bg-gray-100"
+                        data-class-dark="text-gray-200 hover:bg-gray-700">
+                        <svg class="h-4 w-4 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Help Center
+                      </a>
+                      <a href="#" class="flex items-center px-4 py-2 text-sm transition-colors" role="menuitem"
+                        data-class-light="text-gray-700 hover:bg-gray-100"
+                        data-class-dark="text-gray-200 hover:bg-gray-700">
+                        <svg class="h-4 w-4 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        About
+                      </a>
+                      <a href="#" data-method="delete" class="flex items-center px-4 py-2 text-sm transition-colors" role="menuitem"
+                        data-class-light="text-red-600 hover:bg-red-50"
+                        data-class-dark="text-red-400 hover:bg-red-900 hover:bg-opacity-30">
+                        <svg class="h-4 w-4 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                        Sign out
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Notification bell -->
+              <div class="relative" data-controller="dropdown">
+                <button type="button" class="p-2 rounded-full transition-colors"
+                       data-class-light="hover:bg-gray-100"
+                       data-class-dark="hover:bg-gray-800"
+                       data-action="click->dropdown#toggle">
+                  <span class="sr-only">Notifications</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                  </svg>
+                  <!-- Notification badge -->
+                  <span class="absolute top-0 right-0 h-4 w-4 text-xs text-white bg-red-500 rounded-full flex items-center justify-center transform translate-x-1 -translate-y-1">3</span>
+                </button>
+                
+                <!-- Notification dropdown -->
+                <div class="absolute z-99 right-0 mt-2 w-80 rounded-lg shadow-xl overflow-hidden transition-all duration-300 transform origin-top-right opacity-0 scale-95 pointer-events-none"
+                     data-dropdown-target="menu"
+                     data-class-light="bg-white ring-1 ring-black ring-opacity-5"
+                     data-class-dark="bg-gray-800 ring-1 ring-gray-700">
+                  <div class="p-3 border-b flex justify-between items-center"
+                       data-class-light="border-gray-200"
+                       data-class-dark="border-gray-700">
+                    <h3 class="text-sm font-semibold" data-class-light="text-gray-900" data-class-dark="text-white">Notifications</h3>
+                    <button class="text-xs font-medium transition-colors" 
+                            data-class-light="text-blue-600 hover:text-blue-500"
+                            data-class-dark="text-blue-400 hover:text-blue-300">
+                      Mark all as read
+                    </button>
+                  </div>
+                  
+                  <div class="divide-y overflow-y-auto max-h-96"
+                       data-class-light="divide-gray-200"
+                       data-class-dark="divide-gray-700">
+                    <!-- Transaction notification -->
+                    <div class="flex p-4">
+                      <div class="flex-shrink-0 mr-3">
+                        <div class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center text-green-500">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </div>
+                      </div>
+                      <div>
+                        <p class="text-sm" data-class-light="text-gray-800" data-class-dark="text-gray-200">
+                          <span class="font-medium">Payment Received</span> - You received 200 GHS from <span class="font-medium">Kwame Asante</span>
+                        </p>
+                        <p class="text-xs mt-1" data-class-light="text-gray-500" data-class-dark="text-gray-400">2 minutes ago</p>
+                      </div>
+                    </div>
+                    
+                    <!-- System notification -->
+                    <div class="flex p-4">
+                      <div class="flex-shrink-0 mr-3">
+                        <div class="h-10 w-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-500">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </div>
+                      </div>
+                      <div>
+                        <p class="text-sm" data-class-light="text-gray-800" data-class-dark="text-gray-200">
+                          <span class="font-medium">Service Update</span> - We've added new features to our food delivery service!
+                        </p>
+                        <p class="text-xs mt-1" data-class-light="text-gray-500" data-class-dark="text-gray-400">1 hour ago</p>
+                      </div>
+                    </div>
+                    
+                    <!-- Promo notification -->
+                    <div class="flex p-4">
+                      <div class="flex-shrink-0 mr-3">
+                        <div class="h-10 w-10 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-500">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+                          </svg>
+                        </div>
+                      </div>
+                      <div>
+                        <p class="text-sm" data-class-light="text-gray-800" data-class-dark="text-gray-200">
+                          <span class="font-medium">Special Offer</span> - 50% off on all transactions this weekend!
+                        </p>
+                        <p class="text-xs mt-1" data-class-light="text-gray-500" data-class-dark="text-gray-400">Yesterday</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="p-3 border-t text-center"
+                       data-class-light="border-gray-200"
+                       data-class-dark="border-gray-700">
+                    <a href="#" class="text-sm font-medium transition-colors block"
+                      data-class-light="text-blue-600 hover:text-blue-500"
+                      data-class-dark="text-blue-400 hover:text-blue-300">
+                      View all notifications
+                    </a>
+                  </div>
+                </div>
+              </div>
+            <% else %>
+              <!-- If user is not authenticated -->
+              <div class="flex items-center space-x-3">
+                <a href="#" class="text-sm font-medium transition-colors hover:text-blue-600">Log in</a>
+                <a href="#" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm transition-colors focus:outline-none"
+                  data-class-light="text-white bg-blue-600 hover:bg-blue-700"
+                  data-class-dark="text-gray-900 bg-blue-400 hover:bg-blue-300">
+                  Sign up
+                </a>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        
+        <!-- Mobile navigation toggle -->
+        <div class="flex md:hidden">
+          <!-- Search button for mobile -->
+          <button type="button" class="p-2 rounded-md transition-colors"
+                 data-class-light="text-gray-500 hover:text-gray-700"
+                 data-class-dark="text-gray-300 hover:text-gray-100"
+                 data-action="navbar#toggleSearch">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </button>
+          
+          <!-- Theme toggle button for mobile -->
+          <button type="button" class="p-2 rounded-md transition-colors"
+                 data-class-light="text-gray-500 hover:text-gray-700"
+                 data-class-dark="text-gray-300 hover:text-gray-100"
+                 data-action="theme#toggle">
+            <!-- Sun icon -->
+            <svg data-theme-target="lightIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            
+            <!-- Moon icon -->
+            <svg data-theme-target="darkIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+          </button>
+          
+          <!-- Notification button for mobile (only for authenticated users) -->
+          <% if current_user.present? %>
+            <button type="button" class="p-2 rounded-md transition-colors relative"
+                   data-class-light="text-gray-500 hover:text-gray-700"
+                   data-class-dark="text-gray-300 hover:text-gray-100"
+                   data-action="navbar#toggleNotifications">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              </svg>
+              <!-- Notification badge -->
+              <span class="absolute top-0 right-0 h-4 w-4 text-xs text-white bg-red-500 rounded-full flex items-center justify-center transform translate-x-1 -translate-y-1">3</span>
+            </button>
+          <% end %>
+          
+          <!-- Hamburger menu button -->
+          <button type="button" class="p-2 rounded-md transition-colors ml-1"
+                 data-class-light="text-gray-500 hover:text-gray-700"
+                 data-class-dark="text-gray-300 hover:text-gray-100"
+                 data-action="navbar#toggleMobileMenu">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" 
+                 data-navbar-target="hamburgerIcon">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" 
+                 data-navbar-target="closeIcon">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Expandable search bar -->
+  <div class="border-b py-3 hidden"
+       data-navbar-target="searchBar"
+       data-class-light="border-gray-200 bg-white"
+       data-class-dark="border-gray-700 bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <form action="#" method="GET" class="relative">
+        <div class="flex items-center">
+          <div class="flex-grow">
+            <label for="search-field" class="sr-only">Search</label>
+            <div class="relative">
+              <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                <svg class="h-5 w-5" 
+                     data-class-light="text-gray-400"
+                     data-class-dark="text-gray-500"
+                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+              <input id="search-field" class="block w-full rounded-md border-0 py-3 pl-10 focus:ring-2 text-sm"
+                     data-class-light="text-gray-900 placeholder:text-gray-400 focus:ring-blue-600 bg-white"
+                     data-class-dark="text-gray-100 placeholder:text-gray-500 focus:ring-blue-500 bg-gray-800"
+                     placeholder="Search for services, features, or help..." type="search" name="search">
+            </div>
+          </div>
+          <div class="ml-3">
+            <button type="button" class="inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold transition-colors" 
+                   data-class-light="text-gray-900 hover:bg-gray-50"
+                   data-class-dark="text-gray-200 hover:bg-gray-800"
+                   data-action="navbar#toggleSearch">
+              Cancel
+            </button>
+          </div>
+        </div>
+        
+        <!-- Search Suggestions -->
+        <div class="absolute w-full mt-2 rounded-md shadow-lg border py-3 px-4 z-45 hidden"
+             data-navbar-target="searchSuggestions"
+             data-class-light="bg-white border-gray-200"
+             data-class-dark="bg-gray-800 border-gray-700">
+          <h3 class="text-xs font-semibold uppercase tracking-wider mb-2"
+             data-class-light="text-gray-500"
+             data-class-dark="text-gray-400">
+            Popular Searches
+          </h3>
+          <ul class="space-y-2">
+            <li>
+              <a href="#" class="flex items-center text-sm py-1 transition-colors"
+                 data-class-light="text-gray-700 hover:text-blue-600"
+                 data-class-dark="text-gray-300 hover:text-blue-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-3" 
+                     data-class-light="text-gray-400"
+                     data-class-dark="text-gray-500"
+                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                How to add mobile money
+              </a>
+            </li>
+            <li>
+              <a href="#" class="flex items-center text-sm py-1 transition-colors"
+                 data-class-light="text-gray-700 hover:text-blue-600"
+                 data-class-dark="text-gray-300 hover:text-blue-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-3" 
+                     data-class-light="text-gray-400"
+                     data-class-dark="text-gray-500"
+                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Transfer money to bank account
+              </a>
+            </li>
+            <li>
+              <a href="#" class="flex items-center text-sm py-1 transition-colors"
+                 data-class-light="text-gray-700 hover:text-blue-600"
+                 data-class-dark="text-gray-300 hover:text-blue-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-3" 
+                     data-class-light="text-gray-400"
+                     data-class-dark="text-gray-500"
+                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                App not working
+              </a>
+            </li>
+          </ul>
+          
+          <h3 class="text-xs font-semibold uppercase tracking-wider mt-4 mb-2"
+             data-class-light="text-gray-500"
+             data-class-dark="text-gray-400">
+            Services
+          </h3>
+          <div class="grid grid-cols-2 gap-2">
+            <a href="#" class="flex items-center p-2 rounded-md transition-colors"
+               data-class-light="hover:bg-gray-50"
+               data-class-dark="hover:bg-gray-700">
+              <div class="flex-shrink-0 flex items-center justify-center h-8 w-8 rounded bg-blue-100 text-blue-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                </svg>
+              </div>
+              <div class="ml-3">
+                <span class="text-sm font-medium" 
+                      data-class-light="text-gray-900"
+                      data-class-dark="text-gray-200">
+                  Mobile Money
+                </span>
+              </div>
+            </a>
+            <a href="#" class="flex items-center p-2 rounded-md transition-colors"
+               data-class-light="hover:bg-gray-50"
+               data-class-dark="hover:bg-gray-700">
+              <div class="flex-shrink-0 flex items-center justify-center h-8 w-8 rounded bg-green-100 text-green-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <div class="ml-3">
+                <span class="text-sm font-medium" 
+                      data-class-light="text-gray-900"
+                      data-class-dark="text-gray-200">
+                  Food Ordering
+                </span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Mobile menu -->
+  <div class="hidden border-b overflow-hidden"
+       data-navbar-target="mobileMenu"
+       data-class-light="bg-white border-gray-200"
+       data-class-dark="bg-gray-900 border-gray-700">
+    <!-- Authenticated user info - only shown if logged in -->
+    <% if current_user.present? %>
+      <div class="p-4 flex items-center border-b"
+           data-class-light="border-gray-200"
+           data-class-dark="border-gray-700">
+        <div class="flex-shrink-0 relative">
+          <img class="h-10 w-10 rounded-full object-cover border-2 border-transparent" 
+               src="<%= current_user.avatar.presence || asset_path('default_avatar.png') %>" 
+               alt="<%= current_user.name %>">
+          <div class="absolute -bottom-0.5 -right-0.5 h-3 w-3 bg-green-400 rounded-full border-2"
+               data-class-light="border-white"
+               data-class-dark="border-gray-900"></div>
+        </div>
+        <div class="ml-3 flex-1">
+          <p class="text-sm font-medium" data-class-light="text-gray-900" data-class-dark="text-white">
+            <%= current_user.name %>
           </p>
-          <p class="text-sm text-gray-500 dark:text-gray-400">
+          <p class="text-xs truncate" 
+             data-class-light="text-gray-500"
+             data-class-dark="text-gray-400">
             <%= current_user.email %>
           </p>
         </div>
+        <a href="#" class="text-sm font-medium transition-colors px-3 py-1 rounded-md"
+           data-class-light="text-blue-600 hover:bg-blue-50"
+           data-class-dark="text-blue-400 hover:bg-blue-900 hover:bg-opacity-30">
+          Profile
+        </a>
       </div>
     <% end %>
-
-    <%# Rest of mobile navigation (remains the same) %>
-    <%# ... (previous mobile menu code) %>
-
-    <%# Mobile Authentication Section %>
-    <div class="pt-4 pb-5 border-t border-gray-200 dark:border-gray-800">
-      <div class="px-4 space-y-3">
-        <% if user_signed_in? %>
-          <%= button_to destroy_user_session_path, 
-              method: :delete, 
-              class: "block w-full px-4 py-3 text-center font-medium text-white bg-red-500 hover:bg-red-600 rounded-lg transition-colors duration-200" do %>
-            Sign Out
-          <% end %>
-        <% else %>
-          <a 
-            href="<%= new_user_session_path %>" 
-            class="block w-full px-4 py-3 text-center font-medium text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200"
-          >
-            Sign in
-          </a>
-          <a 
-            href="<%= new_user_registration_path %>" 
-            class="block w-full px-4 py-3 text-center font-medium text-white bg-gradient-to-r from-green-500 to-yellow-400 hover:from-green-600 hover:to-yellow-500 dark:from-green-600 dark:to-yellow-500 dark:hover:from-green-700 dark:hover:to-yellow-600 rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
-          >
-            Get Started
-          </a>
-        <% end %>
+    
+    <!-- Primary navigation items -->
+    <div class="pt-2 pb-4 space-y-1">
+      <a href="#" class="block py-2 px-4 text-base font-medium border-l-4 transition-colors"
+         data-class-light="text-blue-600 border-blue-600 bg-blue-50"
+         data-class-dark="text-blue-400 border-blue-500 bg-blue-900 bg-opacity-20">
+        Home
+      </a>
+      
+      <!-- Collapsible section for Pay -->
+      <div data-controller="collapse">
+        <button class="w-full flex items-center justify-between py-2 px-4 text-base font-medium transition-colors" 
+                data-class-light="text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                data-class-dark="text-gray-200 hover:bg-gray-800 hover:text-gray-100"
+                data-action="collapse#toggle">
+          <div class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" 
+                 data-class-light="text-gray-500"
+                 data-class-dark="text-gray-400"
+                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Pay</span>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform duration-200" 
+               data-class-light="text-gray-500"
+               data-class-dark="text-gray-400"
+               data-collapse-target="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div class="hidden overflow-hidden transition-all max-h-0 duration-300" data-collapse-target="content">
+          <div class="py-2 space-y-2">
+            <a href="#" class="block py-2 px-11 text-base transition-colors"
+               data-class-light="text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+               data-class-dark="text-gray-300 hover:bg-gray-800 hover:text-gray-100">
+              Send Money
+            </a>
+            <a href="#" class="block py-2 px-11 text-base transition-colors"
+               data-class-light="text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+               data-class-dark="text-gray-300 hover:bg-gray-800 hover:text-gray-100">
+              Pay Bills
+            </a>
+            <a href="#" class="block py-2 px-11 text-base transition-colors"
+               data-class-light="text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+               data-class-dark="text-gray-300 hover:bg-gray-800 hover:text-gray-100">
+              Airtime & Data
+            </a>
+          </div>
+        </div>
       </div>
+      
+      <!-- Collapsible section for Shop -->
+      <div data-controller="collapse">
+        <button class="w-full flex items-center justify-between py-2 px-4 text-base font-medium transition-colors" 
+                data-class-light="text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                data-class-dark="text-gray-200 hover:bg-gray-800 hover:text-gray-100"
+                data-action="collapse#toggle">
+          <div class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" 
+                 data-class-light="text-gray-500"
+                 data-class-dark="text-gray-400"
+                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+            </svg>
+            <span>Shop</span>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform duration-200" 
+               data-class-light="text-gray-500"
+               data-class-dark="text-gray-400"
+               data-collapse-target="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div class="hidden overflow-hidden transition-all max-h-0 duration-300" data-collapse-target="content">
+          <div class="py-2 space-y-2">
+            <a href="#" class="block py-2 px-11 text-base transition-colors"
+               data-class-light="text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+               data-class-dark="text-gray-300 hover:bg-gray-800 hover:text-gray-100">
+              Marketplace
+            </a>
+            <a href="#" class="block py-2 px-11 text-base transition-colors"
+               data-class-light="text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+               data-class-dark="text-gray-300 hover:bg-gray-800 hover:text-gray-100">
+              Deals
+            </a>
+            <a href="#" class="block py-2 px-11 text-base transition-colors"
+               data-class-light="text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+               data-class-dark="text-gray-300 hover:bg-gray-800 hover:text-gray-100">
+              Food Delivery
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Collapsible section for Services -->
+      <div data-controller="collapse">
+        <button class="w-full flex items-center justify-between py-2 px-4 text-base font-medium transition-colors" 
+                data-class-light="text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                data-class-dark="text-gray-200 hover:bg-gray-800 hover:text-gray-100"
+                data-action="collapse#toggle">
+          <div class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" 
+                 data-class-light="text-gray-500"
+                 data-class-dark="text-gray-400"
+                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+            </svg>
+            <span>Services</span>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform duration-200" 
+               data-class-light="text-gray-500"
+               data-class-dark="text-gray-400"
+               data-collapse-target="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div class="hidden overflow-hidden transition-all max-h-0 duration-300" data-collapse-target="content">
+          <div class="py-2 space-y-2">
+            <a href="#" class="block py-2 px-11 text-base transition-colors"
+               data-class-light="text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+               data-class-dark="text-gray-300 hover:bg-gray-800 hover:text-gray-100">
+              Financial Services
+            </a>
+            <a href="#" class="block py-2 px-11 text-base transition-colors"
+               data-class-light="text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+               data-class-dark="text-gray-300 hover:bg-gray-800 hover:text-gray-100">
+              Transportation
+            </a>
+            <a href="#" class="block py-2 px-11 text-base transition-colors"
+               data-class-light="text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+               data-class-dark="text-gray-300 hover:bg-gray-800 hover:text-gray-100">
+              Health
+            </a>
+            <a href="#" class="block py-2 px-11 text-base transition-colors"
+               data-class-light="text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+               data-class-dark="text-gray-300 hover:bg-gray-800 hover:text-gray-100">
+              Education
+            </a>
+            <a href="#" class="block py-2 px-11 text-base transition-colors"
+               data-class-light="text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+               data-class-dark="text-gray-300 hover:bg-gray-800 hover:text-gray-100">
+              Entertainment
+            </a>
+            <a href="#" class="block py-2 px-11 text-base transition-colors"
+               data-class-light="text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+               data-class-dark="text-gray-300 hover:bg-gray-800 hover:text-gray-100">
+              Agriculture
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- More buttons shown for unauthenticated users -->
+      <% unless current_user.present? %>
+        <div class="pt-4 pb-3 border-t"
+             data-class-light="border-gray-200"
+             data-class-dark="border-gray-700">
+          <div class="space-y-1">
+            <a href="#" class="block py-2 px-4 text-base font-medium transition-colors"
+               data-class-light="text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+               data-class-dark="text-gray-200 hover:bg-gray-800 hover:text-gray-100">
+              Log in
+            </a>
+            <a href="#" class="block py-2 px-4 text-base font-medium transition-colors"
+               data-class-light="text-gray-700 hover:bg-gray-50 hover:text-gray-900" data-class-dark="text-gray-200 hover:bg-gray-800 hover:text-gray-100" >
+              Sign up
+            </a>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </nav>

@@ -1,0 +1,11 @@
+{
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "diffEditor.codeLens": true,
+    "diffEditor.experimental.showMoves": true,
+    "diffEditor.experimental.useTrueInlineView": true,
+    "diffEditor.hideUnchangedRegions.enabled": true,
+    "editor.minimap.autohide": true,
+    "workbench.activityBar.iconClickBehavior": "focus",
+    "workbench.preferredHighContrastColorTheme": "Darcula IntelliJ"
+}

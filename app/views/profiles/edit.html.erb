@@ -1,10 +1,152 @@
-<% content_for :title, "Editing profile" %>
+<div class="min-h-screen bg-gray-50 py-8 ">
+  <div class="max-w-7xl mx-auto px-8 py-12 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto">
+      <!-- Header -->
+      <div class="mb-8">
+        <div class="flex items-center justify-between">
+          <h1 class="text-2xl font-bold text-gray-900 sm:text-3xl">
+            Edit Your Profile
+          </h1>
+          <%= link_to profile_path(@profile), class: "inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 -ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Back to Profile
+          <% end %>
+        </div>
+        <p class="mt-2 text-sm text-gray-500">
+          Update your personal information and manage how others see you on Supper Ghana.
+        </p>
+      </div>
 
-<div class="md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Editing profile</h1>
+      <!-- Profile Completion Card -->
+      <% if @profile.profile_completion.present? && @profile.profile_completion < 100 %>
+        <div class="bg-indigo-50 rounded-lg p-4 mb-8 border border-indigo-100">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div class="ml-3 flex-1 md:flex md:justify-between">
+              <p class="text-sm text-indigo-700">
+                Your profile is <%= @profile.profile_completion || 0 %>% complete. Complete your profile to get the most out of Supper Ghana.
+              </p>
+              <p class="mt-3 text-sm md:mt-0 md:ml-6">
+                <button data-action="profile-form#suggestCompletion" class="whitespace-nowrap font-medium text-indigo-700 hover:text-indigo-600">
+                  What's missing? <span aria-hidden="true">&rarr;</span>
+                </button>
+              </p>
+            </div>
+          </div>
+        </div>
+      <% end %>
 
-  <%= render "form", profile: @profile %>
+      <!-- Profile Form Card -->
+      <div class="bg-white shadow rounded-lg overflow-hidden">
+        <%= render 'form', profile: @profile %>
+      </div>
+      
+      <!-- Danger Zone Card -->
+      <div class="mt-10 bg-white shadow rounded-lg overflow-hidden">
+        <div class="px-4 py-5 sm:p-6">
+          <h3 class="text-lg font-medium leading-6 text-gray-900">Danger Zone</h3>
+          <div class="mt-5 border-t border-gray-200 pt-5">
+            <div class="rounded-md bg-red-50 p-4">
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div class="ml-3">
+                  <h3 class="text-sm font-medium text-red-800">Account Deactivation</h3>
+                  <div class="mt-2 text-sm text-red-700">
+                    <p>
+                      Deactivating your account will make your profile invisible to other users. You can reactivate your account at any time by logging in.
+                    </p>
+                  </div>
+                  <div class="mt-4">
+                    <div class="flex items-center">
+                      <button type="button" 
+                              data-action="click->modal#open"
+                              data-modal-title-value="Deactivate Account" 
+                              data-modal-content-value="Are you sure you want to deactivate your account? Your profile will be hidden from other users, but your data will be preserved. You can reactivate at any time by logging in."
+                              data-modal-confirm-text-value="Deactivate"
+                              data-modal-confirm-url-value="<%= deactivate_profile_path(@profile) %>"
+                              data-modal-confirm-method-value="post"
+                              class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                        Deactivate Account
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <%= link_to "Show this profile", @profile, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= link_to "Back to profiles", profiles_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+<!-- Confirmation Modal (using Stimulus) -->
+<div
+  data-controller="modal"
+  data-modal-allow-background-close-value="true"
+  class="hidden fixed z-10 inset-0 overflow-y-auto"
+  aria-labelledby="modal-title"
+  role="dialog"
+  aria-modal="true"
+  data-action="keydown.esc->modal#close"
+  data-modal-target="container"
+>
+  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+    <!-- Background overlay -->
+    <div
+      class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+      aria-hidden="true"
+      data-action="click->modal#backgroundClose"
+      data-modal-target="backdrop"
+    ></div>
+
+    <!-- This centers the modal contents -->
+    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+    <!-- Modal panel -->
+    <div
+      class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6"
+      data-modal-target="panel"
+    >
+      <div class="sm:flex sm:items-start">
+        <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+          <svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+        </div>
+        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+          <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title" data-modal-target="title">
+            <!-- Title dynamically inserted here -->
+          </h3>
+          <div class="mt-2">
+            <p class="text-sm text-gray-500" data-modal-target="content">
+              <!-- Content dynamically inserted here -->
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+        <%= form_with url: "", method: :post, data: { modal_target: "form" } do |form| %>
+          <%= form.submit "Confirm", class: "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm", data: { modal_target: "confirmButton" } %>
+        <% end %>
+        <button
+          type="button"
+          class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm"
+          data-action="modal#close"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

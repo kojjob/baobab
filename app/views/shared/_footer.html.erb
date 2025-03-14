@@ -1,146 +1,407 @@
-<%# _footer.html.erb - Footer Partial for Supper Ghana %>
-<footer class="bg-gray-50 dark:bg-gray-900 mt-auto">
-  <%# Ghana Flag accent colors %>
-  <div class="h-1 w-full bg-red-500"></div>
-  <div class="h-1 w-full bg-yellow-400"></div>
-  <div class="h-1 w-full bg-green-500"></div>
-  
-  <%# Main footer content %>
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-      <%# Brand Column %>
-      <div class="lg:col-span-2">
-        <div class="flex items-center space-x-2 mb-6">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-r from-green-500 to-yellow-400 dark:from-green-600 dark:to-yellow-500 flex items-center justify-center">
-            <svg class="w-6 h-6 text-white" viewBox="0 0 24 24">
-              <path fill="currentColor" d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M13,5.3l1.35-0.95c1.82,0.56,3.37,1.76,4.38,3.34l-0.39,1.34l-1.35,0.46L13,6.7V5.3z M9.65,4.35L11,5.3v1.4L7.01,9.49L5.66,9.03L5.27,7.69C6.28,6.12,7.83,4.92,9.65,4.35z M7.08,17.11l-1.14,0.1C4.73,15.81,4,13.99,4,12c0-0.12,0.01-0.23,0.02-0.35l1-0.73L6.4,11.4l1.46,4.34L7.08,17.11z M14.5,19.59C13.71,19.85,12.87,20,12,20s-1.71-0.15-2.5-0.41l-0.69-1.49L9.45,17h5.11l0.64,1.11L14.5,19.59z M14.27,15H9.73l-1.35-4.02L12,8.44l3.63,2.54L14.27,15z M18.06,17.21l-1.14-0.1l-0.79-1.37l1.46-4.34l1.39-0.47l1,0.73C19.99,11.77,20,11.88,20,12C20,13.99,19.27,15.81,18.06,17.21z"/>
-            </svg>
+<!-- Footer for Supper Ghana Super App -->
+<footer class="bg-gray-900 dark:bg-gray-950 text-white pt-16 pb-8" aria-labelledby="footer-heading">
+  <h2 id="footer-heading" class="sr-only">Footer</h2>
+  <!-- Main footer with rich content -->
+  <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <div class="lg:grid lg:grid-cols-4 lg:gap-8">
+      <!-- Brand and newsletter -->
+      <div class="space-y-8">
+        <!-- Logo -->
+        <div class="flex items-center space-x-2">
+          <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-pink-500 via-red-500 to-yellow-500 dark:from-pink-600 dark:via-red-600 dark:to-yellow-600 flex items-center justify-center text-white font-bold text-xl relative overflow-hidden group">
+            <span class="relative z-10">SG</span>
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           </div>
-          <span class="text-2xl font-bold text-gray-900 dark:text-white">Supper</span>
+          <span class="text-2xl font-extrabold tracking-tight">
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
+              Supper Ghana
+            </span>
+          </span>
         </div>
-        <p class="text-gray-600 dark:text-gray-300 mb-6 max-w-md">
-          The all-in-one super app for Ghana, combining mobile money, messaging, marketplace, and more to transform how you connect and transact.
-        </p>
-        <div class="flex space-x-4 mb-8">
-          <%# Social Media Icons %>
-          <a href="#" class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-green-100 dark:hover:bg-green-900 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-300" aria-label="Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
-            </svg>
-          </a>
-          <a href="#" class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-green-100 dark:hover:bg-green-900 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-300" aria-label="Twitter">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
-            </svg>
-          </a>
-          <a href="#" class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-green-100 dark:hover:bg-green-900 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-300" aria-label="Instagram">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-            </svg>
-          </a>
-          <a href="#" class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-green-100 dark:hover:bg-green-900 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-300" aria-label="LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" />
-            </svg>
-          </a>
-        </div>
-        <div class="flex flex-wrap gap-4">
-          <%# App Store Buttons %>
-          <a href="#" class="bg-black text-white rounded-lg flex items-center px-3 py-2 space-x-2 hover:bg-gray-900 transition-colors duration-300">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M16.365 22.028c-.608.175-1.23.372-1.854.372-3.256.264-7.538-1.835-9.888-1.835-.173 0-.346 0-.517.011C2.8 20.576 1 23 1 23s4.466-2.066 5.612-1.835c1.169.236 4.218 3.072 7.633 2.445 1.607-.3 3.675-1.822 5.47-2.884C17.952 19.99 16.89 21.182 16.365 22.028zM5.797 17.257c0-.748.018-1.501.018-2.092.001-.533-.034-1.047-.062-1.539 1.93-.694 4.933-.903 6.009-3.283.751-1.661.39-4.812.016-6.037.505.135 1.011.249 1.464.354.55.13 1.005.233 1.248.262.844.09 1.668-.376 1.98-1.143.333-.803-.029-1.661-.752-2.017-.57-.285-1.096-.538-1.593-.779-.497-.238-.948-.455-1.328-.635-.816-.392-2.004-.666-3.202-.694 0 0 .463.046 0 0-3.2 0-6.191.905-8.026 2.881-1.766 1.905-2.576 4.432-2.576 7.066 0 3.057.506 5.576 1.417 7.266.474.883 1.079 1.582 1.775 2.074.498.351 1.18.3 1.591-.134.407-.428.407-1.088.032-1.566-.961-1.226-1.283-3.215-1.064-5.898.218-2.911 2.19-5.374 3.926-6.153.37-.163.744-.305 1.119-.423C7.11 6.752 8.082 9.098 8.47 10.5c-2.126.142-4.295.85-5.438 1.887-1.138 1.034-1.681 3.015-1.221 4.702.45 1.651 2.076 2.842 3.739 2.734 1.362-.095 3.262-1.147 5.085-2.455 1.903-1.356 3.737-3.332 3.737-3.332.455-.32.576-.94.255-1.395-.321-.455-.94-.578-1.396-.255C13.231 12.386 9.673 17.257 5.797 17.257z" />
-            </svg>
-            <div>
-              <div class="text-xs">Download on the</div>
-              <div class="text-sm font-semibold -mt-1">App Store</div>
+        
+        <!-- Newsletter subscription form -->
+        <div data-controller="newsletter">
+          <h3 class="text-sm font-semibold text-white tracking-wider uppercase">
+            Subscribe to our newsletter
+          </h3>
+          <p class="mt-2 text-base text-gray-300">
+            Get updates, news, and exclusive offers.
+          </p>
+          <div class="mt-4 sm:flex sm:max-w-md">
+            <form data-action="newsletter#submit" class="sm:flex">
+              <label for="email-address" class="sr-only">Email address</label>
+              <input type="email" name="email-address" id="email-address" autocomplete="email" required
+                     class="w-full min-w-0 px-4 py-2 text-base text-gray-900 placeholder-gray-500 bg-white border border-transparent rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-blue-500"
+                     placeholder="Enter your email"
+                     data-newsletter-target="email">
+              <div class="mt-3 rounded-md sm:mt-0 sm:ml-3 sm:flex-shrink-0">
+                <button type="submit"
+                        class="w-full flex items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-blue-500 transition-colors duration-200">
+                  Subscribe
+                </button>
+              </div>
+            </form>
+          </div>
+          
+          <!-- Success message - hidden by default -->
+          <div data-newsletter-target="success" class="hidden mt-3 rounded-md bg-green-50 p-4">
+            <div class="flex">
+              <div class="flex-shrink-0">
+                <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div class="ml-3">
+                <p class="text-sm font-medium text-green-800">
+                  Thank you for subscribing!
+                </p>
+              </div>
             </div>
-          </a>
-          <a href="#" class="bg-black text-white rounded-lg flex items-center px-3 py-2 space-x-2 hover:bg-gray-900 transition-colors duration-300">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M3 20.571V3.429c0-.569.13-1.107.358-1.614l8.248 8.248-8.248 8.252c-.229-.506-.358-1.045-.358-1.615zm1.448 2.018c.489.308 1.064.49 1.68.49h11.744c.607 0 1.172-.177 1.652-.476l-7.555-7.551-7.521 7.537zm16.32-2.727c.252-.531.402-1.119.402-1.748V5.868c0-.644-.163-1.249-.431-1.789l-8.219 8.219 8.248 8.248zm-8.319-8.811l8.519-8.519c-.5-.313-1.093-.504-1.724-.504H6.128c-.642 0-1.245.199-1.751.523l8.072 8.5z" />
-            </svg>
-            <div>
-              <div class="text-xs">GET IT ON</div>
-              <div class="text-sm font-semibold -mt-1">Google Play</div>
-            </div>
-          </a>
+          </div>
         </div>
       </div>
       
-      <%# Links Columns %>
-      <div>
-        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Features</h3>
-        <ul class="space-y-3">
-          <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200">Mobile Money</a></li>
-          <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200">Group Chats</a></li>
-          <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200">Kejetia Market</a></li>
-          <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200">Bill Payments</a></li>
-          <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200">Location Services</a></li>
-        </ul>
-      </div>
-      
-      <div>
-        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Company</h3>
-        <ul class="space-y-3">
-          <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200">About Us</a></li>
-          <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200">Careers</a></li>
-          <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200">Partners</a></li>
-          <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200">News & Press</a></li>
-          <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200">Contact</a></li>
-        </ul>
-      </div>
-      
-      <div>
-        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Support</h3>
-        <ul class="space-y-3">
-          <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200">Help Center</a></li>
-          <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200">User Guides</a></li>
-          <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200">Community</a></li>
-          <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200">Security</a></li>
-          <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200">Report an Issue</a></li>
-        </ul>
+      <!-- Footer navigation grid -->
+      <div class="mt-12 grid grid-cols-2 gap-8 lg:mt-0 lg:col-span-3">
+        <div class="md:grid md:grid-cols-2 md:gap-8">
+          <!-- Products section -->
+          <div>
+            <h3 class="text-sm font-semibold text-white tracking-wider uppercase">
+              Products
+            </h3>
+            <ul role="list" class="mt-4 space-y-4">
+              <li>
+                <a href="#" class="text-base text-gray-300 hover:text-white transition-colors duration-200">
+                  Financial Services
+                </a>
+              </li>
+              <li>
+                <a href="#" class="text-base text-gray-300 hover:text-white transition-colors duration-200">
+                  Food Delivery
+                </a>
+              </li>
+              <li>
+                <a href="#" class="text-base text-gray-300 hover:text-white transition-colors duration-200">
+                  Transportation
+                </a>
+              </li>
+              <li>
+                <a href="#" class="text-base text-gray-300 hover:text-white transition-colors duration-200">
+                  Shopping
+                </a>
+              </li>
+              <li>
+                <a href="#" class="text-base text-gray-300 hover:text-white transition-colors duration-200">
+                  Entertainment
+                </a>
+              </li>
+            </ul>
+          </div>
+          
+          <!-- Support section -->
+          <div class="mt-12 md:mt-0">
+            <h3 class="text-sm font-semibold text-white tracking-wider uppercase">
+              Support
+            </h3>
+            <ul role="list" class="mt-4 space-y-4">
+              <li>
+                <a href="#" class="text-base text-gray-300 hover:text-white transition-colors duration-200">
+                  Help Center
+                </a>
+              </li>
+              <li>
+                <a href="#" class="text-base text-gray-300 hover:text-white transition-colors duration-200">
+                  Contact Us
+                </a>
+              </li>
+              <li>
+                <a href="#" class="text-base text-gray-300 hover:text-white transition-colors duration-200">
+                  FAQs
+                </a>
+              </li>
+              <li>
+                <a href="#" class="text-base text-gray-300 hover:text-white transition-colors duration-200">
+                  Community
+                </a>
+              </li>
+              <li>
+                <a href="#" class="text-base text-gray-300 hover:text-white transition-colors duration-200">
+                  Safety & Security
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="md:grid md:grid-cols-2 md:gap-8">
+          <!-- Company section -->
+          <div>
+            <h3 class="text-sm font-semibold text-white tracking-wider uppercase">
+              Company
+            </h3>
+            <ul role="list" class="mt-4 space-y-4">
+              <li>
+                <a href="#" class="text-base text-gray-300 hover:text-white transition-colors duration-200">
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a href="#" class="text-base text-gray-300 hover:text-white transition-colors duration-200">
+                  Careers
+                </a>
+              </li>
+              <li>
+                <a href="#" class="text-base text-gray-300 hover:text-white transition-colors duration-200">
+                  Partners
+                </a>
+              </li>
+              <li>
+                <a href="#" class="text-base text-gray-300 hover:text-white transition-colors duration-200">
+                  Blog
+                </a>
+              </li>
+              <li>
+                <a href="#" class="text-base text-gray-300 hover:text-white transition-colors duration-200">
+                  Press
+                </a>
+              </li>
+            </ul>
+          </div>
+          
+          <!-- Legal section -->
+          <div class="mt-12 md:mt-0">
+            <h3 class="text-sm font-semibold text-white tracking-wider uppercase">
+              Legal
+            </h3>
+            <ul role="list" class="mt-4 space-y-4">
+              <li>
+                <a href="#" class="text-base text-gray-300 hover:text-white transition-colors duration-200">
+                  Privacy Policy
+                </a>
+              </li>
+              <li>
+                <a href="#" class="text-base text-gray-300 hover:text-white transition-colors duration-200">
+                  Terms of Service
+                </a>
+              </li>
+              <li>
+                <a href="#" class="text-base text-gray-300 hover:text-white transition-colors duration-200">
+                  Cookie Policy
+                </a>
+              </li>
+              <li>
+                <a href="#" class="text-base text-gray-300 hover:text-white transition-colors duration-200">
+                  Regulatory Information
+                </a>
+              </li>
+              <li>
+                <a href="#" class="text-base text-gray-300 hover:text-white transition-colors duration-200">
+                  Compliance
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
     
-    <%# Newsletter Section %>
-    <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-        <div class="lg:col-span-2">
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Stay connected with Supper updates</h3>
-          <p class="text-gray-600 dark:text-gray-400">
-            Get news on features, updates, and special offers right to your inbox.
-          </p>
-        </div>
-        <form class="flex flex-col sm:flex-row gap-3">
-          <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 focus:border-transparent">
-          <button type="submit" class="px-6 py-3 bg-gradient-to-r from-green-500 to-yellow-400 hover:from-green-600 hover:to-yellow-500 dark:from-green-600 dark:to-yellow-500 dark:hover:from-green-700 dark:hover:to-yellow-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
-            Subscribe
-          </button>
-        </form>
+    <!-- Mobile app download section -->
+    <div class="mt-12 border-t border-gray-700 pt-8">
+      <h3 class="text-sm font-semibold text-white tracking-wider uppercase">
+        Download Our App
+      </h3>
+      <p class="mt-2 text-base text-gray-300">
+        Experience Supper Ghana on your mobile device.
+      </p>
+      
+      <div class="mt-6 flex flex-wrap gap-4">
+        <a href="#" class="flex items-center bg-black text-white rounded-lg py-3 px-6 hover:bg-gray-900 transition-colors duration-200">
+          <svg viewBox="0 0 24 24" class="w-7 h-7 mr-3">
+            <path fill="currentColor" d="M17.05,20.28C16.07,21.29 14.9,21.42 13.93,21.06C12.86,20.7 11.44,20.7 10.37,21.06C9.07,21.5 8.1,21.24 7.28,20.28C3.33,16.04 3.87,9.43 8.41,9.15C9.57,9.21 10.34,9.75 11,9.81C12.03,9.63 12.97,9.08 14.06,9.17C15.37,9.29 16.35,9.82 17,10.75C14.09,12.33 14.69,16.06 17.38,16.99C16.82,18.15 16.18,19.31 15.05,20.28H17.05ZM10.09,9.1C9.96,6.96 11.66,5.23 13.61,5.06C13.89,7.46 11.5,9.28 10.09,9.1Z"/>
+          </svg>
+          <div>
+            <div class="text-xs text-gray-400">Download on the</div>
+            <div class="text-lg font-medium">App Store</div>
+          </div>
+        </a>
+        
+        <a href="#" class="flex items-center bg-black text-white rounded-lg py-3 px-6 hover:bg-gray-900 transition-colors duration-200">
+          <svg viewBox="0 0 24 24" class="w-7 h-7 mr-3">
+            <path fill="currentColor" d="M16.09,3.54L15.99,3.57C14.1,4.07 12.2,4.57 10.3,5.07L9.69,5.21L9.63,5.23C9.33,5.3 9.01,5.37 8.7,5.43L8.62,5.44C8.39,5.69 8.16,5.93 7.94,6.17L7.91,6.21C7.85,6.28 7.78,6.34 7.73,6.4L7.68,6.47C7.59,6.57 7.51,6.68 7.44,6.78L7.37,6.89C7.27,7.01 7.18,7.13 7.08,7.26L7.01,7.35C6.92,7.48 6.83,7.61 6.74,7.73L6.65,7.86L6.63,7.89C6.46,8.13 6.28,8.38 6.11,8.63C5.58,9.46 5.05,10.28 4.53,11.1L4.44,11.24C3.93,12.05 3.43,12.85 2.96,13.67L2.64,14.24C2.29,14.85 1.97,15.46 1.66,16.08C1.57,16.27 1.5,16.46 1.45,16.66C1.32,17.14 1.41,17.59 1.64,18.1C1.81,18.47 1.97,18.85 2.13,19.22L2.37,19.77C2.55,20.18 2.73,20.59 2.94,21C1.32,17.74 0.44,14.03 0.68,10.32C0.95,6.03 2.87,2.55 5.9,0.18C8.65,0.09 11.39,0.03 14.14,0C17.3,0.05 20.48,0.11 23.66,0.17C22.59,1.48 21.55,2.78 20.52,4.08L20.22,4.5L20.21,4.5L19.95,4.87C19.81,5.04 19.68,5.21 19.55,5.38L19,6.13L18.87,6.31C18.82,6.37 18.77,6.44 18.72,6.51L18.27,7.09L17.86,7.63C17.81,7.69 17.77,7.75 17.72,7.81L17.26,8.39C17.24,8.42 17.21,8.45 17.19,8.48C17.17,8.51 17.14,8.53 17.12,8.56L17.11,8.57L16.99,8.7C16.95,8.75 16.91,8.79 16.88,8.83L16.61,9.15L16.6,9.16L16.15,9.69L16.13,9.7C15.8,10.09 15.47,10.49 15.16,10.89L15.13,10.93L14.83,11.31L14.82,11.32C14.7,11.47 14.58,11.63 14.46,11.78L14.37,11.9C14.29,12.01 14.2,12.11 14.11,12.22L14.06,12.28C14,12.36 13.93,12.43 13.88,12.51L13.76,12.67L13.75,12.68C13.53,12.97 13.31,13.26 13.09,13.56L10.58,12.95C10.66,12.87 10.74,12.8 10.81,12.73L10.94,12.59L10.95,12.57C11.16,12.33 11.37,12.1 11.58,11.87L12.39,10.97L12.4,10.96C12.53,10.82 12.66,10.68 12.79,10.53L13.83,9.37L13.84,9.35C14.03,9.14 14.22,8.93 14.42,8.72L15.06,8.04L15.06,8.03C15.35,7.74 15.62,7.45 15.88,7.16L16.04,7L16.05,6.99C16.11,6.92 16.17,6.86 16.23,6.8L16.24,6.79L16.8,6.21L16.81,6.19C16.92,6.09 17.02,5.98 17.12,5.88L17.12,5.88L17.12,5.87L17.33,5.66L17.33,5.66C17.46,5.53 17.58,5.4 17.71,5.27L17.72,5.26L17.73,5.25C17.75,5.23 17.77,5.2 17.78,5.18L18.07,4.89L18.08,4.88C18.26,4.69 18.44,4.5 18.61,4.32L18.62,4.3L18.65,4.28C18.68,4.25 18.71,4.21 18.74,4.18L18.78,4.14C18.86,4.05 18.94,3.96 19.02,3.88L19.03,3.87L19.04,3.86L19.12,3.78L19.13,3.76C19.22,3.67 19.31,3.58 19.41,3.49L19.42,3.48L19.47,3.43C19.5,3.4 19.53,3.37 19.56,3.34L19.56,3.33L19.61,3.29L19.62,3.28C19.65,3.25 19.68,3.22 19.71,3.19L19.74,3.16L19.76,3.14C20.17,2.75 20.59,2.36 21,1.97C19.43,2.52 17.77,3.04 16.09,3.54Z"/>
+          </svg>
+          <div>
+            <div class="text-xs text-gray-400">GET IT ON</div>
+            <div class="text-lg font-medium">Google Play</div>
+          </div>
+        </a>
       </div>
+    </div>
+    
+    <!-- Social media and language -->
+    <div class="mt-12 border-t border-gray-700 pt-8 lg:flex lg:items-center lg:justify-between">
+      <div>
+        <!-- Social media icons -->
+        <div class="flex space-x-6">
+          <a href="#" class="text-gray-400 hover:text-gray-300 transition-colors duration-200">
+            <span class="sr-only">Facebook</span>
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
+            </svg>
+          </a>
+          
+          <a href="#" class="text-gray-400 hover:text-gray-300 transition-colors duration-200">
+            <span class="sr-only">Instagram</span>
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" />
+            </svg>
+          </a>
+          
+          <a href="#" class="text-gray-400 hover:text-gray-300 transition-colors duration-200">
+            <span class="sr-only">Twitter</span>
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+            </svg>
+          </a>
+          
+          <a href="#" class="text-gray-400 hover:text-gray-300 transition-colors duration-200">
+            <span class="sr-only">YouTube</span>
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z" clip-rule="evenodd" />
+            </svg>
+          </a>
+          
+          <a href="#" class="text-gray-400 hover:text-gray-300 transition-colors duration-200">
+            <span class="sr-only">LinkedIn</span>
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" />
+            </svg>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Language selector -->
+      <div class="mt-8 lg:mt-0">
+        <div class="flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+          </svg>
+          <span class="text-gray-400 text-sm mr-2">Language:</span>
+          <select class="bg-gray-800 border-0 text-gray-300 text-sm rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 block p-1">
+            <option value="en" selected>English</option>
+            <option value="tw">Twi</option>
+            <option value="ha">Hausa</option>
+            <option value="ew">Ewe</option>
+            <option value="ga">Ga</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Bottom footer section -->
+    <div class="mt-8 border-t border-gray-700 pt-8 flex flex-col md:flex-row md:justify-between">
+      <!-- Copyright notice -->
+      <div class="flex items-center flex-wrap">
+        <!-- Regional indicator -->
+        <div class="flex items-center text-gray-400 mr-6">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span class="text-sm">Ghana</span>
+        </div>
+        
+        <!-- Copyright -->
+        <p class="text-base text-gray-400">
+          &copy; 2025 Supper Ghana, Inc. All rights reserved.
+        </p>
+      </div>
+      
+      <!-- Fine print -->
+      <p class="mt-4 md:mt-0 text-xs text-gray-400">
+        Supper Ghana is licensed by the Bank of Ghana as a Financial Technology Service Provider.
+      </p>
     </div>
   </div>
   
-  <%# Bottom Footer %>
-  <div class="border-t border-gray-200 dark:border-gray-800">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
-      <div class="flex flex-col md:flex-row justify-between items-center">
-        <div class="mb-4 md:mb-0">
-          <p class="text-sm text-gray-600 dark:text-gray-400">
-            &copy; <%= Date.today.year %> Supper Ghana. All rights reserved.
-          </p>
+  <!-- Mobile accordion menu for footer links - Shown on small screens only -->
+  <div class="md:hidden border-t border-gray-700">
+    <div data-controller="accordion" class="mx-auto max-w-7xl px-4 sm:px-6 py-6">
+      <!-- Products section -->
+      <div class="border-b border-gray-700">
+        <button class="flex w-full justify-between items-center py-3" data-action="accordion#toggle">
+          <span class="text-sm font-semibold text-white tracking-wider uppercase">Products</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 transform transition-transform duration-200" data-accordion-target="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div class="hidden overflow-hidden transition-all max-h-0 duration-300 pb-4" data-accordion-target="content">
+          <ul role="list" class="mt-2 space-y-2">
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Financial Services</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Food Delivery</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Transportation</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Shopping</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Entertainment</a></li>
+          </ul>
         </div>
-        
-        <div class="flex flex-wrap gap-4 justify-center">
-          <a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200">Terms of Service</a>
-          <span class="hidden sm:inline text-gray-400 dark:text-gray-600">•</span>
-          <a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200">Privacy Policy</a>
-          <span class="hidden sm:inline text-gray-400 dark:text-gray-600">•</span>
-          <a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200">Security</a>
-          <span class="hidden sm:inline text-gray-400 dark:text-gray-600">•</span>
-          <a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200">Sitemap</a>
+      </div>
+      
+      <!-- Support section -->
+      <div class="border-b border-gray-700">
+        <button class="flex w-full justify-between items-center py-3" data-action="accordion#toggle">
+          <span class="text-sm font-semibold text-white tracking-wider uppercase">Support</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 transform transition-transform duration-200" data-accordion-target="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div class="hidden overflow-hidden transition-all max-h-0 duration-300 pb-4" data-accordion-target="content">
+          <ul role="list" class="mt-2 space-y-2">
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Help Center</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Contact Us</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">FAQs</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Community</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Safety & Security</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Company section -->
+      <div class="border-b border-gray-700">
+        <button class="flex w-full justify-between items-center py-3" data-action="accordion#toggle">
+          <span class="text-sm font-semibold text-white tracking-wider uppercase">Company</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 transform transition-transform duration-200" data-accordion-target="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div class="hidden overflow-hidden transition-all max-h-0 duration-300 pb-4" data-accordion-target="content">
+          <ul role="list" class="mt-2 space-y-2">
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">About Us</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Careers</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Partners</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Blog</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Press</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Legal section -->
+      <div class="border-b border-gray-700">
+        <button class="flex w-full justify-between items-center py-3" data-action="accordion#toggle">
+          <span class="text-sm font-semibold text-white tracking-wider uppercase">Legal</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 transform transition-transform duration-200" data-accordion-target="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div class="hidden overflow-hidden transition-all max-h-0 duration-300 pb-4" data-accordion-target="content">
+          <ul role="list" class="mt-2 space-y-2">
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Privacy Policy</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Terms of Service</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Cookie Policy</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Regulatory Information</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Compliance</a></li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
 </footer>
+
+</script>

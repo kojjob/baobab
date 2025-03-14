@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include Pagy::Frontend
+
   # User Authentication Helpers
   def user_signed_in?
     current_user.present? &&

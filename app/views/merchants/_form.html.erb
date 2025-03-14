@@ -1,0 +1,57 @@
+<%= form_with(model: merchant, class: "contents") do |form| %>
+  <% if merchant.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+      <h2><%= pluralize(merchant.errors.count, "error") %> prohibited this merchant from being saved:</h2>
+
+      <ul class="list-disc ml-6">
+        <% merchant.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": merchant.errors[:name].none?, "border-red-400 focus:outline-red-600": merchant.errors[:name].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :description %>
+    <%= form.textarea :description, rows: 4, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": merchant.errors[:description].none?, "border-red-400 focus:outline-red-600": merchant.errors[:description].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :phone %>
+    <%= form.text_field :phone, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": merchant.errors[:phone].none?, "border-red-400 focus:outline-red-600": merchant.errors[:phone].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :location %>
+    <%= form.text_field :location, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": merchant.errors[:location].none?, "border-red-400 focus:outline-red-600": merchant.errors[:location].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :logo %>
+    <%= form.text_field :logo, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": merchant.errors[:logo].none?, "border-red-400 focus:outline-red-600": merchant.errors[:logo].any?}] %>
+  </div>
+
+  <div class="my-5 flex items-center gap-2">
+    <%= form.label :active %>
+    <%= form.checkbox :active, class: ["block shadow-sm rounded-md border order-first h-5 w-5", {"border-gray-400 focus:outline-blue-600": merchant.errors[:active].none?, "border-red-400 focus:outline-red-600": merchant.errors[:active].any?}] %>
+  </div>
+
+  <div class="my-5 flex items-center gap-2">
+    <%= form.label :verified %>
+    <%= form.checkbox :verified, class: ["block shadow-sm rounded-md border order-first h-5 w-5", {"border-gray-400 focus:outline-blue-600": merchant.errors[:verified].none?, "border-red-400 focus:outline-red-600": merchant.errors[:verified].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": merchant.errors[:user_id].none?, "border-red-400 focus:outline-red-600": merchant.errors[:user_id].any?}] %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>

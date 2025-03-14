@@ -1,0 +1,21 @@
+<div class="featured-categories my-6">
+  <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-4">Featured Categories</h2>
+  
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <% featured_categories.each do |category| %>
+      <%= link_to category_path(category), class: "featured-category-card" do %>
+        <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow p-4 text-center">
+          <% if category.icon.present? %>
+            <div class="w-16 h-16 mx-auto flex items-center justify-center text-primary-600 dark:text-primary-400 bg-primary-100 dark:bg-primary-900 rounded-full mb-3">
+              <i class="<%= category.icon %> text-xl"></i>
+            </div>
+          <% end %>
+          <h3 class="font-medium text-gray-800 dark:text-white"><%= category.name %></h3>
+          <% if category.products.count > 0 %>
+            <p class="text-sm text-gray-500 dark:text-gray-400"><%= pluralize(category.products.count, 'product') %></p>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

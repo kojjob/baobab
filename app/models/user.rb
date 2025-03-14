@@ -6,7 +6,15 @@ class User < ApplicationRecord
 
   # Associations
   has_one :profile, dependent: :destroy
-
+  has_one :merchant, dependent: :destroy
+  has_many :products, through: :merchant
+  has_many :likes, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
+  has_many :orders, dependent: :destroy
+  has_many :order_items, through: :orders
+  has_many :cart_items, dependent: :destroy
+  has_one :cart, dependent: :destroy
+  has_many :reviews, dependent: :destroy
 
   # Blog associations
   has_many :posts, dependent: :nullify

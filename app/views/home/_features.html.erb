@@ -1,0 +1,79 @@
+<%# _features.html.erb - Features Grid Partial %>
+<section class="py-20 bg-white dark:bg-gray-900 relative">
+  <%# Adinkra Pattern Background %>
+  <div class="absolute inset-0 opacity-5 pattern-adinkra"></div>
+  
+  <div class="container mx-auto px-4 lg:px-8">
+    <%# Section Header %>
+    <div class="text-center mb-16 max-w-3xl mx-auto">
+      <div class="inline-flex items-center justify-center mb-4">
+        <svg class="w-6 h-6 text-green-500 dark:text-green-400 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M7.5 12L10.5 15L16.5 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="text-sm font-medium text-green-500 dark:text-green-400 uppercase tracking-wider">Everything you need</span>
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">One App For All Your Needs</h2>
+      <p class="text-xl text-gray-600 dark:text-gray-400">
+        Supper combines essential services in a single, powerful app designed for Ghanaians.
+      </p>
+    </div>
+    
+    <%# Features 3D Cards Grid %>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <%# Feature Card 1: Mobile Money %>
+      <%= render partial: 'shared/feature_card', locals: {
+        title: 'Seamless Mobile Money',
+        description: 'Send money instantly to anyone in Ghana with MTN Mobile Money, Vodafone Cash, and AirtelTigo integration.',
+        icon_bg_class: 'bg-green-100 dark:bg-green-900',
+        icon_text_class: 'text-green-600 dark:text-green-400',
+        icon_hover_bg_class: 'group-hover:bg-green-500 dark:group-hover:bg-green-600',
+        accent_gradient: 'from-green-500 to-yellow-400 dark:from-green-600 dark:to-yellow-500',
+        tags: [
+          { text: 'MTN MoMo', bg_class: 'bg-green-100 dark:bg-green-900', text_class: 'text-green-600 dark:text-green-400' },
+          { text: 'Vodafone Cash', bg_class: 'bg-red-100 dark:bg-red-900', text_class: 'text-red-600 dark:text-red-400' },
+          { text: 'AirtelTigo Money', bg_class: 'bg-blue-100 dark:bg-blue-900', text_class: 'text-blue-600 dark:text-blue-400' }
+        ],
+        footer_highlight: { text: 'No fees', highlight_class: 'text-green-500 dark:text-green-400' },
+        footer_text: 'between users',
+        adinkra_symbol: 'sankofa'
+      } %>
+      
+      <%# Feature Card 2: Messaging %>
+      <%= render partial: 'shared/feature_card', locals: {
+        title: 'Group Chats with Voice Notes',
+        description: 'Connect with friends and family through text, voice notes, and media in multiple Ghanaian languages.',
+        icon_bg_class: 'bg-yellow-100 dark:bg-yellow-900',
+        icon_text_class: 'text-yellow-500 dark:text-yellow-400',
+        icon_hover_bg_class: 'group-hover:bg-yellow-400 dark:group-hover:bg-yellow-500',
+        accent_gradient: 'from-yellow-400 to-red-500 dark:from-yellow-500 dark:to-red-600',
+        tags: [
+          { text: 'Voice Notes', bg_class: 'bg-purple-100 dark:bg-purple-900', text_class: 'text-purple-600 dark:text-purple-400' },
+          { text: 'Twi Support', bg_class: 'bg-blue-100 dark:bg-blue-900', text_class: 'text-blue-600 dark:text-blue-400' },
+          { text: 'End-to-end Encryption', bg_class: 'bg-green-100 dark:bg-green-900', text_class: 'text-green-600 dark:text-green-400' }
+        ],
+        footer_highlight: { text: '7+ languages', highlight_class: 'text-yellow-500 dark:text-yellow-400' },
+        footer_text: 'supported',
+        adinkra_symbol: 'mate_masie'
+      } %>
+      
+      <%# Feature Card 3: Marketplace %>
+      <%= render partial: 'shared/feature_card', locals: {
+        title: 'Buy & Sell at Kejetia Market',
+        description: 'Ghana\'s largest virtual marketplace connecting sellers and buyers with secure payments and delivery options.',
+        icon_bg_class: 'bg-red-100 dark:bg-red-900',
+        icon_text_class: 'text-red-500 dark:text-red-400',
+        icon_hover_bg_class: 'group-hover:bg-red-500 dark:group-hover:bg-red-600',
+        accent_gradient: 'from-red-500 to-purple-500 dark:from-red-600 dark:to-purple-600',
+        tags: [
+          { text: 'Kejetia Market', bg_class: 'bg-orange-100 dark:bg-orange-900', text_class: 'text-orange-600 dark:text-orange-400' },
+          { text: 'Secure Payments', bg_class: 'bg-blue-100 dark:bg-blue-900', text_class: 'text-blue-600 dark:text-blue-400' },
+          { text: 'Rating System', bg_class: 'bg-green-100 dark:bg-green-900', text_class: 'text-green-600 dark:text-green-400' }
+        ],
+        footer_highlight: { text: '10,000+', highlight_class: 'text-red-500 dark:text-red-400' },
+        footer_text: 'active vendors',
+        adinkra_symbol: 'dwennimmen'
+      } %>
+    </div>
+  </div>
+</section>

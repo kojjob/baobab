@@ -1,0 +1,572 @@
+<div class="relative">
+  <div class="aspect-w-16 aspect-h-7 md:aspect-h-5 lg:aspect-h-4 w-full">
+
+      <%= image_tag @post.featured_image, class: "w-full h-full object-cover" %>
+
+  </div>
+  
+  <div class="absolute inset-0 flex items-center justify-center">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="flex items-center justify-center space-x-2 mb-4">
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-500 bg-opacity-80 text-white">
+          <%= @post.category.name %>
+        </span>
+        <span class="text-white text-sm">
+          <%= @post.published_at.strftime("%B %d, %Y") %>
+        </span>
+      </div>
+      <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight tracking-tight mb-4">
+        <%= @post.title %>
+      </h1>
+      <p class="text-lg text-white text-opacity-90 max-w-3xl mx-auto">
+        <%= @post.excerpt %>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Main content section -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <div class="lg:grid lg:grid-cols-12 lg:gap-8">
+    <!-- Main content column -->
+    <div class="lg:col-span-8" data-controller="post-actions">
+      <!-- Author info, post actions, and share -->
+      <div class="flex items-center justify-between mb-8 pb-8 border-b border-gray-200">
+        <div class="flex items-center">
+          <%= link_to profile_path(@post.user.profile), class: "flex items-center group" do %>
+            <% if @post.user.profile_image.present? %>
+              <%= image_tag @post.user.profile_image, class: "h-12 w-12 rounded-full mr-4" %>
+            <% else %>
+              <div class="h-12 w-12 rounded-full bg-indigo-500 flex items-center justify-center mr-4">
+                <span class="text-white font-bold"><%= @post.user.name.first %></span>
+              </div>
+            <% end %>
+            <div>
+              <p class="text-gray-900 font-medium group-hover:text-indigo-600 transition"><%= @post.user.name %></p>
+              <p class="text-gray-500 text-sm"><%= @post.user.profile&.profile_bio&.truncate(60) || "Author at Supper Ghana" %></p>
+            </div>
+          <% end %>
+        </div>
+        
+        <div class="flex items-center space-x-3">
+          <!-- Post actions (visible only to the author) -->
+          <% if user_signed_in? && current_user.id == @post.user_id %>
+            <div class="flex items-center mr-4">
+              <%= link_to edit_post_path(@post), class: "text-gray-500 hover:text-indigo-600 transition" do %>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+                <span class="sr-only">Edit</span>
+              <% end %>
+              
+              <button 
+                type="button" 
+                class="ml-3 text-gray-500 hover:text-red-600 transition" 
+                data-action="post-actions#confirmDelete"
+                data-post-id="<%= @post.id %>"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+                <span class="sr-only">Delete</span>
+              </button>
+            </div>
+          <% end %>
+          
+          <!-- Social sharing -->
+          <div class="flex items-center space-x-3">
+            <div class="text-gray-500 text-sm mr-2">Share:</div>
+            <a href="https://twitter.com/intent/tweet?url=<%= post_url(@post) %>&text=<%= @post.title %>" target="_blank" class="text-gray-400 hover:text-indigo-600 transition">
+              <span class="sr-only">Twitter</span>
+              <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+              </svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=<%= post_url(@post) %>" target="_blank" class="text-gray-400 hover:text-indigo-600 transition">
+              <span class="sr-only">Facebook</span>
+              <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
+              </svg>
+            </a>
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=<%= post_url(@post) %>&title=<%= @post.title %>" target="_blank" class="text-gray-400 hover:text-indigo-600 transition">
+              <span class="sr-only">LinkedIn</span>
+              <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" />
+              </svg>
+            </a>
+            <button data-action="post-actions#copyLink" data-post-actions-target="copyButton" class="text-gray-400 hover:text-indigo-600 transition">
+              <span class="sr-only">Copy link</span>
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+            </button>
+            <div data-post-actions-target="copyMessage" class="hidden absolute mt-12 bg-gray-900 text-white text-xs rounded py-1 px-2">
+              URL copied to clipboard!
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Delete confirmation modal - hidden by default -->
+      <div id="delete-modal" class="hidden fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50" data-post-actions-target="deleteModal">
+        <div class="bg-white rounded-lg max-w-md w-full p-6">
+          <h3 class="text-lg font-medium text-gray-900 mb-4">Delete Post</h3>
+          <p class="text-gray-500 mb-6">Are you sure you want to delete this post? This action cannot be undone.</p>
+          <div class="flex justify-end space-x-3">
+            <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" data-action="post-actions#cancelDelete">
+              Cancel
+            </button>
+            <%= button_to "Delete", post_path(@post), method: :delete, class: "inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500", form: { data: { turbo_confirm: false, action: "post-actions#deletePost" } } %>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Post Content -->
+      <div class="prose prose-lg prose-indigo max-w-none mb-10">
+        <%= @post.content %>
+      </div>
+      
+      <!-- Tags -->
+      <% if @post.tags.any? %>
+        <div class="flex flex-wrap gap-2 mb-10">
+          <% @post.tags.each do |tag| %>
+            <%= link_to tag.name, posts_path(tag: tag.slug), class: "inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800 hover:bg-gray-200 transition" %>
+          <% end %>
+        </div>
+      <% end %>
+      
+      <!-- Post Stats -->
+      <div class="flex items-center justify-between py-6 border-t border-b border-gray-200 mb-10">
+        <div class="flex items-center space-x-6">
+          <div class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+            <span class="text-gray-700"><%= @post.post_views.count %> views</span>
+          </div>
+          <div class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+            </svg>
+            <span class="text-gray-700"><%= @post.comments.count %> comments</span>
+          </div>
+        </div>
+        
+        <div>
+          <!-- Like button (example functionality) -->
+          <button data-action="post-actions#toggleLike" class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" data-post-actions-target="likeIcon" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+            <span data-post-actions-target="likeCount">123</span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Comments Section -->
+      <div data-controller="comments">
+        <h3 class="text-xl font-bold text-gray-900 mb-6">Comments (<%= @post.comments.count %>)</h3>
+        
+        <!-- Comment form -->
+        <% if user_signed_in? %>
+          <turbo-frame id="comment-form">
+            <%= form_with model: [@post, Comment.new], class: "mb-10", data: { action: "submit->comments#submit", comments_target: "form", turbo_stream: true } do |f| %>
+              <div class="flex items-start space-x-4">
+                <% if current_user.profile_image.present? %>
+                  <%= image_tag current_user.profile_image, class: "h-10 w-10 rounded-full" %>
+                <% else %>
+                  <div class="h-10 w-10 rounded-full bg-indigo-500 flex items-center justify-center">
+                    <span class="text-white font-bold"><%= current_user.name.first %></span>
+                  </div>
+                <% end %>
+                <div class="min-w-0 flex-1">
+                  <div class="border border-gray-300 rounded-lg shadow-sm overflow-hidden focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500">
+                    <%= f.text_area :content, rows: 3, class: "block w-full py-3 px-4 border-0 resize-none focus:ring-0 sm:text-sm", placeholder: "Add a comment...", required: true, data: { comments_target: "content" } %>
+                  </div>
+                  <div class="mt-3 flex justify-between">
+                    <div id="comment-error" class="text-sm text-red-600 hidden">Please enter a comment before submitting.</div>
+                    <div>
+                      <%= f.submit "Post Comment", class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition" %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </turbo-frame>
+        <% else %>
+          <div class="bg-gray-50 rounded-lg p-6 mb-10">
+            <p class="text-gray-700 mb-4">Please sign in to leave a comment.</p>
+            <%= link_to "Sign in", new_user_session_path, class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition" %>
+          </div>
+        <% end %>
+        
+        <!-- Comments list -->
+        <turbo-frame id="comments-list">
+          <div class="space-y-6" data-comments-target="list">
+            <% @post.comments.includes(:user).order(created_at: :desc).each do |comment| %>
+              <div class="flex space-x-4" id="comment-<%= comment.id %>">
+                <% if comment.user.profile_image.present? %>
+                  <%= image_tag comment.user.profile_image, class: "h-10 w-10 rounded-full" %>
+                <% else %>
+                  <div class="h-10 w-10 rounded-full bg-indigo-500 flex items-center justify-center">
+                    <span class="text-white font-bold"><%= comment.user.name.first %></span>
+                  </div>
+                <% end %>
+                <div class="flex-1">
+                  <div class="flex items-center">
+                    <h4 class="font-medium text-gray-900"><%= comment.user.name %></h4>
+                    <span class="ml-2 text-sm text-gray-500"><%= time_ago_in_words(comment.created_at) %> ago</span>
+                  </div>
+                  <div class="mt-1 text-gray-700">
+                    <%= comment.content %>
+                  </div>
+                  <div class="mt-2 flex items-center space-x-4">
+                    <button class="text-sm text-gray-500 hover:text-gray-700 transition" data-action="comments#likeComment" data-comment-id="<%= comment.id %>">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                      </svg>
+                      Like
+                    </button>
+                    <button class="text-sm text-gray-500 hover:text-gray-700 transition" data-action="comments#replyToComment" data-comment-id="<%= comment.id %>">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+                      </svg>
+                      Reply
+                    </button>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </turbo-frame>
+      </div>
+    </div>
+    
+    <!-- Sidebar -->
+    <div class="hidden lg:block lg:col-span-4 lg:pl-10 mt-10 lg:mt-0">
+      <!-- Author Info Card -->
+      <div class="bg-gray-50 rounded-xl overflow-hidden mb-8">
+        <div class="h-24 bg-gradient-to-r from-indigo-500 to-purple-600"></div>
+        <div class="flex justify-center -mt-12">
+          <% if @post.user.profile_image.present? %>
+            <%= image_tag @post.user.profile_image, class: "h-24 w-24 rounded-full border-4 border-white" %>
+          <% else %>
+            <div class="h-24 w-24 rounded-full bg-indigo-500 flex items-center justify-center border-4 border-white">
+              <span class="text-white text-2xl font-bold"><%= @post.user.name.first %></span>
+            </div>
+          <% end %>
+        </div>
+        <div class="pt-3 pb-6 px-6 text-center">
+          <h3 class="text-xl font-bold text-gray-900 mb-1"><%= @post.user.name %></h3>
+          <% if @post.user.profile&.profile_username.present? %>
+            <p class="text-gray-500 mb-4">@<%= @post.user.profile.profile_username %></p>
+          <% end %>
+          <p class="text-gray-700 mb-4"><%= @post.user.profile&.profile_bio&.truncate(150) || "Author at Supper Ghana" %></p>
+          <%= link_to "View Profile", profile_path(@post.user.profile), class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 transition" %>
+        </div>
+      </div>
+      
+      <!-- Related Posts -->
+      <div class="mb-8">
+        <h3 class="text-lg font-bold text-gray-900 mb-4">Related Posts</h3>
+        <div class="space-y-4">
+          <% related_posts = Post.published.where(category_id: @post.category_id).where.not(id: @post.id).limit(3) %>
+          <% related_posts.each do |post| %>
+            <%= link_to post_path(post), class: "flex items-center space-x-3 group" do %>
+              <div class="flex-shrink-0">
+                <% if post.featured_image.present? %>
+                  <%= image_tag post.featured_image, class: "h-16 w-16 rounded-md object-cover" %>
+                <% else %>
+                  <div class="h-16 w-16 rounded-md bg-gradient-to-br from-indigo-500 to-purple-600"></div>
+                <% end %>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-gray-900 group-hover:text-indigo-600 transition truncate"><%= post.title %></p>
+                <p class="text-xs text-gray-500"><%= post.published_at.strftime("%B %d, %Y") %></p>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <%= link_to "View All", posts_path(category: @post.category.slug), class: "mt-6 inline-block text-sm font-medium text-indigo-600 hover:text-indigo-500" %>
+      </div>
+      
+      <!-- Categories -->
+      <div class="mb-8">
+        <h3 class="text-lg font-bold text-gray-900 mb-4">Categories</h3>
+        <div class="space-y-2">
+          <% Category.all.each do |category| %>
+            <%= link_to posts_path(category: category.slug), class: "flex items-center justify-between py-2 px-3 rounded-md hover:bg-gray-100 transition #{@post.category_id == category.id ? 'bg-indigo-50' : ''}" do %>
+              <span class="text-gray-700"><%= category.name %></span>
+              <span class="bg-gray-100 text-gray-700 text-xs font-medium px-2 py-0.5 rounded-full">
+                <%= Post.published.where(category_id: category.id).count %>
+              </span>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      
+      <!-- Tags Cloud -->
+      <div>
+        <h3 class="text-lg font-bold text-gray-900 mb-4">Popular Tags</h3>
+        <div class="flex flex-wrap gap-2">
+          <% Tag.joins(:posts).group(:id).order('COUNT(posts.id) DESC').limit(15).each do |tag| %>
+            <%= link_to tag.name, posts_path(tag: tag.slug), class: "inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800 hover:bg-gray-200 transition" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Post Actions Stimulus Controller -->
+<script data-turbo-track="reload">
+  (() => {
+    const application = Stimulus.Application.start();
+    
+    application.register("post-actions", class extends Stimulus.Controller {
+      static targets = ["copyButton", "copyMessage", "likeIcon", "likeCount", "deleteModal"];
+      
+      connect() {
+        console.log("Post actions controller connected");
+        
+        // Close modal if user clicks outside of it
+        document.addEventListener('click', (event) => {
+          if (this.hasDeleteModalTarget && 
+              !this.deleteModalTarget.classList.contains('hidden') && 
+              !event.target.closest('.bg-white') && 
+              !event.target.closest('[data-action="post-actions#confirmDelete"]')) {
+            this.cancelDelete();
+          }
+        });
+        
+        // Allow ESC key to close the modal
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape' && 
+              this.hasDeleteModalTarget && 
+              !this.deleteModalTarget.classList.contains('hidden')) {
+            this.cancelDelete();
+          }
+        });
+      }
+      
+      copyLink(event) {
+        event.preventDefault();
+        
+        // Copy the current URL to clipboard
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          // Show success message
+          this.copyMessageTarget.classList.remove("hidden");
+          setTimeout(() => {
+            this.copyMessageTarget.classList.add("hidden");
+          }, 2000);
+        });
+      }
+      
+      toggleLike(event) {
+        event.preventDefault();
+        
+        // Toggle like icon fill
+        if (this.likeIconTarget.getAttribute("fill") === "currentColor") {
+          this.likeIconTarget.setAttribute("fill", "none");
+          this.likeIconTarget.classList.remove("text-red-500");
+          this.likeIconTarget.classList.add("text-gray-500");
+          this.likeCountTarget.textContent = parseInt(this.likeCountTarget.textContent) - 1;
+        } else {
+          this.likeIconTarget.setAttribute("fill", "currentColor");
+          this.likeIconTarget.classList.remove("text-gray-500");
+          this.likeIconTarget.classList.add("text-red-500");
+          this.likeCountTarget.textContent = parseInt(this.likeCountTarget.textContent) + 1;
+        }
+        
+        // Here you would normally send an AJAX request to update the like status
+      }
+      
+      confirmDelete(event) {
+        // Show the delete confirmation modal
+        if (this.hasDeleteModalTarget) {
+          // Add a slight delay to allow any click events to resolve first
+          setTimeout(() => {
+            this.deleteModalTarget.classList.remove('hidden');
+            
+            // Prevent scrolling on the body
+            document.body.style.overflow = 'hidden';
+            
+            // Trap focus in the modal for accessibility
+            this.deleteModalTarget.querySelector('button').focus();
+          }, 10);
+        }
+      }
+      
+      cancelDelete() {
+        // Hide the delete confirmation modal
+        if (this.hasDeleteModalTarget) {
+          this.deleteModalTarget.classList.add('hidden');
+          
+          // Re-enable scrolling
+          document.body.style.overflow = '';
+        }
+      }
+      
+      deletePost(event) {
+        // The form will be submitted normally with Rails Turbo
+        // This method can be used for additional client-side logic before submission
+        
+        // You could add a loading state here
+        const submitButton = event.target;
+        const originalText = submitButton.innerHTML;
+        
+        submitButton.disabled = true;
+        submitButton.innerHTML = `
+          <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Deleting...
+        `;
+        
+        // The form will continue submitting normally with Rails Turbo
+      }
+    });
+    
+    application.register("comments", class extends Stimulus.Controller {
+      static targets = ["content", "form", "list", "error"];
+      
+      connect() {
+        console.log("Comments controller connected");
+        
+        // Set up form to work with Turbo
+        if (this.hasFormTarget) {
+          this.formTarget.addEventListener("turbo:submit-end", this.handleSubmitEnd.bind(this));
+        }
+      }
+      
+      submit(event) {
+        // Client-side validation before letting Turbo handle the form submission
+        if (!this.validateForm()) {
+          event.preventDefault();
+          
+          // Show error message
+          if (document.getElementById('comment-error')) {
+            document.getElementById('comment-error').classList.remove('hidden');
+          }
+          return false;
+        }
+        
+        // Hide error message if it was previously shown
+        if (document.getElementById('comment-error')) {
+          document.getElementById('comment-error').classList.add('hidden');
+        }
+        
+        // Let Turbo handle the form submission from here
+        // The server will respond with Turbo Stream instructions
+        // to append the new comment to the comments list
+      }
+      
+      validateForm() {
+        // Simple validation to ensure comment isn't empty
+        if (this.hasContentTarget && this.contentTarget.value.trim() === "") {
+          // Highlight the content field with an error state
+          this.contentTarget.classList.add("border", "border-red-500");
+          this.contentTarget.classList.remove("focus:ring-indigo-500");
+          this.contentTarget.classList.add("focus:ring-red-500");
+          return false;
+        }
+        return true;
+      }
+      
+      handleSubmitEnd(event) {
+        // This runs after Turbo has processed the server response
+        // Turbo Streams automatically updates the comments list based on the server response
+        
+        if (event.detail.success) {
+          // Additional UI updates or actions after successful submission
+          this.resetForm();
+          
+          // Scroll to the new comment if needed
+          if (this.hasListTarget && this.listTarget.firstElementChild) {
+            this.listTarget.firstElementChild.scrollIntoView({ behavior: 'smooth' });
+          }
+        } else {
+          // Handle server errors
+          console.error("Error submitting comment:", event.detail.fetchResponse);
+          
+          // You could display a server error message here
+          if (document.getElementById('comment-error')) {
+            document.getElementById('comment-error').textContent = "There was an error posting your comment. Please try again.";
+            document.getElementById('comment-error').classList.remove('hidden');
+          }
+        }
+      }
+      
+      resetForm() {
+        if (this.hasFormTarget) {
+          this.formTarget.reset();
+          
+          // Remove any error styling
+          if (this.hasContentTarget) {
+            this.contentTarget.classList.remove("border", "border-red-500", "focus:ring-red-500");
+            this.contentTarget.classList.add("focus:ring-indigo-500");
+          }
+          
+          // Hide error message
+          if (document.getElementById('comment-error')) {
+            document.getElementById('comment-error').classList.add('hidden');
+          }
+        }
+      }
+      
+      likeComment(event) {
+        const commentId = event.currentTarget.dataset.commentId;
+        
+        // In a real app, you'd send a fetch/AJAX request to like the comment
+        fetch(`/comments/${commentId}/like`, {
+          method: 'POST',
+          headers: {
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')?.content,
+            'Content-Type': 'application/json',
+            'Accept': 'text/vnd.turbo-stream.html'
+          },
+          credentials: 'same-origin'
+        })
+        .then(response => {
+          if (response.ok) {
+            // Turbo will handle the response automatically
+            // We can add visual feedback before the server responds
+            const button = event.currentTarget;
+            const icon = button.querySelector('svg');
+            
+            // Toggle like appearance temporarily
+            icon.setAttribute('fill', icon.getAttribute('fill') === 'none' ? 'currentColor' : 'none');
+            button.classList.toggle('text-indigo-600');
+          }
+        })
+        .catch(error => console.error('Error liking comment:', error));
+      }
+      
+      replyToComment(event) {
+        const commentId = event.currentTarget.dataset.commentId;
+        
+        // Focus on comment form and update it to indicate replying
+        if (this.hasContentTarget) {
+          this.contentTarget.focus();
+          
+          // Optionally, you could update a hidden field to track the parent comment ID
+          // or prefix the comment text with @username
+          const replyingTo = event.currentTarget.closest('.flex').querySelector('h4').textContent;
+          this.contentTarget.placeholder = `Replying to ${replyingTo}...`;
+          
+          // Add a hidden field for parent_id if needed
+          let parentIdField = this.formTarget.querySelector('input[name="comment[parent_id]"]');
+          if (!parentIdField) {
+            parentIdField = document.createElement('input');
+            parentIdField.type = 'hidden';
+            parentIdField.name = 'comment[parent_id]';
+            this.formTarget.appendChild(parentIdField);
+          }
+          parentIdField.value = commentId;
+        }
+      }
+    });
+  })();
+</script>

@@ -1,0 +1,915 @@
+<!-- home/promotions.html.erb -->
+<!-- 
+  Supper Ghana Promotions Page
+  A dynamic showcase of current offers across service categories
+  Features:
+  - Responsive design with mobile-first approach
+  - Dark/light mode toggle with system preference detection
+  - Interactive promotion cards with Hotwire
+  - Category filters with instant UI updates
+  - Personalized recommendation section
+  - Countdown timers for limited offers
+  - Interactive promotional games/challenges
+-->
+
+<div class="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300" 
+     data-controller="theme promotions"
+     data-promotions-active-category-value="all">
+  
+  <!-- Theme toggle -->
+  <div class="fixed top-4 right-4 z-50">
+    <button type="button" 
+            class="rounded-full p-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white shadow-lg hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all"
+            data-action="theme#toggle">
+      <!-- Sun icon (shown in dark mode) -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+      </svg>
+      <!-- Moon icon (shown in light mode) -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Main content container -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-24">
+    
+    <!-- Page header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-3 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">
+        Special Promotions
+      </h1>
+      <p class="max-w-2xl mx-auto text-xl text-gray-500 dark:text-gray-300">
+        Exclusive deals and offers just for you
+      </p>
+    </div>
+    
+    <!-- Featured promotion carousel -->
+    <div class="relative mb-16 rounded-2xl overflow-hidden shadow-xl" data-controller="carousel">
+      <div class="relative overflow-hidden h-64 sm:h-80 md:h-96 rounded-2xl">
+        <!-- Carousel items container -->
+        <div class="flex transition-transform duration-500 ease-in-out h-full" data-carousel-target="items">
+          <!-- Featured Promo 1: Mobile Money Transfer -->
+          <div class="w-full flex-shrink-0 relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-indigo-900/80"></div>
+            <img src="/api/placeholder/1200/600" alt="Send money promotion" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 flex flex-col justify-center items-start px-6 sm:px-12 lg:px-20">
+              <div class="max-w-lg">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800 mb-4">
+                  Limited Time
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-2">Free Mobile Money Transfers</h2>
+                <p class="text-lg text-indigo-100 mb-6">Send money to anyone in Ghana with zero fees for the next 7 days!</p>
+                <div class="flex space-x-3">
+                  <a href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
+                    Send Now
+                  </a>
+                  <a href="#" class="inline-flex items-center px-4 py-2 border border-indigo-300 text-base font-medium rounded-md text-white hover:bg-indigo-800/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
+                    Learn More
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Featured Promo 2: Food Delivery -->
+          <div class="w-full flex-shrink-0 relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-amber-900/90 to-red-900/80"></div>
+            <img src="/api/placeholder/1200/600" alt="Food delivery promotion" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 flex flex-col justify-center items-start px-6 sm:px-12 lg:px-20">
+              <div class="max-w-lg">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-amber-100 text-amber-800 mb-4">
+                  New Users
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-2">50% Off Your First Order</h2>
+                <p class="text-lg text-amber-100 mb-6">Try food delivery from over 200 restaurants with half price on your first order!</p>
+                <div class="flex space-x-3">
+                  <a href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 transition-colors">
+                    Order Food
+                  </a>
+                  <a href="#" class="inline-flex items-center px-4 py-2 border border-amber-300 text-base font-medium rounded-md text-white hover:bg-amber-800/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 transition-colors">
+                    See Restaurants
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Featured Promo 3: Transportation -->
+          <div class="w-full flex-shrink-0 relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-green-900/90 to-teal-900/80"></div>
+            <img src="/api/placeholder/1200/600" alt="Ride discount promotion" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 flex flex-col justify-center items-start px-6 sm:px-12 lg:px-20">
+              <div class="max-w-lg">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 mb-4">
+                  Weekend Special
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-2">20% Off All Rides</h2>
+                <p class="text-lg text-green-100 mb-6">Enjoy discounted rides anywhere in the city every weekend this month!</p>
+                <div class="flex space-x-3">
+                  <a href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors">
+                    Book a Ride
+                  </a>
+                  <a href="#" class="inline-flex items-center px-4 py-2 border border-green-300 text-base font-medium rounded-md text-white hover:bg-green-800/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors">
+                    View Details
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Carousel controls -->
+        <button class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-900/80 rounded-full p-2 shadow-lg hover:bg-white dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all"
+                data-action="carousel#prev">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-900/80 rounded-full p-2 shadow-lg hover:bg-white dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all"
+                data-action="carousel#next">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+        
+        <!-- Carousel indicators -->
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+          <button class="w-2 h-2 rounded-full bg-white/80 hover:bg-white focus:outline-none" data-carousel-target="indicator" data-index="0" data-action="carousel#goToSlide"></button>
+          <button class="w-2 h-2 rounded-full bg-white/50 hover:bg-white focus:outline-none" data-carousel-target="indicator" data-index="1" data-action="carousel#goToSlide"></button>
+          <button class="w-2 h-2 rounded-full bg-white/50 hover:bg-white focus:outline-none" data-carousel-target="indicator" data-index="2" data-action="carousel#goToSlide"></button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Category filters -->
+    <div class="mb-12">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Explore Promotions</h2>
+        <div class="relative text-gray-500 dark:text-gray-400">
+          <select class="appearance-none bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md py-2 pl-3 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                  data-action="promotions#sortChange">
+            <option value="newest">Newest First</option>
+            <option value="ending">Ending Soon</option>
+            <option value="popular">Most Popular</option>
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+      
+      <div class="flex overflow-x-auto pb-2 -mx-4 px-4 sm:px-0 scrollbar-hide">
+        <div class="flex space-x-2 md:space-x-4">
+          <button class="whitespace-nowrap px-4 py-2 rounded-full font-medium text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors bg-blue-600 text-white hover:bg-blue-700"
+                  data-action="promotions#filterByCategory"
+                  data-category="all">
+            All Offers
+          </button>
+          <button class="whitespace-nowrap px-4 py-2 rounded-full font-medium text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-700"
+                  data-action="promotions#filterByCategory"
+                  data-category="finance">
+            Financial Services
+          </button>
+          <button class="whitespace-nowrap px-4 py-2 rounded-full font-medium text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-700"
+                  data-action="promotions#filterByCategory"
+                  data-category="food">
+            Food & Delivery
+          </button>
+          <button class="whitespace-nowrap px-4 py-2 rounded-full font-medium text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-700"
+                  data-action="promotions#filterByCategory"
+                  data-category="transport">
+            Transportation
+          </button>
+          <button class="whitespace-nowrap px-4 py-2 rounded-full font-medium text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-700"
+                  data-action="promotions#filterByCategory"
+                  data-category="shopping">
+            Shopping
+          </button>
+          <button class="whitespace-nowrap px-4 py-2 rounded-full font-medium text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-700"
+                  data-action="promotions#filterByCategory"
+                  data-category="agric">
+            Agriculture
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Promotion cards grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+      
+      <!-- Promotion Card 1: Mobile Money -->
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-all hover:shadow-xl transform hover:-translate-y-1 duration-300"
+           data-category="finance">
+        <div class="relative h-48">
+          <img src="/api/placeholder/600/400" alt="Mobile Money Transfer" class="w-full h-full object-cover" />
+          <div class="absolute top-4 left-4">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+              Finance
+            </span>
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 text-white">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-lg font-bold">Zero Transfer Fees</h3>
+                <p class="text-sm opacity-90">Valid for all mobile money transfers</p>
+              </div>
+              <div class="bg-white/20 backdrop-blur-sm rounded-lg px-2 py-1 text-sm font-semibold">
+                3 days left
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="p-5">
+          <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+            Send money to friends and family with zero fees. All mobile money transfers are free until this weekend.
+          </p>
+          <div class="flex items-center justify-between">
+            <button class="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded text-blue-700 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+              </svg>
+              Transfer Now
+            </button>
+            <div class="flex items-center">
+              <span class="mr-2 text-sm text-gray-600 dark:text-gray-300">Share:</span>
+              <button class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Promotion Card 2: Food Delivery -->
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-all hover:shadow-xl transform hover:-translate-y-1 duration-300"
+           data-category="food">
+        <div class="relative h-48">
+          <img src="/api/placeholder/600/400" alt="Food Delivery" class="w-full h-full object-cover" />
+          <div class="absolute top-4 left-4">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
+              Food
+            </span>
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 text-white">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-lg font-bold">50% Off First Order</h3>
+                <p class="text-sm opacity-90">New users only</p>
+              </div>
+              <div class="bg-white/20 backdrop-blur-sm rounded-lg px-2 py-1 text-sm font-semibold">
+                Limited time
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="p-5">
+          <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+            First-time users get 50% off (up to 50 GHS) on their first food delivery order. Valid across all partner restaurants.
+          </p>
+          <div class="flex items-center justify-between">
+            <button class="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded text-amber-700 dark:text-amber-400 bg-amber-100 dark:bg-amber-900/30 hover:bg-amber-200 dark:hover:bg-amber-900/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              Order Food
+            </button>
+            <div class="flex items-center">
+              <span class="mr-2 text-sm text-gray-600 dark:text-gray-300">Share:</span>
+              <button class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Promotion Card 3: Transport -->
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-all hover:shadow-xl transform hover:-translate-y-1 duration-300"
+           data-category="transport">
+        <div class="relative h-48">
+          <img src="/api/placeholder/600/400" alt="Ride Discount" class="w-full h-full object-cover" />
+          <div class="absolute top-4 left-4">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+              Transport
+            </span>
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 text-white">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-lg font-bold">Weekend Ride Discount</h3>
+                <p class="text-sm opacity-90">20% off all rides</p>
+              </div>
+              <div class="bg-white/20 backdrop-blur-sm rounded-lg px-2 py-1 text-sm font-semibold">
+                Every weekend
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="p-5">
+          <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+            Get 20% off on all rides every weekend throughout this month. Maximum discount of 15 GHS per ride.
+          </p>
+          <div class="flex items-center justify-between">
+            <button class="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded text-green-700 dark:text-green-400 bg-green-100 dark:bg-green-900/30 hover:bg-green-200 dark:hover:bg-green-900/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+              </svg>
+              Book a Ride
+            </button>
+            <div class="flex items-center">
+              <span class="mr-2 text-sm text-gray-600 dark:text-gray-300">Share:</span>
+              <button class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Promotion Card 4: Shopping -->
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-all hover:shadow-xl transform hover:-translate-y-1 duration-300"
+           data-category="shopping">
+        <div class="relative h-48">
+          <img src="/api/placeholder/600/400" alt="Shopping Discount" class="w-full h-full object-cover" />
+          <div class="absolute top-4 left-4">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+              Shopping
+            </span>
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 text-white">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-lg font-bold">Free Shipping Weekend</h3>
+                <p class="text-sm opacity-90">On all marketplace orders</p>
+              </div>
+              <div class="bg-white/20 backdrop-blur-sm rounded-lg px-2 py-1 text-sm font-semibold">
+                5 days left
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="p-5">
+          <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+            Shop from any merchant on our marketplace and get free shipping on all orders. No minimum purchase required.
+          </p>
+          <div class="flex items-center justify-between">
+            <button class="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded text-purple-700 dark:text-purple-400 bg-purple-100 dark:bg-purple-900/30 hover:bg-purple-200 dark:hover:bg-purple-900/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+              </svg>
+              Shop Now
+            </button>
+            <div class="flex items-center">
+              <span class="mr-2 text-sm text-gray-600 dark:text-gray-300">Share:</span>
+              <button class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Promotion Card 5: Agriculture -->
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-all hover:shadow-xl transform hover:-translate-y-1 duration-300"
+           data-category="agric">
+        <div class="relative h-48">
+          <img src="/api/placeholder/600/400" alt="Agriculture Service" class="w-full h-full object-cover" />
+          <div class="absolute top-4 left-4">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+              Agriculture
+            </span>
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 text-white">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-lg font-bold">Farmer Connect Discount</h3>
+                <p class="text-sm opacity-90">30% off seller fees</p>
+              </div>
+              <div class="bg-white/20 backdrop-blur-sm rounded-lg px-2 py-1 text-sm font-semibold">
+                Seasonal
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="p-5">
+          <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+            Farmers can list their produce with 30% reduced platform fees during harvest season. Connect directly with buyers.
+          </p>
+          <div class="flex items-center justify-between">
+            <button class="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded text-green-700 dark:text-green-400 bg-green-100 dark:bg-green-900/30 hover:bg-green-200 dark:hover:bg-green-900/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+              </svg>
+              Learn More
+            </button>
+            <div class="flex items-center">
+              <span class="mr-2 text-sm text-gray-600 dark:text-gray-300">Share:</span>
+              <button class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Promotion Card 6: Bill Payments -->
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-all hover:shadow-xl transform hover:-translate-y-1 duration-300"
+           data-category="finance">
+        <div class="relative h-48">
+          <img src="/api/placeholder/600/400" alt="Bill Payment Cashback" class="w-full h-full object-cover" />
+          <div class="absolute top-4 left-4">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+              Finance
+            </span>
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 text-white">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-lg font-bold">5% Cashback on Bills</h3>
+                <p class="text-sm opacity-90">All utility payments</p>
+              </div>
+              <div class="bg-white/20 backdrop-blur-sm rounded-lg px-2 py-1 text-sm font-semibold">
+                2 weeks left
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="p-5">
+          <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+            Get 5% cashback when you pay electricity, water, or internet bills through our app. Cashback credited instantly.
+          </p>
+          <div class="flex items-center justify-between">
+            <button class="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded text-blue-700 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+              </svg>
+              Pay Bills
+            </button>
+            <div class="flex items-center">
+              <span class="mr-2 text-sm text-gray-600 dark:text-gray-300">Share:</span>
+              <button class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Limited Time Flash Deals -->
+    <div class="mb-16">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Flash Deals</h2>
+        <a href="#" class="text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
+          View All <span aria-hidden="true">→</span>
+        </a>
+      </div>
+      
+      <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl shadow-xl overflow-hidden" data-controller="countdown" data-countdown-end-value="2025-03-16T23:59:59">
+        <div class="p-6 md:p-8">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+            <div class="mb-6 md:mb-0">
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white/20 text-white mb-3">
+                Flash Deal
+              </span>
+              <h3 class="text-2xl md:text-3xl font-bold text-white mb-2">Super App Anniversary Sale!</h3>
+              <p class="text-indigo-100 text-lg mb-4">Up to 70% off across all services for 24 hours only!</p>
+              <button class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-indigo-700 bg-white hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white transition-colors">
+                Explore Deals
+              </button>
+            </div>
+            
+            <div class="flex flex-col items-center">
+              <div class="text-center mb-2">
+                <span class="text-white text-sm font-medium">Ends in:</span>
+              </div>
+              <div class="grid grid-cols-4 gap-2 text-center" data-countdown-target="display">
+                <div class="flex flex-col bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2">
+                  <span class="text-white text-2xl font-bold" data-countdown-target="days">00</span>
+                  <span class="text-indigo-200 text-xs">Days</span>
+                </div>
+                <div class="flex flex-col bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2">
+                  <span class="text-white text-2xl font-bold" data-countdown-target="hours">00</span>
+                  <span class="text-indigo-200 text-xs">Hours</span>
+                </div>
+                <div class="flex flex-col bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2">
+                  <span class="text-white text-2xl font-bold" data-countdown-target="minutes">00</span>
+                  <span class="text-indigo-200 text-xs">Mins</span>
+                </div>
+                <div class="flex flex-col bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2">
+                  <span class="text-white text-2xl font-bold" data-countdown-target="seconds">00</span>
+                  <span class="text-indigo-200 text-xs">Secs</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Personalized Recommendations -->
+    <div class="mb-16">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Recommended For You</h2>
+        <button class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+        </button>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Personalized Recommendation 1 -->
+        <div class="bg-gradient-to-br from-pink-500/90 to-purple-600/90 rounded-xl shadow-lg overflow-hidden relative">
+          <div class="absolute top-0 left-0 w-full h-full opacity-10">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="absolute top-6 right-6 w-32 h-32 text-white">
+              <path d="M4 4c0-1.1.9-2 2-2h12a2 2 0 012 2v16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm3 1a1 1 0 00-1 1v10a1 1 0 001 1h10a1 1 0 001-1V6a1 1 0 00-1-1H7z"></path>
+            </svg>
+          </div>
+          <div class="p-6 relative z-10">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-pink-200 text-pink-800 mb-3">
+              Based on your purchases
+            </span>
+            <h3 class="text-xl font-bold text-white mb-2">Favorite Restaurant Deals</h3>
+            <p class="text-pink-100 mb-4">Special discounts at your top 3 ordered restaurants. Up to 25% off your next meal!</p>
+            <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-pink-700 bg-white hover:bg-pink-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-pink-600 focus:ring-white transition-colors">
+              View Deals
+            </button>
+          </div>
+        </div>
+        
+        <!-- Personalized Recommendation 2 -->
+        <div class="bg-gradient-to-br from-sky-500/90 to-blue-600/90 rounded-xl shadow-lg overflow-hidden relative">
+          <div class="absolute top-0 left-0 w-full h-full opacity-10">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="absolute top-6 right-6 w-32 h-32 text-white">
+              <path d="M10.464 8.746c.227-.18.497-.311.786-.394v2.795a2.252 2.252 0 01-.786-.393c-.394-.313-.546-.681-.546-1.004 0-.323.152-.691.546-1.004zM12.75 15.662v-2.824c.347.085.664.228.921.421.427.32.579.686.579.991 0 .305-.152.671-.579.991a2.534 2.534 0 01-.921.42z" />
+              <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v.816a3.836 3.836 0 00-1.72.756c-.712.566-1.112 1.35-1.112 2.178 0 .829.4 1.612 1.113 2.178.502.4 1.102.647 1.719.756v2.978a2.536 2.536 0 01-.921-.421l-.879-.66a.75.75 0 00-.9 1.2l.879.66c.533.4 1.169.645 1.821.75V18a.75.75 0 001.5 0v-.81a3.833 3.833 0 001.719-.756c.712-.566 1.112-1.35 1.112-2.178 0-.829-.4-1.612-1.113-2.178a3.833 3.833 0 00-1.718-.756V8.334c.29.082.559.213.786.393l.415.33a.75.75 0 00.933-1.175l-.415-.33a3.836 3.836 0 00-1.719-.755V6z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="p-6 relative z-10">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-200 text-blue-800 mb-3">
+              Personalized for you
+            </span>
+            <h3 class="text-xl font-bold text-white mb-2">Savings Incentive Program</h3>
+            <p class="text-blue-100 mb-4">You're close to a milestone! 10% bonus when you add 200 GHS to your savings goal.</p>
+            <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-blue-700 bg-white hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-blue-600 focus:ring-white transition-colors">
+              Boost Savings
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Referral Program -->
+    <div class="mb-8">
+      <div class="bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl shadow-xl overflow-hidden">
+        <div class="p-6 md:p-8">
+          <div class="flex flex-col md:flex-row items-center">
+            <div class="mb-8 md:mb-0 md:mr-8 md:w-1/2">
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white/20 text-white mb-3">
+                Referral Program
+              </span>
+              <h3 class="text-2xl md:text-3xl font-bold text-white mb-2">Invite Friends, Earn Rewards</h3>
+              <p class="text-teal-100 mb-6">Earn 20 GHS for each friend who joins and completes their first transaction. They get 20 GHS too!</p>
+              <div class="space-y-4">
+                <div class="relative">
+                  <input type="text" value="SUPPER-FRIEND-2025" readonly 
+                         class="w-full pr-12 py-3 px-4 border-0 rounded-lg focus:ring-2 focus:ring-white/50 bg-white/10 text-white placeholder-white/50" 
+                         data-controller="clipboard" 
+                         data-clipboard-target="source" />
+                  <button class="absolute right-1 top-1 p-2 text-white hover:text-teal-200 transition-colors rounded-md"
+                          data-action="clipboard#copy">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                    </svg>
+                  </button>
+                  <div class="hidden absolute right-0 -bottom-8 bg-white text-teal-800 text-xs font-medium py-1 px-2 rounded shadow-sm"
+                       data-clipboard-target="notification">
+                    Copied to clipboard!
+                  </div>
+                </div>
+                
+                <div class="flex space-x-3">
+                  <button class="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
+                    </svg>
+                  </button>
+                  <button class="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+                    </svg>
+                  </button>
+                  <button class="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M18.384,22.779c0.322,0.228,0.737,0.285,1.107,0.145c0.37-0.141,0.642-0.457,0.724-0.84c0.869-4.084,2.977-14.421,3.768-18.136C24.045,4.041,23.8,3.5,23.292,3.147c-0.499-0.347-1.18-0.413-1.75-0.168c-4.169,1.777-16.292,6.837-21.304,8.947c-0.358,0.149-0.595,0.493-0.608,0.879c-0.013,0.386,0.199,0.743,0.545,0.915c1.968,0.974,4.576,2.24,4.576,2.24s1.217,3.586,1.853,5.4c0.101,0.29,0.316,0.533,0.593,0.671c0.278,0.137,0.602,0.154,0.892,0.044c1.017-0.385,2.875-1.073,2.875-1.073s3.02,2.735,4.714,4.204L18.384,22.779z M10.268,16.488l2.637,2.373l0.368-3.833L17.332,8.6L8.745,14.188L10.268,16.488z" />
+                    </svg>
+                  </button>
+                  <button class="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M7.971,12c0,0.564 0.102,1.1 0.286,1.613l-2.858,2.119 1.085,1.85 2.876,-2.134c0.294,0.324 0.631,0.603 0.997,0.829l0,3.723h2.001l0,-3.621c0.414,-0.242 0.783,-0.547 1.094,-0.899l2.913,2.162 1.084,-1.85 -2.89,-2.144c0.184,-0.514 0.286,-1.05 0.286,-1.615 0,-0.596 -0.114,-1.164 -0.324,-1.69l2.93,-2.172 -1.084,-1.85 -2.965,2.198c-0.702,-0.797 -1.661,-1.342 -2.747,-1.508l0,-2.972h-2.001l0,2.973c-1.119,0.172 -2.104,0.742 -2.814,1.567l-2.928,-2.17 -1.086,1.85 2.875,2.134c-0.18,0.493 -0.28,1.019 -0.28,1.569Z" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="relative md:w-1/2">
+              <img src="/api/placeholder/600/400" alt="Referral program illustration" class="w-full rounded-xl shadow-lg" />
+              <div class="absolute top-4 right-4 bg-white rounded-lg shadow-lg p-3">
+                <div class="flex flex-col items-center">
+                  <p class="text-xs text-gray-500 mb-1">Your Invites</p>
+                  <p class="text-xl font-bold text-teal-600">42</p>
+                </div>
+              </div>
+              <div class="absolute bottom-4 left-4 bg-white rounded-lg shadow-lg p-3">
+                <div class="flex flex-col items-center">
+                  <p class="text-xs text-gray-500 mb-1">Earnings</p>
+                  <p class="text-xl font-bold text-teal-600">840 GHS</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Stimulus controllers would be registered here in a real Rails app with Stimulus
+  // For simplicity, we'll include stub implementations to show the functionality
+  
+  (() => {
+    // Theme controller
+    const themeController = {
+      connect() {
+        // Check for saved theme preference or use system preference
+        const savedTheme = localStorage.getItem('theme');
+        const systemDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && systemDarkMode)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      },
+      
+      toggle() {
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      }
+    };
+    
+    // Carousel controller
+    const carouselController = {
+      connect() {
+        this.items = document.querySelector('[data-carousel-target="items"]');
+        this.indicators = document.querySelectorAll('[data-carousel-target="indicator"]');
+        this.currentIndex = 0;
+        this.itemCount = 3; // Hardcoded for demo
+        
+        // Auto rotate
+        this.startAutoRotation();
+      },
+      
+      startAutoRotation() {
+        this.autoRotationTimer = setInterval(() => {
+          this.next();
+        }, 5000);
+      },
+      
+      stopAutoRotation() {
+        clearInterval(this.autoRotationTimer);
+      },
+      
+      prev() {
+        this.stopAutoRotation();
+        this.currentIndex = (this.currentIndex - 1 + this.itemCount) % this.itemCount;
+        this.updateCarousel();
+        this.startAutoRotation();
+      },
+      
+      next() {
+        this.stopAutoRotation();
+        this.currentIndex = (this.currentIndex + 1) % this.itemCount;
+        this.updateCarousel();
+        this.startAutoRotation();
+      },
+      
+      goToSlide(event) {
+        this.stopAutoRotation();
+        this.currentIndex = parseInt(event.currentTarget.dataset.index);
+        this.updateCarousel();
+        this.startAutoRotation();
+      },
+      
+      updateCarousel() {
+        // Update transform
+        this.items.style.transform = `translateX(-${this.currentIndex * 100}%)`;
+        
+        // Update indicators
+        this.indicators.forEach((indicator, index) => {
+          if (index === this.currentIndex) {
+            indicator.classList.add('bg-white/80');
+            indicator.classList.remove('bg-white/50');
+          } else {
+            indicator.classList.remove('bg-white/80');
+            indicator.classList.add('bg-white/50');
+          }
+        });
+      }
+    };
+    
+    // Promotions controller
+    const promotionsController = {
+      connect() {
+        this.activeCategory = 'all';
+      },
+      
+      filterByCategory(event) {
+        const category = event.currentTarget.dataset.category;
+        this.activeCategory = category;
+        
+        // Update button styles
+        const allButtons = document.querySelectorAll('[data-action="promotions#filterByCategory"]');
+        allButtons.forEach(button => {
+          if (button.dataset.category === category) {
+            button.classList.remove('bg-white', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-200', 'border', 'border-gray-300', 'dark:border-gray-700');
+            button.classList.add('bg-blue-600', 'text-white', 'hover:bg-blue-700');
+          } else {
+            button.classList.add('bg-white', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-200', 'border', 'border-gray-300', 'dark:border-gray-700');
+            button.classList.remove('bg-blue-600', 'text-white', 'hover:bg-blue-700');
+          }
+        });
+        
+        // Filter cards
+        const allCards = document.querySelectorAll('[data-category]');
+        allCards.forEach(card => {
+          if (category === 'all' || card.dataset.category === category) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      },
+      
+      sortChange(event) {
+        // In a real app, this would sort the promotions
+        console.log('Sort by:', event.target.value);
+      }
+    };
+    
+    // Countdown controller
+    const countdownController = {
+      connect() {
+        this.endDate = new Date(this.element.dataset.countdownEndValue);
+        this.daysElement = this.element.querySelector('[data-countdown-target="days"]');
+        this.hoursElement = this.element.querySelector('[data-countdown-target="hours"]');
+        this.minutesElement = this.element.querySelector('[data-countdown-target="minutes"]');
+        this.secondsElement = this.element.querySelector('[data-countdown-target="seconds"]');
+        
+        this.updateCountdown();
+        this.interval = setInterval(() => this.updateCountdown(), 1000);
+      },
+      
+      disconnect() {
+        clearInterval(this.interval);
+      },
+      
+      updateCountdown() {
+        const now = new Date();
+        const diff = this.endDate - now;
+        
+        if (diff <= 0) {
+          this.daysElement.textContent = '00';
+          this.hoursElement.textContent = '00';
+          this.minutesElement.textContent = '00';
+          this.secondsElement.textContent = '00';
+          clearInterval(this.interval);
+          return;
+        }
+        
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        
+        this.daysElement.textContent = days.toString().padStart(2, '0');
+        this.hoursElement.textContent = hours.toString().padStart(2, '0');
+        this.minutesElement.textContent = minutes.toString().padStart(2, '0');
+        this.secondsElement.textContent = seconds.toString().padStart(2, '0');
+      }
+    };
+    
+    // Clipboard controller
+    const clipboardController = {
+      connect() {
+        this.sourceElement = this.element.querySelector('[data-clipboard-target="source"]');
+        this.notificationElement = this.element.querySelector('[data-clipboard-target="notification"]');
+      },
+      
+      copy() {
+        const text = this.sourceElement.value;
+        navigator.clipboard.writeText(text).then(() => {
+          this.showNotification();
+        });
+      },
+      
+      showNotification() {
+        this.notificationElement.classList.remove('hidden');
+        setTimeout(() => {
+          this.notificationElement.classList.add('hidden');
+        }, 2000);
+      }
+    };
+    
+    // Mock Stimulus initialization for demo
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize theme controller
+      const themeElement = document.querySelector('[data-controller~="theme"]');
+      if (themeElement) {
+        themeController.element = themeElement;
+        themeController.connect();
+        
+        const themeToggle = themeElement.querySelector('[data-action="theme#toggle"]');
+        if (themeToggle) {
+          themeToggle.addEventListener('click', () => themeController.toggle());
+        }
+      }
+      
+      // Initialize carousel controller
+      const carouselElement = document.querySelector('[data-controller~="carousel"]');
+      if (carouselElement) {
+        carouselController.element = carouselElement;
+        carouselController.connect();
+        
+        const prevButton = carouselElement.querySelector('[data-action="carousel#prev"]');
+        const nextButton = carouselElement.querySelector('[data-action="carousel#next"]');
+        const indicators = carouselElement.querySelectorAll('[data-action="carousel#goToSlide"]');
+        
+        if (prevButton) prevButton.addEventListener('click', () => carouselController.prev());
+        if (nextButton) nextButton.addEventListener('click', () => carouselController.next());
+        if (indicators.length) {
+          indicators.forEach(indicator => {
+            indicator.addEventListener('click', (event) => carouselController.goToSlide(event));
+          });
+        }
+      }
+      
+      // Initialize promotions controller
+      const promotionsElement = document.querySelector('[data-controller~="promotions"]');
+      if (promotionsElement) {
+        promotionsController.element = promotionsElement;
+        promotionsController.connect();
+        
+        const categoryButtons = promotionsElement.querySelectorAll('[data-action="promotions#filterByCategory"]');
+        const sortSelect = promotionsElement.querySelector('[data-action="promotions#sortChange"]');
+        
+        if (categoryButtons.length) {
+          categoryButtons.forEach(button => {
+            button.addEventListener('click', (event) => promotionsController.filterByCategory(event));
+          });
+        }
+        
+        if (sortSelect) {
+          sortSelect.addEventListener('change', (event) => promotionsController.sortChange(event));
+        }
+      }
+      
+      // Initialize countdown controller
+      const countdownElement = document.querySelector('[data-controller~="countdown"]');
+      if (countdownElement) {
+        countdownController.element = countdownElement;
+        countdownController.connect();
+      }
+      
+      // Initialize clipboard controller
+      const clipboardElement = document.querySelector('[data-controller~="clipboard"]');
+      if (clipboardElement) {
+        clipboardController.element = clipboardElement;
+        clipboardController.connect();
+        
+        const copyButton = clipboardElement.querySelector('[data-action="clipboard#copy"]');
+        if (copyButton) {
+          copyButton.addEventListener('click', () => clipboardController.copy());
+        }
+      }
+    });
+  })();
+</script>

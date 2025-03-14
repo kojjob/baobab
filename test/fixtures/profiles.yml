@@ -1,0 +1,45 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  first_name: MyString
+  last_name: MyString
+  profile_username: MyString
+  profile_phone_number: MyString
+  profile_date_of_birth: 2025-03-10
+  profile_bio: MyText
+  profile_location: MyString
+  profile_website: MyString
+  profile_gender: 1
+  profile_language: MyString
+  profile_views_count: 1
+  profile_last_seen_at: 2025-03-10 00:55:29
+  profile_verification_status: 1
+  profile_referral_code: MyString
+  profile_social_links: 
+  profile_privacy_settings: 
+  profile_tags: MyString
+  profile_interests: MyString
+  profile_completion: 1
+  deleted_at: 2025-03-10 00:55:29
+
+two:
+  first_name: MyString
+  last_name: MyString
+  profile_username: MyString
+  profile_phone_number: MyString
+  profile_date_of_birth: 2025-03-10
+  profile_bio: MyText
+  profile_location: MyString
+  profile_website: MyString
+  profile_gender: 1
+  profile_language: MyString
+  profile_views_count: 1
+  profile_last_seen_at: 2025-03-10 00:55:29
+  profile_verification_status: 1
+  profile_referral_code: MyString
+  profile_social_links: 
+  profile_privacy_settings: 
+  profile_tags: MyString
+  profile_interests: MyString
+  profile_completion: 1
+  deleted_at: 2025-03-10 00:55:29

@@ -1,0 +1,476 @@
+<%# Enhanced Profile Page %>
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-black py-12 px-4 sm:px-6 lg:px-8"
+     data-controller="profile-management">
+  <div class="max-w-6xl mx-auto">
+    <%# Profile Container %>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <%# Sidebar - Profile Overview %>
+      <div class="lg:col-span-1 space-y-6">
+        <%# Profile Card %>
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 text-center">
+          <%# Avatar Section %>
+          <div class="relative group mb-6">
+            <%= form_for(resource, as: resource_name, url: registration_path(resource_name), 
+                         html: { method: :put, multipart: true, class: 'avatar-upload-form' }) do |f| %>
+              <div class="relative mx-auto w-32 h-32">
+                <% if current_user.avatar.attached? %>
+                  <%= image_tag current_user.avatar.variant(resize_to_fill: [256, 256]), 
+                      class: "w-32 h-32 rounded-full object-cover border-4 border-white dark:border-gray-700 shadow-lg group-hover:opacity-50 transition-opacity" %>
+                <% else %>
+                  <div class="w-32 h-32 rounded-full bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center text-white text-4xl font-bold shadow-lg">
+                    <%= current_user.username.first.upcase %>
+                  </div>
+                <% end %>
+                
+                <%# Avatar Upload Overlay %>
+                <label class="absolute inset-0 rounded-full cursor-pointer flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black bg-opacity-50 text-white">
+                  <%= f.file_field :avatar, 
+                      class: "hidden", 
+                      accept: 'image/png,image/jpeg,image/gif',
+                      data: { 
+                        direct_upload_url: rails_direct_uploads_url,
+                        max_file_size: 5.megabytes 
+                      } %>
+                  <span class="text-sm flex items-center">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    Change Photo
+                  </span>
+                </label>
+              </div>
+            <% end %>
+          </div>
+
+          <%# User Details %>
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+              <%= current_user.username %>
+            </h2>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+              <%= current_user.email %>
+            </p>
+
+            <%# User Badges %>
+            <div class="flex justify-center space-x-2 mb-6">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                Verified
+              </span>
+              <% if current_user.pro_member? %>
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                  Pro Member
+                </span>
+              <% end %>
+            </div>
+
+            <%# Quick Stats %>
+            <div class="grid grid-cols-3 gap-4 border-t border-gray-200 dark:border-gray-700 pt-6">
+              <div>
+                <p class="text-lg font-bold text-gray-900 dark:text-white">42</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Orders</p>
+              </div>
+              <div>
+                <p class="text-lg font-bold text-gray-900 dark:text-white">7</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Services</p>
+              </div>
+              <div>
+                <p class="text-lg font-bold text-gray-900 dark:text-white">3</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Active</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <%# Quick Actions %>
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Quick Actions</h3>
+          <div class="space-y-3">
+            <% quick_actions = [
+              { 
+                name: 'Wallet', 
+                icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />', 
+                link: '#wallet' 
+              },
+              { 
+                name: 'Notifications', 
+                icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />', 
+                link: '#notifications' 
+              },
+              { 
+                name: 'Security', 
+                icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />', 
+                link: '#security' 
+              }
+            ] %>
+
+            <% quick_actions.each do |action| %>
+              <a href="<%= action[:link] %>" class="flex items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-700 p-3 rounded-lg transition">
+                <div class="flex items-center space-x-3">
+                  <div class="bg-gray-100 dark:bg-gray-700 p-2 rounded-full">
+                    <svg class="w-5 h-5 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <%= action[:icon] %>
+                    </svg>
+                  </div>
+                  <span class="text-sm font-medium text-gray-900 dark:text-white"><%= action[:name] %></span>
+                </div>
+                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </a>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <%# Main Content - Profile Details %>
+      <div class="lg:col-span-2 space-y-6">
+        <%# Tabs Navigation %>
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
+          <div class="border-b border-gray-200 dark:border-gray-700">
+            <nav class="-mb-px flex" aria-label="Tabs">
+              <% tabs = [
+                { id: 'profile', name: 'Profile', icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z' },
+                { id: 'account', name: 'Account', icon: 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z' },
+                { id: 'security', name: 'Security', icon: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z' }
+              ] %>
+
+              <% tabs.each_with_index do |tab, index| %>
+                <a href="#<%= tab[:id] %>" 
+                   data-tab="<%= tab[:id] %>" 
+                   class="tab-link w-1/3 py-4 text-center flex items-center justify-center space-x-2 
+                          <%= index == 0 ? 'active text-gray-900 dark:text-white border-b-2 border-gray-900 dark:border-white' : 'text-gray-500 dark:text-gray-400 border-b-2 border-transparent' %> 
+                          hover:text-gray-700 dark:hover:text-gray-300 
+                          hover:border-gray-300 dark:hover:border-gray-600">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="<%= tab[:icon] %>"></path>
+                  </svg>
+                  <span class="text-sm font-medium"><%= tab[:name] %></span>
+                </a>
+              <% end %>
+            </nav>
+          </div>
+
+          <%# Tab Content %>
+          <div id="profile-tab" class="tab-content p-6 space-y-6">
+            <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <%# Personal Information %>
+                <div>
+                  <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 pb-2 border-b border-gray-200 dark:border-gray-700">
+                    Personal Information
+                  </h3>
+                  
+                  <div class="space-y-4">
+                    <div>
+                      <%= f.label :username, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+                      <%= f.text_field :username, 
+                          class: "py-2 px-3 mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-green-500 focus:ring-green-500" %>
+                    </div>
+
+                    <div>
+                      <%= f.label :phone, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+                      <div class="mt-1 flex rounded-md shadow-sm">
+                        <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400">
+                          +233
+                        </span>
+                        <%= f.telephone_field :phone, 
+                            placeholder: "554 123 4567",
+                            class: "py-2 px-3 flex-1 block w-full rounded-none rounded-r-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-green-500 focus:ring-green-500" %>
+                      </div>
+                      <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                        Used for account recovery and notifications
+                      </p>
+                    </div>
+
+                    <div>
+                      <%= f.label :date_of_birth, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+                      <%= f.date_field :date_of_birth, 
+                          class: "py-2 px-3 mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-green-500 focus:ring-green-500" %>
+                    </div>
+
+                    <div>
+                      <%= f.label :bio, "Short Bio", class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+                      <%= f.text_area :bio, 
+                          rows: 3,
+                          placeholder: "Tell us a bit about yourself",
+                          class: "py-2 px-3 mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-green-500 focus:ring-green-500" %>
+                    </div>
+                  </div>
+                </div>
+
+                <%# Location Information %>
+                <div>
+                  <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 pb-2 border-b border-gray-200 dark:border-gray-700">
+                    Location Details
+                  </h3>
+                  
+                  <div class="space-y-4">
+                    <div>
+                      <%= f.label :region, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+                      <%= f.select :region, 
+                          [
+                            'Greater Accra', 'Ashanti', 'Western', 'Central', 
+                            'Eastern', 'Volta', 'Northern', 'Upper East', 
+                            'Upper West', 'Brong Ahafo', 'Ahafo', 'Oti'
+                          ], 
+                          { prompt: 'Select Region' },
+                          class: "py-2 px-3 mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-green-500 focus:ring-green-500" %>
+                    </div>
+
+                    <div>
+                      <%= f.label :city, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+                      <%= f.text_field :city, 
+                          class: "py-2 px-3 mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-green-500 focus:ring-green-500" %>
+                    </div>
+
+                    <div>
+                      <%= f.label :address, "Detailed Address", class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+                      <%= f.text_area :address, 
+                          rows: 3,
+                          class: "px-3 mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-green-500 focus:ring-green-500" %>
+                    </div>
+
+                    <div>
+                      <%= f.label :current_password, "Confirm Password", class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+                      <%= f.password_field :current_password, 
+                          autocomplete: "current-password", 
+                          class: "py-2 px-3 mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-green-500 focus:ring-green-500", 
+                          placeholder: "Enter current password to confirm changes" %>
+                      <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                        We need your current password to confirm any profile changes
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <%# Save Changes Button %>
+              <div class="mt-8 flex justify-end">
+                <%= f.submit "Save Profile Changes", 
+                    class: "inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all duration-300 transform hover:scale-105 active:scale-95" %>
+              </div>
+            <% end %>
+          </div>
+
+          <%# Account Tab Content %>
+          <div id="account-tab" class="tab-content p-6 hidden space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <%# Account Preferences %>
+              <div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 pb-2 border-b border-gray-200 dark:border-gray-700">
+                  Account Preferences
+                </h3>
+                
+                <div class="space-y-4">
+                  <%# Language Selector %>
+                  <div>
+                    <label for="language" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                      Preferred Language
+                    </label>
+                    <select id="language" name="language" 
+                            class="mt-1 block w-full py-2 px-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+                      <option value="en">English</option>
+                      <option value="tw">Twi</option>
+                      <option value="ga">Ga</option>
+                      <option value="ha">Hausa</option>
+                    </select>
+                  </div>
+
+                  <%# Notification Preferences %>
+                  <div>
+                    <fieldset>
+                      <legend class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Notification Preferences
+                      </legend>
+                      <div class="mt-4 space-y-4">
+                        <div class="flex items-center">
+                          <input id="email_notifications" name="email_notifications" type="checkbox" 
+                                 class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded">
+                          <label for="email_notifications" class="ml-3 block text-sm text-gray-900 dark:text-gray-300">
+                            Email Notifications
+                          </label>
+                        </div>
+                        <div class="flex items-center">
+                          <input id="sms_notifications" name="sms_notifications" type="checkbox" 
+                                 class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded">
+                          <label for="sms_notifications" class="ml-3 block text-sm text-gray-900 dark:text-gray-300">
+                            SMS Notifications
+                          </label>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+
+              <%# Subscription & Billing %>
+              <div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 pb-2 border-b border-gray-200 dark:border-gray-700">
+                  Subscription & Billing
+                </h3>
+                
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 space-y-4">
+                  <div class="flex justify-between items-center">
+                    <div>
+                      <h4 class="text-sm font-medium text-gray-900 dark:text-white">
+                        Current Plan
+                      </h4>
+                      <p class="text-sm text-gray-500 dark:text-gray-400">
+                        Basic Membership
+                      </p>
+                    </div>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                      Active
+                    </span>
+                  </div>
+
+                  <div class="border-t border-gray-200 dark:border-gray-600 pt-4">
+                    <dl class="grid grid-cols-2 gap-x-4 gap-y-2">
+                      <dt class="text-sm text-gray-500 dark:text-gray-400">Next Billing Date</dt>
+                      <dd class="text-sm text-gray-900 dark:text-white">July 15, 2024</dd>
+                      
+                      <dt class="text-sm text-gray-500 dark:text-gray-400">Monthly Rate</dt>
+                      <dd class="text-sm text-gray-900 dark:text-white">GHS 29.99</dd>
+                    </dl>
+                  </div>
+
+                  <div class="mt-4 flex space-x-3">
+                    <%= link_to "Upgrade Plan", "#", 
+                        class: "w-full inline-flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" %>
+                    <%= link_to "Manage Billing", "#", 
+                        class: "w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <%# Security Tab Content %>
+          <div id="security-tab" class="tab-content p-6 hidden space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <%# Password Management %>
+              <div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 pb-2 border-b border-gray-200 dark:border-gray-700">
+                  Change Password
+                </h3>
+                
+                <div class="space-y-4">
+                  <div>
+                    <label for="current_password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                      Current Password
+                    </label>
+                    <div class="mt-1">
+                      <input type="password" id="current_password" name="current_password" 
+                             class="py-2 px-3 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-green-500 focus:ring-green-500">
+                    </div>
+                  </div>
+
+                  <div>
+                    <label for="new_password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                      New Password
+                    </label>
+                    <div class="mt-1">
+                      <input type="password" id="new_password" name="new_password" 
+                             class="py-2 px-3 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-green-500 focus:ring-green-500">
+                    </div>
+                    <div class="mt-2">
+                      <div class="h-1 w-full bg-gray-200 rounded-full overflow-hidden">
+                        <div id="password-strength" class="h-full w-0 transition-all duration-300"></div>
+                      </div>
+                      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                        Password must be at least 8 characters long
+                      </p>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label for="confirm_new_password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                      Confirm New Password
+                    </label>
+                    <div class="mt-1">
+                      <input type="password" id="confirm_new_password" name="confirm_new_password" 
+                             class="py-2 px-3 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-green-500 focus:ring-green-500">
+                    </div>
+                  </div>
+
+                  <div class="mt-4">
+                    <button type="button" 
+                            class="w-full inline-flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                      Change Password
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <%# Two-Factor Authentication %>
+              <div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 pb-2 border-b border-gray-200 dark:border-gray-700">
+                  Two-Factor Authentication
+                </h3>
+                
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 space-y-4">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <h4 class="text-sm font-medium text-gray-900 dark:text-white">
+                        Two-Factor Authentication
+                      </h4>
+                      <p class="text-sm text-gray-500 dark:text-gray-400">
+                        Add an extra layer of security to your account
+                      </p>
+                    </div>
+                    <div>
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                        Disabled
+                      </span>
+                    </div>
+                  </div>
+                <div class="mt-4">
+                    <button type="button" 
+                            class="w-full inline-flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                      Enable Two-Factor Authentication
+                    </button>
+                  </div>
+
+                  <div class="border-t border-gray-200 dark:border-gray-600 pt-4 mt-4">
+                    <h4 class="text-sm font-medium text-gray-900 dark:text-white mb-2">
+                      Recommended Authentication Methods
+                    </h4>
+                    <div class="space-y-3">
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                          <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                          </svg>
+                          <span class="text-sm text-gray-700 dark:text-gray-300">
+                            Authenticator App
+                          </span>
+                        </div>
+                        <span class="text-sm text-gray-500 dark:text-gray-400">
+                          Recommended
+                        </span>
+                      </div>
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                          <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                          </svg>
+                          <span class="text-sm text-gray-700 dark:text-gray-300">
+                            SMS Verification
+                          </span>
+                        </div>
+                        <span class="text-sm text-gray-500 dark:text-gray-400">
+                          Alternative
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

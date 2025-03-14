@@ -1,0 +1,64 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-6">User Profiles</h1>
+
+  <% if @profiles.any? %>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <% @profiles.each do |profile| %>
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+          <div class="p-6">
+            <div class="flex items-center space-x-4 mb-4">
+              <% if profile.user.avatar.attached? %>
+                <%= image_tag profile.user.avatar.variant(resize_to_fill: [80, 80]), 
+                    class: "w-20 h-20 rounded-full object-cover" %>
+              <% else %>
+                <div class="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center">
+                  <%= profile.first_name.first.upcase %>
+                </div>
+              <% end %>
+              
+              <div>
+                <h2 class="text-xl font-semibold">
+                  <%= "#{profile.first_name} #{profile.last_name}" %>
+                </h2>
+                <p class="text-gray-600">@<%= profile.profile_username %></p>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <% if profile.profile_location.present? %>
+                <div class="flex items-center text-gray-600">
+                  <svg class="w-5 h-5 mr-2 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                  </svg>
+                  <%= profile.profile_location %>
+                </div>
+              <% end %>
+
+              <% if profile.profile_bio.present? %>
+                <p class="text-gray-700 line-clamp-2">
+                  <%= profile.profile_bio %>
+                </p>
+              <% end %>
+            </div>
+
+            <div class="mt-4 flex justify-between items-center">
+              <%= link_to "View Profile", profile_path(profile), 
+                  class: "inline-block px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition" %>
+              
+              <div class="flex items-center space-x-2 text-gray-500">
+                <span><%= profile.profile_views_count || 0 %> views</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+      <p class="text-yellow-700">
+        No profiles found. 
+        <%= link_to "Create your profile", new_profile_path, class: "underline" %>.
+      </p>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,47 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="mb-8">
+    <div class="sm:flex sm:items-center sm:justify-between">
+      <div>
+        <h1 class="text-3xl font-bold leading-tight text-gray-900">Create New Blog Post</h1>
+        <p class="mt-2 text-sm text-gray-500">Share your knowledge and insights with the Supper Ghana community.</p>
+      </div>
+      <div class="mt-4 sm:mt-0">
+        <%= link_to posts_path, class: "inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" do %>
+          <svg class="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" />
+          </svg>
+          Back to Posts
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <%= render "form", post: @post %>
+
+  <div class="mt-8 bg-yellow-50 p-4 rounded-md border border-yellow-200">
+    <div class="flex">
+      <div class="flex-shrink-0">
+        <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <div class="ml-3">
+        <h3 class="text-sm font-medium text-yellow-800">Writing Guidelines</h3>
+        <div class="mt-2 text-sm text-yellow-700">
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Keep your post focused on topics relevant to the Supper Ghana community</li>
+            <li>Use clear headings and short paragraphs to improve readability</li>
+            <li>Include images where appropriate to engage readers</li>
+            <li>Proofread your content before publishing</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_tag do %>
+  document.addEventListener('turbo:load', function() {
+    document.getElementById('post_title').focus();
+  });
+<% end %>

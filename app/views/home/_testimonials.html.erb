@@ -1,0 +1,71 @@
+<%# _testimonials.html.erb - Testimonials Section Partial %>
+<section class="py-20 bg-white dark:bg-gray-900 relative overflow-hidden" data-controller="testimonials">
+  <%# Background Elements %>
+  <div class="absolute inset-0 opacity-5 pattern-adinkra"></div>
+  <div class="absolute top-0 right-0 w-1/3 h-1/3 bg-yellow-400 dark:bg-yellow-600 rounded-full filter blur-3xl opacity-10 transform translate-x-1/2 -translate-y-1/2"></div>
+  <div class="absolute bottom-0 left-0 w-1/4 h-1/4 bg-green-500 dark:bg-green-700 rounded-full filter blur-3xl opacity-10 transform -translate-x-1/2 translate-y-1/2"></div>
+  
+  <div class="container mx-auto px-4 lg:px-8 relative z-10">
+    <%# Section Header %>
+    <div class="text-center mb-16 max-w-3xl mx-auto">
+      <div class="inline-flex items-center justify-center mb-4">
+        <svg class="w-6 h-6 text-yellow-500 dark:text-yellow-400 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11.9999 2C6.47988 2 2.00988 6.48 2.00988 12C2.00988 17.52 6.47988 22 11.9999 22C17.5199 22 21.9999 17.52 21.9999 12C21.9999 6.48 17.5199 2 11.9999 2ZM17.9999 13H12.9999V8H10.9999V15H17.9999V13Z" fill="currentColor"/>
+        </svg>
+        <span class="text-sm font-medium text-yellow-500 dark:text-yellow-400 uppercase tracking-wider">Real User Stories</span>
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">What Ghanaians Are Saying</h2>
+      <p class="text-xl text-gray-600 dark:text-gray-400">
+        Join thousands who are transforming how they handle daily tasks with Supper.
+      </p>
+    </div>
+    
+    <%# Testimonials Carousel (CSS Animation) %>
+    <div class="testimonials-carousel overflow-hidden relative mx-auto max-w-5xl">
+      <div class="testimonials-track flex transition-transform duration-1000 ease-in-out" data-testimonials-target="track">
+        <%# Testimonials rendered as collection %>
+        <% testimonials = [
+          {
+            name: 'Kwame Osei',
+            role: 'Market Trader, Kumasi',
+            initials: 'KO',
+            gradient: 'from-green-500 to-yellow-400',
+            quote: "Supper has changed how I run my business at Kejetia Market. I can receive payments instantly from customers even when they're not physically present. The best part is being able to chat with my suppliers and send money all in one app!"
+          },
+          {
+            name: 'Abena Akoto',
+            role: 'Student, University of Ghana',
+            initials: 'AA',
+            gradient: 'from-yellow-400 to-red-500',
+            quote: "Our study group uses Supper to coordinate everything! We can split costs for group projects, send voice notes in Twi, and buy books from the marketplace. The ability to switch to dark mode saves my battery during long study sessions."
+          },
+          {
+            name: 'Daniel Agyei',
+            role: 'Trotro Driver, Accra',
+            initials: 'DA',
+            gradient: 'from-green-500 to-blue-500',
+            quote: "Passengers can now pay me with Supper directly. No more issues with change! I also use it to pay for fuel and send money to my wife in Tamale. The app works even when network is slow, which is important on my routes."
+          }
+        ] %>
+        
+        <% testimonials.each do |testimonial| %>
+          <%= render partial: 'shared/testimonial_card', locals: testimonial %>
+        <% end %>
+      </div>
+      
+      <%# Carousel Controls %>
+      <div class="flex justify-center mt-8 gap-2">
+        <button data-action="testimonials#prev" class="w-12 h-12 rounded-full bg-white dark:bg-gray-800 shadow-md flex items-center justify-center text-gray-700 dark:text-gray-300 hover:bg-green-500 hover:text-white dark:hover:bg-green-600 transition-colors duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button data-action="testimonials#next" class="w-12 h-12 rounded-full bg-white dark:bg-gray-800 shadow-md flex items-center justify-center text-gray-700 dark:text-gray-300 hover:bg-green-500 hover:text-white dark:hover:bg-green-600 transition-colors duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

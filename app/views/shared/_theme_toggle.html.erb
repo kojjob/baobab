@@ -1,0 +1,48 @@
+<!-- app/views/shared/_theme_toggle.html.erb -->
+
+<div class="theme-toggle relative" data-controller="theme">
+  <!-- Elegant toggle switch with sun/moon icons -->
+  <button type="button" 
+          aria-label="Toggle Dark Mode"
+          class="relative inline-flex h-10 w-20 items-center justify-center rounded-full transition duration-500 focus:outline-none focus:ring-2 focus:ring-offset-2"
+          data-class-light="bg-gradient-to-r from-sky-400 to-blue-500 focus:ring-blue-500"
+          data-class-dark="bg-gradient-to-r from-indigo-900 to-purple-900 focus:ring-purple-500"
+          data-action="theme#toggle">
+    
+    <!-- Track -->
+    <span class="absolute h-8 w-18 mx-1 rounded-full transition-colors"
+          data-class-light="bg-white/20"
+          data-class-dark="bg-black/30"></span>
+          
+    <!-- Toggle handle with gradient background -->
+    <span class="absolute inset-y-1 left-1 flex h-8 w-8 items-center justify-center rounded-full shadow-lg transition-all duration-300"
+          data-theme-target="handle"
+          data-class-light="translate-x-0 bg-gradient-to-br from-yellow-300 to-yellow-500 text-yellow-900"
+          data-class-dark="translate-x-10 bg-gradient-to-br from-indigo-400 to-indigo-600 text-indigo-100">
+      
+      <!-- Sun icon -->
+      <svg data-theme-target="lightIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+      </svg>
+      
+      <!-- Moon icon -->
+      <svg data-theme-target="darkIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+      </svg>
+    </span>
+    
+    <!-- Decorative Stars (only visible in dark mode) -->
+    <span class="absolute top-1 right-2 h-1.5 w-1.5 rounded-full transition-all duration-500"
+          data-class-light="bg-transparent opacity-0 scale-0" 
+          data-class-dark="bg-white opacity-70 scale-100"></span>
+    <span class="absolute top-3 right-8 h-1 w-1 rounded-full transition-all duration-500 delay-100"
+          data-class-light="bg-transparent opacity-0 scale-0" 
+          data-class-dark="bg-white opacity-70 scale-100"></span>
+    <span class="absolute bottom-3 right-4 h-1 w-1 rounded-full transition-all duration-500 delay-150"
+          data-class-light="bg-transparent opacity-0 scale-0" 
+          data-class-dark="bg-white opacity-70 scale-100"></span>
+  </button>
+  
+  <!-- Hidden form input for any form submission needs -->
+  <input type="checkbox" name="dark_mode" class="hidden" data-theme-target="toggle">
+</div>

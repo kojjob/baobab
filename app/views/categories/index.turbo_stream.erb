@@ -1,0 +1,56 @@
+<%= turbo_stream.update "search-results" do %>
+  <div class="mb-8">
+    <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+      <% if params[:query].present? %>
+        Search Results for "<%= params[:query] %>"
+      <% else %>
+        All Categories
+      <% end %>
+    </h2>
+    
+    <% if @categories.any? %>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% @categories.each do |main_category| %>
+          <!-- Same category card content as in the main index view -->
+          <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm">
+            <!-- Main Category Header -->
+            <%= link_to category_path(main_category), class: "block" do %>
+              <div class="px-6 py-4 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600 flex items-center">
+                <div class="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center text-primary-600 dark:text-primary-400 mr-3">
+                  <% if main_category.icon.present? %>
+                    <i class="<%= main_category.icon %> text-lg"></i>
+                  <% else %>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                    </svg>
+                  <% end %>
+                </div>
+                <div class="flex-1">
+                  <h3 class="font-semibold text-gray-800 dark:text-white"><%= main_category.name %></h3>
+                  <% if main_category.products.count > 0 %>
+                    <p class="text-xs text-gray-500 dark:text-gray-400"><%= pluralize(main_category.products.count, 'product') %></p>
+                  <% end %>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            <% end %>
+            
+            <!-- Subcategories (same as in index.html.erb) -->
+            <!-- ... -->
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-8 text-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400 dark:text-gray-600 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <h3 class="text-lg font-medium text-gray-800 dark:text-white mb-2">No categories found</h3>
+        <p class="text-gray-600 dark:text-gray-400 mb-4">We couldn't find any categories matching your search.</p>
+        <%= link_to "Clear search", categories_path, class: "inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

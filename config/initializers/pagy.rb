@@ -1,4 +1,3 @@
-
 require "pagy/extras/bootstrap"
 
 # Set up Pagy defaults

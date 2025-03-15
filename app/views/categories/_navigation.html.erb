@@ -1,0 +1,14 @@
+<nav class="category-navigation">
+  <ul class="flex flex-wrap gap-2">
+    <% categories.each do |category| %>
+      <li>
+        <%= link_to category_path(category), class: "px-4 py-2 rounded-full #{current_category&.id == category.id ? 'bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200' : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200'}" do %>
+          <% if category.icon.present? %>
+            <i class="<%= category.icon %> mr-1"></i>
+          <% end %>
+          <%= category.name %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</nav>

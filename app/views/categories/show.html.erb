@@ -1,0 +1,210 @@
+<div class="container mx-auto px-4 mb-20 mt-8">
+  <!-- Breadcrumbs -->
+  <nav class="text-sm text-gray-500 dark:text-gray-400 mb-6">
+    <ol class="flex flex-wrap items-center">
+      <li class="breadcrumb-item">
+        <%= link_to "Home", root_path, class: "hover:text-primary-600 dark:hover:text-primary-400" %>
+        <span class="mx-2">/</span>
+      </li>
+      <li class="breadcrumb-item">
+        <%= link_to "Categories", categories_path, class: "hover:text-primary-600 dark:hover:text-primary-400" %>
+        <span class="mx-2">/</span>
+      </li>
+      <% if @ancestors.present? %>
+        <% @ancestors.each do |ancestor| %>
+          <li class="breadcrumb-item">
+            <%= link_to ancestor.name, category_path(ancestor), class: "hover:text-primary-600 dark:hover:text-primary-400" %>
+            <span class="mx-2">/</span>
+          </li>
+        <% end %>
+      <% end %>
+      <li class="breadcrumb-item">
+        <span class="text-gray-800 dark:text-white font-medium"><%= @category.name %></span>
+      </li>
+    </ol>
+  </nav>
+
+  <!-- Category Header -->
+  <header class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm mb-8">
+    <div class="p-6">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
+        <div class="flex items-center">
+          <% if @category.icon.present? %>
+            <div class="w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center text-primary-600 dark:text-primary-400 mr-4">
+              <i class="<%= @category.icon %> text-xl"></i>
+            </div>
+          <% end %>
+          <h1 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white"><%= @category.name %></h1>
+        </div>
+        
+        <% if @products.any? %>
+          <div class="text-gray-500 dark:text-gray-400">
+            <% if @pagy_products.count == 1 %>
+              <%= @pagy_products.count %> product
+            <% else %>
+              <%= @pagy_products.count %> products
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+      <% if @category.description.present? %>
+        <p class="text-gray-600 dark:text-gray-400 mb-4"><%= @category.description %></p>
+      <% end %>
+    </div>
+  </header>
+
+  <!-- Subcategories -->
+  <% if @subcategories.any? %>
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Browse Subcategories</h2>
+      
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <% @subcategories.each do |subcategory| %>
+          <%= link_to category_path(subcategory), class: "bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow p-4 text-center" do %>
+            <div class="flex flex-col items-center justify-center">
+              <% if subcategory.icon.present? %>
+                <div class="w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center text-primary-600 dark:text-primary-400 mb-3">
+                  <i class="<%= subcategory.icon %> text-lg"></i>
+                </div>
+              <% end %>
+              <h3 class="font-medium text-gray-800 dark:text-white"><%= subcategory.name %></h3>
+              
+              <% if subcategory.products.any? %>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                  <%= subcategory.products.count %> <%= 'product'.pluralize(subcategory.products.count) %>
+                </p>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </section>
+  <% end %>
+
+  <!-- Products Section -->
+  <% if @products.any? %>
+    <section class="mb-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-white">Products</h2>
+        
+        <!-- Sorting Options -->
+        <div class="inline-flex relative">
+          <select class="pl-4 pr-10 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 appearance-none focus:outline-none focus:ring-2 focus:ring-primary-500">
+            <option>Latest</option>
+            <option>Price: Low to High</option>
+            <option>Price: High to Low</option>
+            <option>Most Popular</option>
+          </select>
+          <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Products Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-8">
+        <% @products.each do |product| %>
+          <%= link_to product_path(product), class: "bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow" do %>
+            <div class="aspect-w-1 aspect-h-1 bg-gray-200 dark:bg-gray-700">
+              <% if product.respond_to?(:main_image) && product.main_image.present? %>
+                <%= image_tag product.main_image, class: "w-full h-full object-cover" %>
+              <% else %>
+                <div class="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-900">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-400 dark:text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                </div>
+              <% end %>
+            </div>
+            
+            <div class="p-3">
+              <h3 class="text-sm font-medium text-gray-800 dark:text-white line-clamp-2"><%= product.name %></h3>
+              
+              <% if product.respond_to?(:merchant) && product.merchant.present? %>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mb-1"><%= product.merchant.name %></p>
+              <% end %>
+              
+              <% if product.respond_to?(:price) && product.price.present? %>
+                <p class="text-sm font-medium text-gray-900 dark:text-white">₵<%= number_with_precision(product.price, precision: 2) %></p>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      
+      <!-- Pagination -->
+      <% if @products.any? %>
+        <div class="mt-8 flex justify-center">
+          <%== pagy_nav(@pagy_products) %>
+        </div>
+      <% end %>
+    </section>
+  <% end %>
+
+  <!-- Related Posts Section (if available) -->
+  <% if @posts.present? && @posts.any? %>
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-6">Related Articles</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% @posts.each do |post| %>
+          <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+            <% if post.respond_to?(:featured_image) && post.featured_image.present? %>
+              <div class="h-48 bg-gray-200 dark:bg-gray-700">
+                <%= image_tag post.featured_image, class: "w-full h-full object-cover" %>
+              </div>
+            <% end %>
+            
+            <div class="p-4">
+              <h3 class="text-lg font-medium text-gray-800 dark:text-white mb-2">
+                <%= link_to post.title, post_path(post) %>
+              </h3>
+              
+              <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3">
+                <%= truncate(post.excerpt || post.content, length: 120) %>
+              </p>
+              
+              <div class="flex items-center text-xs text-gray-500 dark:text-gray-400">
+                <% if post.respond_to?(:published_at) && post.published_at.present? %>
+                  <span><%= post.published_at.strftime("%B %d, %Y") %></span>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      
+      <!-- Pagination for posts if needed -->
+      <% if @posts.any? %>
+        <div class="mt-8 flex justify-center">
+          <%== pagy_nav(@pagy_posts) %>
+        </div>
+      <% end %>
+    </section>
+  <% end %>
+
+  <!-- Empty State -->
+  <% if @products.empty? && @subcategories.empty? && @posts.empty? %>
+    <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm py-12 px-6 text-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400 dark:text-gray-600 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+      </svg>
+      <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-2">No content in this category yet</h2>
+      <p class="text-gray-600 dark:text-gray-400 mb-6">We're working on adding products and content to this category.</p>
+      <%= link_to "Browse All Categories", categories_path, class: "px-6 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-medium text-base transition-colors" %>
+    </div>
+  <% end %>
+
+  <!-- Back to Categories -->
+  <div class="mt-8">
+    <%= link_to categories_path, class: "inline-flex items-center text-primary-600 dark:text-primary-400 hover:underline" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      Back to All Categories
+    <% end %>
+  </div>
+</div>

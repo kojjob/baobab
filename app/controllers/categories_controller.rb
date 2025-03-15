@@ -2,16 +2,24 @@ class CategoriesController < ApplicationController
   include Pagy::Backend
 
   def index
-    @categories = Category.includes(:posts).where(posts: { published: true }).distinct
+    @categories = Category.active.main_categories.sorted.includes(:subcategories)
+    @featured_categories = Category.active.featured.sorted
   end
 
-    def show
-      if params[:id].blank?
-        redirect_to blog_posts_path, alert: "Category not found"
-        return
-      end
+  def show
+    @category = Category.active.find_by!(slug: params[:id])
 
-      @category = Category.find_by!(slug: params[:id])
-      @posts = @category.posts.published.order(published_at: :desc).page(params[:page])
-    end
+    # Using pagy for pagination instead of .page
+    @pagy_posts, @posts = pagy(@category.posts.published.order(published_at: :desc))
+
+    # For products, use pagy with a different per_page count
+    @pagy_products, @products = pagy(@category.products.active.includes(:merchant), items: 24)
+
+    @subcategories = @category.subcategories.active.sorted
+
+    # For breadcrumbs
+    @ancestors = @category.ancestors
+  rescue ActiveRecord::RecordNotFound
+    redirect_to categories_path, alert: "Category not found"
+  end
 end

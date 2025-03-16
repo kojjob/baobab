@@ -1,326 +1,542 @@
-<div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transition-colors duration-200"
-     data-controller="merchant-form file-upload">
-  <%= form_with(model: merchant, class: "p-6 space-y-6") do |form| %>
-    <% if merchant.errors.any? %>
-      <div class="bg-red-50 dark:bg-red-900/30 border-l-4 border-red-500 p-4 mb-6 rounded-md">
-        <div class="flex items-center">
-          <div class="flex-shrink-0">
-            <svg class="h-5 w-5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-            </svg>
-          </div>
-          <div class="ml-3">
-            <h3 class="text-sm font-medium text-red-800 dark:text-red-200">
-              <%= pluralize(merchant.errors.count, "error") %> prohibited this merchant from being saved:
-            </h3>
-            <div class="mt-2 text-sm text-red-700 dark:text-red-300">
-              <ul class="list-disc pl-5 space-y-1">
-                <% merchant.errors.full_messages.each do |message| %>
-                  <li><%= message %></li>
-                <% end %>
-              </ul>
-            </div>
+<%= form_with(model: merchant, class: "space-y-8", data: { controller: "merchant-form" }) do |form| %>
+  <% if merchant.errors.any? %>
+    <div class="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-600 dark:text-red-400" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <div class="ml-3">
+          <h3 class="text-sm font-medium text-red-800 dark:text-red-300">
+            <%= pluralize(merchant.errors.count, "error") %> prohibited this merchant from being saved:
+          </h3>
+          <div class="mt-2 text-sm text-red-700 dark:text-red-200">
+            <ul class="list-disc pl-5 space-y-1">
+              <% merchant.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
           </div>
         </div>
       </div>
-    <% end %>
+    </div>
+  <% end %>
 
-    <!-- Form Sections -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <!-- Left Column: Basic Info -->
-      <div class="md:col-span-2 space-y-6">
-        <div>
-          <h2 class="text-xl font-bold text-gray-900 dark:text-white flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-primary-600 dark:text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-            </svg>
-            Business Information
-          </h2>
-          <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-            Add your business details to help customers find and recognize your store.
-          </p>
-        </div>
+  <%# Basic Information Section %>
+  <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+    <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Basic Information</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <%= form.label :name, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" %>
+        <%= form.text_field :name, class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
+      </div>
 
-        <!-- Business Name -->
-        <div>
-          <%= form.label :name, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
-          <div class="mt-1 relative rounded-md shadow-sm">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+      <div>
+        <%= form.label :category_id, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" %>
+        <%= form.collection_select :category_id, Category.all, :id, :name, { include_blank: "Select a category" }, 
+          { class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" } %>
+      </div>
+      
+      <div class="md:col-span-2">
+        <%= form.label :description, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" %>
+        <%= form.text_area :description, rows: 3, class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
+      </div>
+      
+      <div>
+        <%= form.label :logo, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" %>
+        <div class="mt-1 flex items-center space-x-4">
+          <% if merchant.logo.attached? %>
+            <div class="h-16 w-16 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700">
+              <%= image_tag merchant.logo, class: "h-full w-full object-cover" %>
+            </div>
+            <div>
+              <%= form.file_field :logo, class: "hidden", direct_upload: true, data: { merchant_form_target: "logoFile" } %>
+              <button type="button" class="px-3 py-1.5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm" data-action="click->merchant-form#triggerLogoFileInput">
+                Change logo
+              </button>
+              <button type="button" class="px-3 py-1.5 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 rounded-md hover:bg-red-200 dark:hover:bg-red-800 transition-colors text-sm" data-action="click->merchant-form#removeLogo">
+                Remove
+              </button>
+              <%= form.hidden_field :remove_logo, value: false, data: { merchant_form_target: "removeLogoField" } %>
+            </div>
+          <% else %>
+            <div class="h-16 w-16 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </div>
-            <%= form.text_field :name, class: "py-2 px-3 pl-10 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:ring-primary-500 focus:border-primary-500", placeholder: "Enter your business name" %>
+            <%= form.file_field :logo, class: "hidden", direct_upload: true, data: { merchant_form_target: "logoFile" } %>
+            <button type="button" class="px-3 py-1.5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm" data-action="click->merchant-form#triggerLogoFileInput">
+              Upload logo
+            </button>
+          <% end %>
+        </div>
+      </div>
+      
+      <div>
+        <%= form.label :cover_photo, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" %>
+        <div class="mt-1 flex items-center space-x-4">
+          <% if merchant.cover_photo? %>
+            <div class="h-16 w-32 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700">
+              <%= image_tag merchant.cover_photo, class: "h-full w-full object-cover" %>
+            </div>
+            <div>
+              <%= form.file_field :cover_photo, class: "hidden", direct_upload: true, data: { merchant_form_target: "coverFile" } %>
+              <button type="button" class="px-3 py-1.5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm" data-action="click->merchant-form#triggerCoverFileInput">
+                Change cover
+              </button>
+              <button type="button" class="px-3 py-1.5 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 rounded-md hover:bg-red-200 dark:hover:bg-red-800 transition-colors text-sm" data-action="click->merchant-form#removeCover">
+                Remove
+              </button>
+              <%= form.hidden_field :remove_cover_photo, value: false, data: { merchant_form_target: "removeCoverField" } %>
+            </div>
+          <% else %>
+            <div class="h-16 w-32 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <%= form.file_field :cover_photo, class: "hidden", direct_upload: true, data: { merchant_form_target: "coverFile" } %>
+            <button type="button" class="px-3 py-1.5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm" data-action="click->merchant-form#triggerCoverFileInput">
+              Upload cover
+            </button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%# Contact Information Section %>
+  <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+    <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Contact Information</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <%= form.label :phone, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" %>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <span class="text-gray-500 dark:text-gray-400">+233</span>
+          </div>
+          <%= form.text_field :phone, class: "pl-12 w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50", placeholder: "XX XXX XXXX" %>
+        </div>
+        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Format: Ghana mobile number</p>
+      </div>
+
+      <div>
+        <%= form.label :email, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" %>
+        <%= form.email_field :email, class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
+      </div>
+
+      <div>
+        <%= form.label :website, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" %>
+        <%= form.url_field :website, class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50", placeholder: "https://example.com" %>
+      </div>
+
+      <div>
+        <%= form.label :contact_person, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" %>
+        <%= form.text_field :contact_person, class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
+      </div>
+    </div>
+    
+    <%# Social Media Links %>
+    <div class="mt-6">
+      <h3 class="text-md font-medium text-gray-800 dark:text-gray-200 mb-3">Social Media</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Facebook</label>
+          <div class="mt-1 relative rounded-md shadow-sm">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <span class="text-gray-500 dark:text-gray-400 sm:text-sm">facebook.com/</span>
+            </div>
+            <%= form.text_field 'social_media[facebook]', value: merchant.social_media&.dig('facebook'), class: "pl-32 w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
           </div>
         </div>
-
-        <!-- Business Description -->
+        
         <div>
-          <%= form.label :description, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
-          <div class="mt-1">
-            <%= form.text_area :description, rows: 4, class: "py-2 px-3 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:ring-primary-500 focus:border-primary-500", placeholder: "Tell customers about your business, products, and services..." %>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Instagram</label>
+          <div class="mt-1 relative rounded-md shadow-sm">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <span class="text-gray-500 dark:text-gray-400 sm:text-sm">instagram.com/</span>
+            </div>
+            <%= form.text_field 'social_media[instagram]', value: merchant.social_media&.dig('instagram'), class: "pl-32 w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
           </div>
-          <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-            <span class="font-medium" data-merchant-form-target="characterCount">0</span>/500 characters
-          </p>
         </div>
-
-        <!-- Phone Number -->
+        
         <div>
-          <%= form.label :phone, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Twitter</label>
+          <div class="mt-1 relative rounded-md shadow-sm">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <span class="text-gray-500 dark:text-gray-400 sm:text-sm">twitter.com/</span>
+            </div>
+            <%= form.text_field 'social_media[twitter]', value: merchant.social_media&.dig('twitter'), class: "pl-28 w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
+          </div>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">WhatsApp</label>
           <div class="mt-1 relative rounded-md shadow-sm">
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <span class="text-gray-500 dark:text-gray-400 sm:text-sm">+233</span>
             </div>
-            <%= form.telephone_field :phone, class: "py-2 px-3 pl-14 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:ring-primary-500 focus:border-primary-500", placeholder: "XX XXX XXXX" %>
-          </div>
-          <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-            Enter your Ghana phone number without the country code
-          </p>
-        </div>
-
-        <!-- Location -->
-        <div>
-          <%= form.label :location, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
-          <div class="mt-1 relative rounded-md shadow-sm">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-            </div>
-            <%= form.text_field :location, class: "py-2 px-3 pl-10 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:ring-primary-500 focus:border-primary-500", placeholder: "e.g. Accra, Ghana" %>
-          </div>
-        </div>
-
-        <!-- Operating Hours -->
-        <div>
-          <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Business Hours</h3>
-          <div class="space-y-3">
-            <% ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].each do |day| %>
-              <div class="flex items-center space-x-2" 
-                   data-controller="business-hours" 
-                   data-business-hours-day-value="<%= day.downcase %>">
-                <div class="w-28">
-                  <div class="flex items-center">
-                    <input type="checkbox" 
-                           id="<%= day.downcase %>_open" 
-                           name="merchant[business_hours][<%= day.downcase %>][open]" 
-                           class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
-                           data-action="business-hours#toggleDay">
-                    <label for="<%= day.downcase %>_open" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">
-                      <%= day %>
-                    </label>
-                  </div>
-                </div>
-                <div class="flex items-center space-x-2">
-                  <div class="relative rounded-md shadow-sm">
-                    <input type="time" 
-                           name="merchant[business_hours][<%= day.downcase %>][open_time]" 
-                           class="block w-24 rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:ring-primary-500 focus:border-primary-500 text-sm"
-                           data-business-hours-target="openTime">
-                  </div>
-                  <span class="text-gray-500 dark:text-gray-400">to</span>
-                  <div class="relative rounded-md shadow-sm">
-                    <input type="time" 
-                           name="merchant[business_hours][<%= day.downcase %>][close_time]" 
-                           class="block w-24 rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:ring-primary-500 focus:border-primary-500 text-sm"
-                           data-business-hours-target="closeTime">
-                  </div>
-                </div>
-              </div>
-            <% end %>
-          </div>
-        </div>
-
-        <!-- Payment Methods -->
-        <div>
-          <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Payment Methods Accepted</h3>
-          <div class="grid grid-cols-2 sm:grid-cols-3 gap-y-2">
-            <div class="flex items-center">
-              <input id="mtn_mobile_money" name="merchant[payment_methods][]" type="checkbox" value="mtn_mobile_money" class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded">
-              <label for="mtn_mobile_money" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">
-                MTN Mobile Money
-              </label>
-            </div>
-            <div class="flex items-center">
-              <input id="vodafone_cash" name="merchant[payment_methods][]" type="checkbox" value="vodafone_cash" class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded">
-              <label for="vodafone_cash" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">
-                Vodafone Cash
-              </label>
-            </div>
-            <div class="flex items-center">
-              <input id="airteltigo_money" name="merchant[payment_methods][]" type="checkbox" value="airteltigo_money" class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded">
-              <label for="airteltigo_money" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">
-                AirtelTigo Money
-              </label>
-            </div>
-            <div class="flex items-center">
-              <input id="cash" name="merchant[payment_methods][]" type="checkbox" value="cash" class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded">
-              <label for="cash" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">
-                Cash on Delivery
-              </label>
-            </div>
-            <div class="flex items-center">
-              <input id="bank_transfer" name="merchant[payment_methods][]" type="checkbox" value="bank_transfer" class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded">
-              <label for="bank_transfer" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">
-                Bank Transfer
-              </label>
-            </div>
-            <div class="flex items-center">
-              <input id="wallet" name="merchant[payment_methods][]" type="checkbox" value="wallet" class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded">
-              <label for="wallet" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">
-                App Wallet
-              </label>
-            </div>
+            <%= form.text_field 'social_media[whatsapp]', value: merchant.social_media&.dig('whatsapp'), class: "pl-12 w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
           </div>
         </div>
       </div>
-
-      <!-- Right Column: Media & Categories -->
-      <div class="space-y-6">
-        <!-- Logo Upload -->
-        <div>
-          <h2 class="text-xl font-bold text-gray-900 dark:text-white flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-primary-600 dark:text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            Store Logo
-          </h2>
-          <div class="mt-2">
-            <div class="flex items-center justify-center">
-              <div class="w-40 h-40 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 flex justify-center items-center overflow-hidden relative" 
-                   data-file-upload-target="preview">
-                <% if merchant.logo.present? %>
-                  <%= image_tag merchant.logo, class: "w-full h-full object-cover" %>
-                <% else %>
-                  <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
-                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg>
-                <% end %>
-              </div>
-            </div>
-            <div class="mt-4">
-              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Upload a logo or store image
-              </label>
-              <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-md cursor-pointer"
-                   data-action="click->file-upload#triggerFileInput">
-                <div class="space-y-1 text-center">
-                  <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
-                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg>
-                  <div class="flex text-sm text-gray-600 dark:text-gray-400">
-                    <span>Upload an image</span>
-                    <p class="pl-1">or drag and drop</p>
-                  </div>
-                  <p class="text-xs text-gray-500 dark:text-gray-400">
-                    PNG, JPG, GIF up to 5MB
-                  </p>
-                </div>
-                <%= form.file_field :logo, direct_upload: true, accept: 'image/*', class: "hidden", data: { file_upload_target: "input", action: "change->file-upload#displayPreview" } %>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Business Category -->
-        <div>
-          <h2 class="text-xl font-bold text-gray-900 dark:text-white flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-primary-600 dark:text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-            </svg>
-            Business Category
-          </h2>
-          <div class="mt-2">
-            <%= form.collection_select :category_id, 
-                                      Category.all.order(:name), 
-                                      :id, 
-                                      :name, 
-                                      { include_blank: "Select a category" }, 
-                                      { class: "py-2 px-3 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:ring-primary-500 focus:border-primary-500" } %>
-          </div>
-          <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-            Select the category that best describes your business
-          </p>
-        </div>
-
-        <!-- Social Media Links -->
-        <div>
-          <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Social Media (Optional)</h3>
+    </div>
+  </div>
+  
+  <%# Business Details Section %>
+  <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+    <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Business Details</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div>
+        <%= form.label :business_type, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" %>
+        <%= form.select :business_type, Merchant.business_types.keys.map { |k| [k.titleize, k] }, { include_blank: "Select business type" }, 
+          { class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" } %>
+      </div>
+      
+      <div>
+        <%= form.label :year_established, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" %>
+        <%= form.number_field :year_established, min: 1900, max: Date.current.year, class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
+      </div>
+      
+      <div>
+        <%= form.label :employee_count, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" %>
+        <%= form.number_field :employee_count, min: 1, class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
+      </div>
+      
+      <div>
+        <%= form.label :registration_number, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" %>
+        <%= form.text_field :registration_number, class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
+      </div>
+      
+      <div>
+        <%= form.label :tax_id, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" %>
+        <%= form.text_field :tax_id, class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
+      </div>
+    </div>
+    
+    <%# Verification Documents %>
+    <div class="mt-6">
+      <h3 class="text-md font-medium text-gray-800 dark:text-gray-200 mb-3">Verification Documents</h3>
+      <div class="border border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-4">
+        <div class="text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
           
-          <!-- WhatsApp -->
           <div class="mt-2">
-            <label for="whatsapp" class="block text-xs text-gray-500 dark:text-gray-400">WhatsApp</label>
-            <div class="mt-1 relative rounded-md shadow-sm">
-              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg class="h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                </svg>
-              </div>
-              <input type="text" 
-                     name="merchant[social_media][whatsapp]" 
-                     id="whatsapp" 
-                     class="py-2 px-3 pl-10 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:ring-primary-500 focus:border-primary-500 text-sm" 
-                     placeholder="+233 XX XXX XXXX">
+            <label for="verification_documents" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              Upload documents
+            </label>
+            <div class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+              Business registration, tax certificates, ID cards, etc.
             </div>
           </div>
           
-          <!-- Instagram -->
-          <div class="mt-2">
-            <label for="instagram" class="block text-xs text-gray-500 dark:text-gray-400">Instagram</label>
-            <div class="mt-1 relative rounded-md shadow-sm">
-              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg class="h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-                </svg>
-              </div>
-              <input type="text" 
-                     name="merchant[social_media][instagram]" 
-                     id="instagram" 
-                     class="py-2 px-3 pl-10 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:ring-primary-500 focus:border-primary-500 text-sm" 
-                     placeholder="@username">
-            </div>
-          </div>
+          <%= form.file_field :verification_documents, multiple: true, direct_upload: true, class: "hidden", data: { merchant_form_target: "docsFile" } %>
           
-          <!-- Facebook -->
-          <div class="mt-2">
-            <label for="facebook" class="block text-xs text-gray-500 dark:text-gray-400">Facebook</label>
-            <div class="mt-1 relative rounded-md shadow-sm">
-              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg class="h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                </svg>
-              </div>
-              <input type="text" 
-                     name="merchant[social_media][facebook]" 
-                     id="facebook" 
-                     class="py-2 px-3 pl-10 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:ring-primary-500 focus:border-primary-500 text-sm" 
-                     placeholder="Page name or URL">
-            </div>
+          <div class="mt-3">
+            <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" data-action="click->merchant-form#triggerDocsFileInput">
+              <svg xmlns="http://www.w3.org/2000/svg" class="-ml-1 mr-2 h-5 w-5 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+              </svg>
+              Choose files
+            </button>
           </div>
         </div>
         
-        <!-- Terms and Conditions -->
-        <div class="mt-6">
-          <div class="flex items-start">
-            <div class="flex items-center h-5">
-              <%= form.check_box :terms_accepted, class: "py-2 px-3 focus:ring-primary-500 h-4 w-4 text-primary-600 border-gray-300 rounded" %>
+        <% if merchant.verification_documents.attached? %>
+          <div class="mt-4">
+            <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Uploaded Documents</h4>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <% merchant.verification_documents.each do |document| %>
+                <div class="relative flex items-center p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                  <div class="flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                  </div>
+                  <div class="ml-3 flex-1 truncate text-xs text-gray-700 dark:text-gray-300">
+                    <%= document.filename %>
+                  </div>
+                  <button type="button" class="ml-2 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300" data-action="click->merchant-form#removeDocument" data-document-id="<%= document.id %>">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              <% end %>
             </div>
-            <div class="ml-3 text-sm">
-              <label for="merchant_terms_accepted" class="font-medium text-gray-700 dark:text-gray-300">Accept Terms and Conditions</label>
-              <p class="text-gray-500 dark:text-gray-400">I agree to the <a href="#" class="text-primary-600 hover:text-primary-500 dark:text-primary-400">Terms of Service</a> and <a href="#" class="text-primary-600 hover:text-primary-500 dark:text-primary-400">Privacy Policy</a>.</p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  
+  <%# Delivery and Payment Section %>
+  <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+    <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Delivery & Payment</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div>
+        <%= form.label :delivery_radius, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" %>
+        <div class="mt-1 relative rounded-md shadow-sm">
+          <%= form.number_field :delivery_radius, step: 0.1, min: 0, class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
+          <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+            <span class="text-gray-500 dark:text-gray-400 sm:text-sm">km</span>
+          </div>
+        </div>
+        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Maximum distance for delivery (0 for no delivery)</p>
+      </div>
+      
+      <div>
+        <%= form.label :delivery_fee, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" %>
+        <div class="mt-1 relative rounded-md shadow-sm">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <span class="text-gray-500 dark:text-gray-400 sm:text-sm">₵</span>
+          </div>
+          <%= form.number_field :delivery_fee, step: 0.01, min: 0, class: "pl-7 w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
+        </div>
+      </div>
+      
+      <div>
+        <%= form.label :minimum_order, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" %>
+        <div class="mt-1 relative rounded-md shadow-sm">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <span class="text-gray-500 dark:text-gray-400 sm:text-sm">₵</span>
+          </div>
+          <%= form.number_field :minimum_order, step: 0.01, min: 0, class: "pl-7 w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
+        </div>
+      </div>
+      
+      <div>
+        <%= form.label :preparation_time, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" %>
+        <div class="mt-1 relative rounded-md shadow-sm">
+          <%= form.number_field :preparation_time, min: 0, class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
+          <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+            <span class="text-gray-500 dark:text-gray-400 sm:text-sm">minutes</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="md:col-span-2">
+        <%= form.label :service_areas, "Service Areas", class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" %>
+        <%= form.text_field :service_areas, value: merchant.service_areas&.join(", "), class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
+        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Enter neighborhoods separated by commas (e.g., "Accra, Tema, Kumasi")</p>
+      </div>
+      
+      <div class="md:col-span-3">
+        <div class="mb-1 flex items-center justify-between">
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Payment Methods</label>
+          <span class="text-xs text-gray-500 dark:text-gray-400">Select all that apply</span>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+          <% ["mobile_money", "cash_on_delivery", "bank_transfer", "card_payment", "app_wallet", "momo_pay", "interac", "pay_link"].each do |method| %>
+            <div class="relative flex items-center">
+              <%= check_box_tag "merchant[payment_methods][]", method, merchant.payment_methods&.include?(method), 
+                  id: "payment_method_#{method}", 
+                  class: "h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 dark:border-gray-700 rounded" %>
+              <label for="payment_method_<%= method %>" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+                <%= method.titleize %>
+              </label>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    
+    <%# Business Hours %>
+    <div class="mt-6">
+      <h3 class="text-md font-medium text-gray-800 dark:text-gray-200 mb-3">Business Hours</h3>
+      <div class="grid grid-cols-1 gap-3">
+        <% ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"].each do |day| %>
+          <div class="flex items-center space-x-4">
+            <div class="w-24 text-sm font-medium text-gray-700 dark:text-gray-300">
+              <%= day.capitalize %>
+            </div>
+            
+            <div class="flex-1 flex items-center space-x-2">
+              <label class="inline-flex items-center">
+                <%= check_box_tag "merchant[business_hours][#{day}][open]", "true", merchant.business_hours&.dig(day, "open"), 
+                    id: "business_hours_#{day}_open", 
+                    class: "h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 dark:border-gray-700 rounded",
+                    data: { action: "change->merchant-form#toggleBusinessHours", "merchant-form-target": "businessHoursCheckbox", day: day } %>
+                <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Open</span>
+              </label>
+              
+              <div class="flex items-center space-x-2" data-merchant-form-target="businessHoursFields" data-day="<%= day %>">
+                <div class="relative">
+                  <%= time_field_tag "merchant[business_hours][#{day}][open_time]", 
+                      merchant.business_hours&.dig(day, "open_time") || "09:00", 
+                      class: "w-32 rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50 text-sm" %>
+                </div>
+                
+                <span class="text-gray-500 dark:text-gray-400">to</span>
+                
+                <div class="relative">
+                  <%= time_field_tag "merchant[business_hours][#{day}][close_time]", 
+                      merchant.business_hours&.dig(day, "close_time") || "17:00", 
+                      class: "w-32 rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50 text-sm" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  
+  <%# Policies Section %>
+  <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+    <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Business Policies</h2>
+    <div class="space-y-6">
+      <div>
+        <%= form.label :return_policy, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" %>
+        <%= form.text_area :return_policy, rows: 3, class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
+      </div>
+      
+      <div>
+        <%= form.label :shipping_policy, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" %>
+        <%= form.text_area :shipping_policy, rows: 3, class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
+      </div>
+    </div>
+  </div>
+  
+  <%# Bank Information Section %>
+  <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+    <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Payment Information</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <h3 class="text-md font-medium text-gray-800 dark:text-gray-200 mb-3">Bank Account Details</h3>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Bank Name</label>
+            <%= text_field_tag 'merchant[bank_account][bank_name]', merchant.bank_account&.dig('bank_name'), class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Account Number</label>
+            <%= text_field_tag 'merchant[bank_account][account_number]', merchant.bank_account&.dig('account_number'), class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Account Name</label>
+            <%= text_field_tag 'merchant[bank_account][account_name]', merchant.bank_account&.dig('account_name'), class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Branch</label>
+            <%= text_field_tag 'merchant[bank_account][branch]', merchant.bank_account&.dig('branch'), class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
+          </div>
+        </div>
+      </div>
+      
+      <div>
+        <h3 class="text-md font-medium text-gray-800 dark:text-gray-200 mb-3">Mobile Money Details</h3>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Provider</label>
+            <%= select_tag 'merchant[mobile_money_details][provider]', 
+                options_for_select(['MTN Mobile Money', 'Vodafone Cash', 'AirtelTigo Money'], merchant.mobile_money_details&.dig('provider')), 
+                include_blank: 'Select provider', 
+                class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Phone Number</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <span class="text-gray-500 dark:text-gray-400">+233</span>
+              </div>
+              <%= text_field_tag 'merchant[mobile_money_details][phone]', merchant.mobile_money_details&.dig('phone'), class: "pl-12 w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
+            </div>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Account Name</label>
+            <%= text_field_tag 'merchant[mobile_money_details][name]', merchant.mobile_money_details&.dig('name'), class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="mt-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <%= form.label :payout_schedule, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" %>
+          <%= form.select :payout_schedule, Merchant.payout_schedules.keys.map { |k| [k.titleize, k] }, { include_blank: false }, 
+            { class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" } %>
+        </div>
+        
+        <div>
+          <%= form.label :commission_rate, "Commission Rate (%)", class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" %>
+          <div class="mt-1 relative rounded-md shadow-sm">
+            <%= form.number_field :commission_rate, step: 0.1, min: 0, max: 100, class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
+            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+              <span class="text-gray-500 dark:text-gray-400">%</span>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- Form Actions -->
-    <div class="flex justify-end space-x-3 pt-6 border-t border-gray-200 dark:border-gray-700">
-      <%= link_to "Cancel", merchants_path, class: "px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" %>
+  </div>
+  
+  <%# Merchant Settings Section %>
+  <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+    <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Merchant Settings</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <%= form.label :subscription_level, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" %>
+        <%= form.select :subscription_level, Merchant.subscription_levels.keys.map { |k| [k.titleize, k] }, { include_blank: false }, 
+          { class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" } %>
+      </div>
       
-      <%= form.submit class: "inline-flex justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" %>
+      <div>
+        <%= form.label :subscription_expires_at, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" %>
+        <%= form.datetime_field :subscription_expires_at, class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
+      </div>
+      
+      <div>
+        <%= form.label :verification_status, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" %>
+        <%= form.select :verification_status, Merchant.verification_statuses.keys.map { |k| [k.titleize, k] }, { include_blank: false }, 
+          { class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" } %>
+      </div>
+      
+      <div>
+        <%= form.label :keywords, "Keywords (SEO)", class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" %>
+        <%= form.text_field :keywords, value: merchant.keywords&.join(", "), class: "w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" %>
+        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Separate keywords with commas</p>
+      </div>
+      
+      <div>
+        <label class="flex items-center">
+          <%= form.check_box :active, class: "h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 dark:border-gray-700 rounded" %>
+          <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Active (visible to customers)</span>
+        </label>
+      </div>
+      
+      <div>
+        <label class="flex items-center">
+          <%= form.check_box :verified, class: "h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 dark:border-gray-700 rounded" %>
+          <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Verified Merchant</span>
+        </label>
+      </div>
+      
+      <div>
+        <label class="flex items-center">
+          <%= form.check_box :featured, class: "h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 dark:border-gray-700 rounded" %>
+          <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Featured Merchant</span>
+        </label>
+      </div>
     </div>
-  <% end %>
-</div>
+  </div>
+  
+  <%# Submit Buttons %>
+  <div class="flex justify-end space-x-3">
+    <%= link_to "Cancel", merchants_path, class: "px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" %>
+    <%= form.submit merchant.new_record? ? "Create Merchant" : "Update Merchant", 
+        class: "px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" %>
+  </div>
+<% end %>

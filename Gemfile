@@ -74,3 +74,7 @@ gem "twilio-ruby" # SMS verification
 gem "webauthn" # Web Authentication API
 
 gem "pagy", "~> 9.3"
+
+gem "pg_search", "~> 2.3"
+
+gem "pundit", "~> 2.5"

@@ -10,6 +10,16 @@ export default class extends Controller {
   
   toggleDay(event) {
     this.updateTimeFieldsState()
+    
+    // If checked and no times set, add default times
+    if (event.target.checked) {
+      if (!this.openTimeTarget.value) {
+        this.openTimeTarget.value = "09:00"
+      }
+      if (!this.closeTimeTarget.value) {
+        this.closeTimeTarget.value = "17:00"
+      }
+    }
   }
   
   updateTimeFieldsState() {
@@ -21,13 +31,13 @@ export default class extends Controller {
       this.closeTimeTarget.disabled = !isChecked
       
       if (!isChecked) {
-        // When closed, set to empty or default values
-        this.openTimeTarget.value = ""
-        this.closeTimeTarget.value = ""
-      } else if (!this.openTimeTarget.value && !this.closeTimeTarget.value) {
-        // Set default business hours when newly checked
-        this.openTimeTarget.value = "09:00"
-        this.closeTimeTarget.value = "17:00"
+        // Add a hidden field to ensure we get empty values in params
+        const dayKey = this.dayValue.toLowerCase()
+        const hiddenInput = document.createElement('input')
+        hiddenInput.type = 'hidden'
+        hiddenInput.name = `merchant[business_hours][${dayKey}][open]`
+        hiddenInput.value = 'false'
+        checkbox.parentNode.appendChild(hiddenInput)
       }
     }
   }

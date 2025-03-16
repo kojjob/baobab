@@ -5,6 +5,8 @@ class Category < ApplicationRecord
   has_many :posts, dependent: :nullify
   has_many :product_categories, dependent: :destroy
   has_many :products, through: :product_categories
+  has_many :merchants, through: :products
+
 
 
   # Validations

@@ -1,0 +1,122 @@
+<%= form_with(model: announcement, class: "contents") do |form| %>
+  <% if announcement.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+      <h2><%= pluralize(announcement.errors.count, "error") %> prohibited this announcement from being saved:</h2>
+
+      <ul class="list-disc ml-6">
+        <% announcement.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :content %>
+    <%= form.textarea :content, rows: 4, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": announcement.errors[:content].none?, "border-red-400 focus:outline-red-600": announcement.errors[:content].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": announcement.errors[:title].none?, "border-red-400 focus:outline-red-600": announcement.errors[:title].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :subtitle %>
+    <%= form.text_field :subtitle, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": announcement.errors[:subtitle].none?, "border-red-400 focus:outline-red-600": announcement.errors[:subtitle].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :announceable_id %>
+    <%= form.text_field :announceable_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": announcement.errors[:announceable_id].none?, "border-red-400 focus:outline-red-600": announcement.errors[:announceable_id].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :domain %>
+    <%= form.number_field :domain, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": announcement.errors[:domain].none?, "border-red-400 focus:outline-red-600": announcement.errors[:domain].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :visibility %>
+    <%= form.number_field :visibility, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": announcement.errors[:visibility].none?, "border-red-400 focus:outline-red-600": announcement.errors[:visibility].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :interaction_type %>
+    <%= form.number_field :interaction_type, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": announcement.errors[:interaction_type].none?, "border-red-400 focus:outline-red-600": announcement.errors[:interaction_type].any?}] %>
+  </div>
+
+  <div class="my-5 flex items-center gap-2">
+    <%= form.label :active %>
+    <%= form.checkbox :active, class: ["block shadow-sm rounded-md border order-first h-5 w-5", {"border-gray-400 focus:outline-blue-600": announcement.errors[:active].none?, "border-red-400 focus:outline-red-600": announcement.errors[:active].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :start_date %>
+    <%= form.datetime_field :start_date, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": announcement.errors[:start_date].none?, "border-red-400 focus:outline-red-600": announcement.errors[:start_date].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :end_date %>
+    <%= form.datetime_field :end_date, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": announcement.errors[:end_date].none?, "border-red-400 focus:outline-red-600": announcement.errors[:end_date].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :action_url %>
+    <%= form.text_field :action_url, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": announcement.errors[:action_url].none?, "border-red-400 focus:outline-red-600": announcement.errors[:action_url].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :icon %>
+    <%= form.text_field :icon, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": announcement.errors[:icon].none?, "border-red-400 focus:outline-red-600": announcement.errors[:icon].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :metadata %>
+    <%= form.text_field :metadata, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": announcement.errors[:metadata].none?, "border-red-400 focus:outline-red-600": announcement.errors[:metadata].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :priority %>
+    <%= form.number_field :priority, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": announcement.errors[:priority].none?, "border-red-400 focus:outline-red-600": announcement.errors[:priority].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :views_count %>
+    <%= form.number_field :views_count, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": announcement.errors[:views_count].none?, "border-red-400 focus:outline-red-600": announcement.errors[:views_count].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :clicks_count %>
+    <%= form.number_field :clicks_count, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": announcement.errors[:clicks_count].none?, "border-red-400 focus:outline-red-600": announcement.errors[:clicks_count].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :location_constraint %>
+    <%= form.text_field :location_constraint, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": announcement.errors[:location_constraint].none?, "border-red-400 focus:outline-red-600": announcement.errors[:location_constraint].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :min_age %>
+    <%= form.number_field :min_age, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": announcement.errors[:min_age].none?, "border-red-400 focus:outline-red-600": announcement.errors[:min_age].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :max_age %>
+    <%= form.number_field :max_age, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": announcement.errors[:max_age].none?, "border-red-400 focus:outline-red-600": announcement.errors[:max_age].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :user_segment %>
+    <%= form.text_field :user_segment, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": announcement.errors[:user_segment].none?, "border-red-400 focus:outline-red-600": announcement.errors[:user_segment].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :partner_id %>
+    <%= form.text_field :partner_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": announcement.errors[:partner_id].none?, "border-red-400 focus:outline-red-600": announcement.errors[:partner_id].any?}] %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   # Authentication
   devise_for :users
 
-  # User profiles
+  # User Management
   resources :profiles do
     member do
       patch :restore
@@ -18,19 +18,35 @@ Rails.application.routes.draw do
       patch :unfollow
       post :increment_views
     end
-
     collection do
       get :my_profile
     end
   end
 
-  # Shop/Marketplace Routes
-  resources :merchants
+  # Marketplace/Shop
+  concern :addressable do
+    resources :addresses, only: [ :new, :create, :edit, :update, :destroy ]
+  end
+
+  resources :merchants do
+    member do
+      post :toggle_feature
+      delete :remove_document
+    end
+
+    resources :products
+    resources :orders, only: [ :index, :show, :update ]
+    resources :announcements, except: [ :show ]
+    resources :reviews, only: [ :index ]
+
+    concerns :addressable
+  end
+
   resources :products do
     resources :reviews, only: [ :create, :index ]
   end
 
-  # Use singular resource for cart (users only have one cart)
+  # Cart & Orders
   resource :cart, only: [ :show, :update ] do
     resources :cart_items, only: [ :create, :update, :destroy ]
   end
@@ -40,11 +56,15 @@ Rails.application.routes.draw do
   end
   resources :order_items, only: [ :show, :update, :destroy ]
 
-  # Categories
+  # Categories & Tags
   resources :categories, only: [ :index, :show ]
   resources :tags, only: [ :show ]
 
-  # Blog system routes
+  # Address resource (global)
+  resources :addresses
+  resources :announcements
+
+  # Blog System
   scope :blog do
     get "/", to: "posts#index", as: :blog
 
@@ -57,19 +77,19 @@ Rails.application.routes.draw do
     get "feed", to: "posts#index", format: "rss", as: :blog_feed
   end
 
-  # Posts resources (not namespaced)
+  # Posts and Comments
   resources :posts do
     resources :comments, only: [ :create, :edit, :update, :destroy ]
   end
 
-  # User dashboard
+  # User Dashboard
   namespace :dashboard do
     get "/", to: "home#index"
     resources :posts
     resources :comments, only: [ :index, :destroy ]
   end
 
-  # Admin dashboard and blog management
+  # Admin Dashboard
   namespace :admin do
     root "dashboard#index"
 
@@ -82,38 +102,26 @@ Rails.application.routes.draw do
 
     resources :categories
     resources :tags
-
     resources :comments, only: [ :index, :show, :destroy ] do
       member do
         patch :approve
         patch :reject
       end
     end
-
     resources :subscriptions, only: [ :index, :show, :destroy ]
   end
 
-  # Static pages
-  get "about" => "home#about", as: :about
-  get "user_guides" => "home#user_guides", as: :user_guides
-  get "contact" => "home#contact", as: :contact
-  get "terms" => "home#terms", as: :terms
-  get "privacy" => "home#privacy", as: :privacy
-  get "cookies" => "home#cookies", as: :cookies
-  get "explore" => "home#explore", as: :explore
-  get "help_center" => "home#help_center", as: :help_center
-  get "notifications" => "home#notifications", as: :notifications
-  get "settings" => "home#settings", as: :settings
-  get "news_press" => "home#news_press", as: :news_press
-  get "careers" => "home#careers", as: :careers
-  get "community" => "home#community", as: :community
-  get "search" => "home#search", as: :search
-  get "promotions" => "home#promotions", as: :promotions
-  get "events" => "home#events", as: :events
+  # Static Pages
+  %w[
+    about user_guides contact terms privacy cookies explore
+    help_center notifications settings news_press careers
+    community search promotions events
+  ].each do |page|
+    get page, to: "home##{page}", as: page.to_sym
+  end
 
-  # Error pages
-  get "404" => "home#not_found", as: :not_found
-  get "500" => "home#internal_server_error", as: :internal_server_error
-  get "503" => "home#service_unavailable", as: :service_unavailable
-  get "504" => "home#gateway_timeout", as: :gateway_timeout
+  # Error Pages
+  %w[not_found internal_server_error service_unavailable gateway_timeout].each do |error|
+    get error.gsub("_", "-"), to: "home##{error}", as: error.to_sym
+  end
 end

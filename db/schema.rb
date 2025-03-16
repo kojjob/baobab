@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_14_184031) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_16_113055) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -50,6 +50,60 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_14_184031) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "addressable_type"
+    t.bigint "addressable_id"
+    t.string "street_address", null: false
+    t.string "address_line_2"
+    t.string "city", null: false
+    t.string "region", null: false
+    t.string "postal_code"
+    t.string "country", default: "Ghana"
+    t.decimal "latitude", precision: 10, scale: 6
+    t.decimal "longitude", precision: 10, scale: 6
+    t.text "directions"
+    t.integer "address_type", default: 0
+    t.boolean "verified", default: false
+    t.jsonb "metadata"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["address_type"], name: "index_addresses_on_address_type"
+    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable"
+    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id"
+  end
+
+  create_table "announcements", force: :cascade do |t|
+    t.text "content", null: false
+    t.string "title"
+    t.string "subtitle"
+    t.string "announceable_type"
+    t.bigint "announceable_id"
+    t.integer "domain", default: 0
+    t.integer "visibility", default: 0
+    t.integer "interaction_type", default: 0
+    t.boolean "active", default: true
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.string "action_url"
+    t.string "icon"
+    t.jsonb "metadata", default: {}
+    t.integer "priority", default: 5
+    t.integer "views_count", default: 0
+    t.integer "clicks_count", default: 0
+    t.string "location_constraint"
+    t.integer "min_age"
+    t.integer "max_age"
+    t.string "user_segment"
+    t.bigint "partner_id"
+    t.string "partner_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active"], name: "index_announcements_on_active"
+    t.index ["announceable_type", "announceable_id"], name: "index_announcements_on_announceable"
+    t.index ["partner_id"], name: "index_announcements_on_partner_id"
+    t.index ["start_date", "end_date"], name: "index_announcements_on_start_date_and_end_date"
   end
 
   create_table "cart_items", force: :cascade do |t|
@@ -112,8 +166,44 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_14_184031) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
+    t.string "registration_number"
+    t.string "tax_id"
+    t.string "business_type"
+    t.integer "year_established"
+    t.integer "employee_count"
+    t.jsonb "business_hours", default: {}
+    t.decimal "delivery_radius", precision: 5, scale: 2
+    t.decimal "delivery_fee", precision: 10, scale: 2
+    t.decimal "minimum_order", precision: 10, scale: 2
+    t.integer "preparation_time"
+    t.jsonb "service_areas", default: []
+    t.jsonb "payment_methods", default: []
+    t.decimal "commission_rate", precision: 5, scale: 2
+    t.jsonb "bank_account", default: {}, null: false
+    t.jsonb "mobile_money_details", default: {}, null: false
+    t.string "payout_schedule", default: "weekly"
+    t.string "verification_status", default: "pending"
+    t.boolean "featured", default: false
+    t.string "subscription_level", default: "basic"
+    t.datetime "subscription_expires_at"
+    t.string "slug"
+    t.string "meta_title"
+    t.text "meta_description"
+    t.string "keywords", default: [], array: true
+    t.string "website"
+    t.string "email"
+    t.jsonb "social_media", default: {}
+    t.string "contact_person"
+    t.integer "category_id"
+    t.string "cover_photo"
+    t.text "return_policy"
+    t.text "shipping_policy"
     t.index ["active"], name: "index_merchants_on_active"
+    t.index ["business_type"], name: "index_merchants_on_business_type"
     t.index ["deleted_at"], name: "index_merchants_on_deleted_at"
+    t.index ["featured"], name: "index_merchants_on_featured"
+    t.index ["slug"], name: "index_merchants_on_slug", unique: true
+    t.index ["subscription_level"], name: "index_merchants_on_subscription_level"
     t.index ["user_id"], name: "index_merchants_on_user_id"
     t.index ["verified"], name: "index_merchants_on_verified"
   end
@@ -320,6 +410,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_14_184031) do
     t.string "city"
     t.text "address"
     t.datetime "last_login_at"
+    t.boolean "admin", default: false
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["last_login_at"], name: "index_users_on_last_login_at"

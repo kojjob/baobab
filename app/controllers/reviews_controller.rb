@@ -3,8 +3,22 @@ class ReviewsController < ApplicationController
 
   # GET /reviews or /reviews.json
   def index
-    @reviews = Review.all
+    if params[:merchant_id]
+      @merchant = Merchant.find(params[:merchant_id])
+      @reviews = @merchant.reviews.includes(user: { avatar_attachment: :blob }).order(created_at: :desc)
+
+      # Optional pagination
+      @pagy, @reviews = pagy(@reviews)
+
+      render "merchants/reviews/index"
+    elsif params[:product_id]
+      # Your existing product reviews code
+      @product = Product.find(params[:product_id])
+      @reviews = @product.reviews
+      # ...
+    end
   end
+
 
   # GET /reviews/1 or /reviews/1.json
   def show

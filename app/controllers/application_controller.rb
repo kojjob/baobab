@@ -4,9 +4,14 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   include Pagy::Frontend
   include Pagy::Backend
+  include Pundit::Authorization
 
 
+  # Optional: Pundit authorization for all actions
+  # after_action :verify_authorized, except: :index
+  # after_action :verify_policy_scoped, only: :index
 
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   protected
 
   def configure_permitted_parameters
@@ -22,5 +27,10 @@ class ApplicationController < ActionController::Base
     :region,
     :city,
     :address ])
+  end
+
+  def user_not_authorized
+    flash[:alert] = "You are not authorized to perform this action."
+    redirect_back(fallback_location: root_path)
   end
 end

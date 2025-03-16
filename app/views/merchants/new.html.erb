@@ -1,9 +1,12 @@
-<% content_for :title, "New merchant" %>
-
-<div class="md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">New merchant</h1>
-
-  <%= render "form", merchant: @merchant %>
-
-  <%= link_to "Back to merchants", merchants_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+<div class="bg-gray-50 dark:bg-gray-900 min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-8">
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Create New Merchant</h1>
+      <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+        Set up your business profile to start selling on our platform.
+      </p>
+    </div>
+    
+    <%= render 'form', merchant: @merchant %>
+  </div>
 </div>

@@ -1,6 +1,13 @@
 class Category < ApplicationRecord
   # Associations
+  has_many :subcategories, class_name: "Category", foreign_key: :parent_id, dependent: :destroy
+  belongs_to :parent, class_name: "Category", optional: true
   has_many :posts, dependent: :nullify
+  has_many :product_categories, dependent: :destroy
+  has_many :products, through: :product_categories
+  has_many :merchants, through: :products
+
+
 
   # Validations
   validates :name, presence: true, length: { maximum: 50 }
@@ -11,10 +18,45 @@ class Category < ApplicationRecord
 
   # Scopes
   scope :with_posts, -> { joins(:posts).distinct }
+  scope :main_categories, -> { where(parent_id: nil) }
+  scope :active, -> { where(active: true) }
+  scope :featured, -> { where(featured: true) }
+  scope :sorted, -> { order(position: :asc) }
 
-  # Methods
+  # Instance Methods
+  def has_subcategories?
+    subcategories.exists?
+  end
+
+  def root?
+    parent_id.nil?
+  end
+
+  def ancestors
+    category = self
+    ancestors = []
+
+    while category.parent
+      ancestors << category.parent
+      category = category.parent
+    end
+
+    ancestors.reverse
+  end
+
   def to_param
     slug
+  end
+
+  def self.nested_set
+    categories = {}
+    main = main_categories.sorted.includes(:subcategories)
+
+    main.each do |category|
+      categories[category] = category.subcategories.sorted
+    end
+
+    categories
   end
 
   private

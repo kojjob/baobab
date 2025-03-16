@@ -1,0 +1,33 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  addressable: one
+  addressable_type: Addressable
+  street_address: MyString
+  address_line_2: MyString
+  city: MyString
+  region: MyString
+  postal_code: MyString
+  country: MyString
+  latitude: 9.99
+  longitude: 9.99
+  directions: MyText
+  address_type: 1
+  verified: false
+  metadata: 
+
+two:
+  addressable: two
+  addressable_type: Addressable
+  street_address: MyString
+  address_line_2: MyString
+  city: MyString
+  region: MyString
+  postal_code: MyString
+  country: MyString
+  latitude: 9.99
+  longitude: 9.99
+  directions: MyText
+  address_type: 1
+  verified: false
+  metadata: 

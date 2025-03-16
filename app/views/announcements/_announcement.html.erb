@@ -1,0 +1,86 @@
+<div id="<%= dom_id announcement %>" class="w-full sm:w-auto my-5 space-y-5">
+  <div>
+    <strong class="block font-medium mb-1">Content:</strong>
+    <%= announcement.content %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Title:</strong>
+    <%= announcement.title %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Subtitle:</strong>
+    <%= announcement.subtitle %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Announceable:</strong>
+    <%= announcement.announceable_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Domain:</strong>
+    <%= announcement.domain %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Visibility:</strong>
+    <%= announcement.visibility %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Interaction type:</strong>
+    <%= announcement.interaction_type %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Active:</strong>
+    <%= announcement.active? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Start date:</strong>
+    <%= announcement.start_date %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">End date:</strong>
+    <%= announcement.end_date %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Action url:</strong>
+    <%= announcement.action_url %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Icon:</strong>
+    <%= announcement.icon %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Metadata:</strong>
+    <%= announcement.metadata %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Priority:</strong>
+    <%= announcement.priority %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Views count:</strong>
+    <%= announcement.views_count %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Clicks count:</strong>
+    <%= announcement.clicks_count %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Location constraint:</strong>
+    <%= announcement.location_constraint %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Min age:</strong>
+    <%= announcement.min_age %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Max age:</strong>
+    <%= announcement.max_age %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">User segment:</strong>
+    <%= announcement.user_segment %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Partner:</strong>
+    <%= announcement.partner_id %>
+  </div>
+</div>

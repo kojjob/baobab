@@ -6,7 +6,15 @@ class User < ApplicationRecord
 
   # Associations
   has_one :profile, dependent: :destroy
-
+  has_one :merchant, dependent: :destroy
+  has_many :products, through: :merchant
+  has_many :likes, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
+  has_many :orders, dependent: :destroy
+  has_many :order_items, through: :orders
+  has_many :cart_items, dependent: :destroy
+  has_one :cart, dependent: :destroy
+  has_many :reviews, dependent: :destroy
 
   # Blog associations
   has_many :posts, dependent: :nullify
@@ -29,6 +37,52 @@ class User < ApplicationRecord
     pro: 2,
     premium: 3
   }
+
+  # Method to check if user is a merchant
+  def is_merchant?
+    self.merchant.present?
+  end
+
+  def admin?
+    # Strategy 1: Explicit Admin Column
+    return true if admin == true
+
+    # Strategy 2: Domain-Based Admin Detection
+    if email.present?
+      # Option A: Specific admin domain
+      return true if email.ends_with?("@youradmindomain.com")
+
+      # Option B: Whitelist of admin email addresses
+      admin_emails = [
+        "kojcoder@gmail.com",
+        "tech_lead@example.com",
+        "founder@example.com"
+      ]
+      return true if admin_emails.include?(email)
+    end
+
+    # Strategy 3: Membership-Based Admin Elevation
+    # Premium members get admin-like privileges
+    return true if membership_level == "premium"
+
+    # Strategy 4: Specific User IDs
+    admin_user_ids = [ 1, 2, 3, 4 ]  # First few system users
+    return true if admin_user_ids.include?(id)
+
+    # Strategy 5: Role-Based (Most Flexible)
+    # Requires additional role management gem like 'rolify'
+    # has_role?(:admin)
+
+    # Default: Not an admin
+    false
+  end
+
+  # Complementary Method for Enhanced Authorization
+  def super_admin?
+    # Most restricted admin level
+    email == "kojcoder@gmail.com" ||
+    id == 1  # First user in the system
+  end
 
   def pro_member?
     pro? || premium?

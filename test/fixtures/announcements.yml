@@ -1,0 +1,49 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content: MyText
+  title: MyString
+  subtitle: MyString
+  announceable: one
+  announceable_type: Announceable
+  domain: 1
+  visibility: 1
+  interaction_type: 1
+  active: false
+  start_date: 2025-03-16 08:15:49
+  end_date: 2025-03-16 08:15:49
+  action_url: MyString
+  icon: MyString
+  metadata: 
+  priority: 1
+  views_count: 1
+  clicks_count: 1
+  location_constraint: MyString
+  min_age: 1
+  max_age: 1
+  user_segment: MyString
+  partner: one
+
+two:
+  content: MyText
+  title: MyString
+  subtitle: MyString
+  announceable: two
+  announceable_type: Announceable
+  domain: 1
+  visibility: 1
+  interaction_type: 1
+  active: false
+  start_date: 2025-03-16 08:15:49
+  end_date: 2025-03-16 08:15:49
+  action_url: MyString
+  icon: MyString
+  metadata: 
+  priority: 1
+  views_count: 1
+  clicks_count: 1
+  location_constraint: MyString
+  min_age: 1
+  max_age: 1
+  user_segment: MyString
+  partner: two

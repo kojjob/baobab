@@ -1,0 +1,244 @@
+<!-- In the head section -->
+<script>
+  // On page load or when changing themes, handle the initial theme based on localStorage
+  if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark')
+  } else {
+    document.documentElement.classList.remove('dark')
+  }
+</script>
+
+
+<div class="container mx-auto px-4 mb-20 mt-20" data-controller="category-filter">
+  <!-- Page Title and Search -->
+  <div class="mb-8">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <h1 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white">Explore Categories</h1>
+      
+      <div class="relative">
+        <input type="text" 
+               placeholder="Find a category..." 
+               class="w-full md:w-80 pl-10 pr-4 py-2 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400"
+               data-action="input->category-filter#filter"
+               data-category-filter-target="searchInput">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500 dark:text-gray-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Featured Categories -->
+  <section class="mb-10">
+    <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Featured Categories</h2>
+    
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+      <% Category.featured.active.sorted.limit(6).each do |category| %>
+        <div class="category-card" data-category-filter-target="categoryItem" data-category-name="<%= category.name.downcase %>">
+          <%= link_to category_path(category), class: "block bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow p-4 text-center h-full" do %>
+            <div class="flex flex-col items-center justify-center h-full">
+              <div class="w-16 h-16 mx-auto flex items-center justify-center text-primary-600 dark:text-primary-400 bg-primary-100 dark:bg-primary-900 rounded-full mb-3">
+                <i class="<%= category.icon %> text-xl"></i>
+              </div>
+              <h3 class="font-medium text-gray-800 dark:text-white"><%= category.name %></h3>
+              <% if category.products.count > 0 %>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1"><%= pluralize(category.products.count, 'item') %></p>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+  <!-- Main Categories -->
+  <section class="mb-10">
+    <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">All Categories</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <% Category.active.main_categories.sorted.each do |main_category| %>
+        <div class="category-group" data-category-filter-target="categoryGroup">
+          <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm">
+            <!-- Main Category Header -->
+            <%= link_to category_path(main_category), class: "block p-4 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors" do %>
+              <div class="flex items-center">
+                <div class="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-full bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 mr-3">
+                  <i class="<%= main_category.icon %> text-lg"></i>
+                </div>
+                <div class="flex-1">
+                  <h3 class="font-medium text-gray-800 dark:text-white"><%= main_category.name %></h3>
+                  <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-1"><%= main_category.description %></p>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            <% end %>
+            
+            <!-- Subcategories -->
+            <div class="p-2">
+              <% main_category.subcategories.active.sorted.each do |subcategory| %>
+                <div class="subcategory" data-category-filter-target="categoryItem" data-category-name="<%= subcategory.name.downcase %>" data-parent-category="<%= main_category.name.downcase %>">
+                  <%= link_to category_path(subcategory), class: "flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" do %>
+                    <% if subcategory.icon.present? %>
+                      <div class="w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 mr-3">
+                        <i class="<%= subcategory.icon %> text-sm"></i>
+                      </div>
+                    <% end %>
+                    <div class="flex-1">
+                      <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300"><%= subcategory.name %></h4>
+                      <% if subcategory.has_subcategories? %>
+                        <p class="text-xs text-gray-500 dark:text-gray-400"><%= subcategory.subcategories.active.count %> subcategories</p>
+                      <% end %>
+                    </div>
+                    <% if subcategory.products.count > 0 %>
+                      <span class="text-xs text-gray-500 dark:text-gray-400"><%= subcategory.products.count %></span>
+                    <% end %>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+  <!-- Special Categories Section with Visual Cards -->
+  <section class="mb-10">
+    <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Popular Collections</h2>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Mobile Services Card -->
+      <% mobile_services = Category.find_by(slug: 'mobile-services') %>
+      <% if mobile_services.present? %>
+        <div class="relative overflow-hidden rounded-xl shadow-sm h-48 group" data-category-filter-target="categoryItem" data-category-name="mobile services">
+          <%= link_to category_path(mobile_services), class: "block h-full" do %>
+            <div class="absolute inset-0 bg-gradient-to-br from-yellow-500 to-yellow-600 dark:from-yellow-600 dark:to-yellow-800"></div>
+            <div class="absolute top-0 right-0 w-32 h-32 transform translate-x-8 -translate-y-8 bg-yellow-400 dark:bg-yellow-700 rounded-full opacity-50"></div>
+            <div class="absolute bottom-0 left-0 w-24 h-24 transform -translate-x-6 translate-y-6 bg-yellow-400 dark:bg-yellow-700 rounded-full opacity-50"></div>
+            <div class="relative h-full p-6 flex flex-col justify-between">
+              <div>
+                <h3 class="text-xl font-bold text-white">Mobile Services</h3>
+                <p class="text-yellow-100 mt-1">Airtime, data & mobile money</p>
+              </div>
+              <div class="flex items-center">
+                <div class="flex space-x-1">
+                  <div class="w-8 h-8 rounded-full bg-white bg-opacity-20 flex items-center justify-center text-white">
+                    <i class="fas fa-mobile-alt"></i>
+                  </div>
+                  <div class="w-8 h-8 rounded-full bg-white bg-opacity-20 flex items-center justify-center text-white">
+                    <i class="fas fa-wifi"></i>
+                  </div>
+                  <div class="w-8 h-8 rounded-full bg-white bg-opacity-20 flex items-center justify-center text-white">
+                    <i class="fas fa-money-bill-wave"></i>
+                  </div>
+                </div>
+                <div class="ml-auto">
+                  <span class="inline-flex items-center justify-center px-3 py-1 rounded-full bg-white bg-opacity-20 text-white text-sm group-hover:bg-opacity-30 transition-colors">
+                    Explore
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+
+      <!-- Food & Groceries Card -->
+      <% food_groceries = Category.find_by(slug: 'food-groceries') %>
+      <% if food_groceries.present? %>
+        <div class="relative overflow-hidden rounded-xl shadow-sm h-48 group" data-category-filter-target="categoryItem" data-category-name="food groceries">
+          <%= link_to category_path(food_groceries), class: "block h-full" do %>
+            <div class="absolute inset-0 bg-gradient-to-br from-green-500 to-green-600 dark:from-green-600 dark:to-green-800"></div>
+            <div class="absolute top-0 right-0 w-32 h-32 transform translate-x-8 -translate-y-8 bg-green-400 dark:bg-green-700 rounded-full opacity-50"></div>
+            <div class="absolute bottom-0 left-0 w-24 h-24 transform -translate-x-6 translate-y-6 bg-green-400 dark:bg-green-700 rounded-full opacity-50"></div>
+            <div class="relative h-full p-6 flex flex-col justify-between">
+              <div>
+                <h3 class="text-xl font-bold text-white">Food & Groceries</h3>
+                <p class="text-green-100 mt-1">Fresh produce & daily essentials</p>
+              </div>
+              <div class="flex items-center">
+                <div class="flex space-x-1">
+                  <div class="w-8 h-8 rounded-full bg-white bg-opacity-20 flex items-center justify-center text-white">
+                    <i class="fas fa-apple-alt"></i>
+                  </div>
+                  <div class="w-8 h-8 rounded-full bg-white bg-opacity-20 flex items-center justify-center text-white">
+                    <i class="fas fa-fish"></i>
+                  </div>
+                  <div class="w-8 h-8 rounded-full bg-white bg-opacity-20 flex items-center justify-center text-white">
+                    <i class="fas fa-shopping-basket"></i>
+                  </div>
+                </div>
+                <div class="ml-auto">
+                  <span class="inline-flex items-center justify-center px-3 py-1 rounded-full bg-white bg-opacity-20 text-white text-sm group-hover:bg-opacity-30 transition-colors">
+                    Explore
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+
+      <!-- Fashion Card -->
+      <% fashion = Category.find_by(slug: 'fashion') %>
+      <% if fashion.present? %>
+        <div class="relative overflow-hidden rounded-xl shadow-sm h-48 group" data-category-filter-target="categoryItem" data-category-name="fashion">
+          <%= link_to category_path(fashion), class: "block h-full" do %>
+            <div class="absolute inset-0 bg-gradient-to-br from-purple-500 to-purple-600 dark:from-purple-600 dark:to-purple-800"></div>
+            <div class="absolute top-0 right-0 w-32 h-32 transform translate-x-8 -translate-y-8 bg-purple-400 dark:bg-purple-700 rounded-full opacity-50"></div>
+            <div class="absolute bottom-0 left-0 w-24 h-24 transform -translate-x-6 translate-y-6 bg-purple-400 dark:bg-purple-700 rounded-full opacity-50"></div>
+            <div class="relative h-full p-6 flex flex-col justify-between">
+              <div>
+                <h3 class="text-xl font-bold text-white">Fashion</h3>
+                <p class="text-purple-100 mt-1">Clothing, shoes & accessories</p>
+              </div>
+              <div class="flex items-center">
+                <div class="flex space-x-1">
+                  <div class="w-8 h-8 rounded-full bg-white bg-opacity-20 flex items-center justify-center text-white">
+                    <i class="fas fa-tshirt"></i>
+                  </div>
+                  <div class="w-8 h-8 rounded-full bg-white bg-opacity-20 flex items-center justify-center text-white">
+                    <i class="fas fa-shoe-prints"></i>
+                  </div>
+                  <div class="w-8 h-8 rounded-full bg-white bg-opacity-20 flex items-center justify-center text-white">
+                    <i class="fas fa-user-tie"></i>
+                  </div>
+                </div>
+                <div class="ml-auto">
+                  <span class="inline-flex items-center justify-center px-3 py-1 rounded-full bg-white bg-opacity-20 text-white text-sm group-hover:bg-opacity-30 transition-colors">
+                    Explore
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+  <!-- No Results Message -->
+  <div class="hidden py-10 text-center" data-category-filter-target="noResults">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400 dark:text-gray-600 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+    </svg>
+    <h3 class="text-lg font-medium text-gray-800 dark:text-white mb-1">No categories found</h3>
+    <p class="text-gray-500 dark:text-gray-400">Try adjusting your search or browse all categories</p>
+    <button class="mt-4 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors" data-action="category-filter#resetSearch">
+      Show All Categories
+    </button>
+  </div>
+</div>

@@ -1,0 +1,351 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="100%" height="100%">
+  <defs>
+    <!-- Theme variables with support for light/dark mode -->
+    <style>
+      :root {
+        --bg-gradient-start: #4F46E5;
+        --bg-gradient-middle: #7E22CE;
+        --bg-gradient-end: #EC4899;
+        --text-primary:rgb(168, 160, 160);
+        --text-secondary: rgba(170, 164, 164, 0.85);
+        --accent-primary: #F59E0B;
+        --accent-secondary: #10B981;
+        --pattern-color: rgba(255, 255, 255, 0.15);
+        --blur-opacity: 0.3;
+        --overlay-opacity: 0.15;
+        --icon-bg: rgba(209, 201, 201, 0.9);
+        --icon-stroke: #4F46E5;
+        --btn-bg: rgba(255, 255, 255, 0.95);
+        --btn-text: #4F46E5;
+        --btn-hover: #F9FAFB;
+        --highlight-color: rgba(249, 250, 251, 0.2);
+      }
+      
+      .dark-theme {
+        --bg-gradient-start: #1E40AF;
+        --bg-gradient-middle: #581C87;
+        --bg-gradient-end: #9D174D;
+        --text-primary:rgb(101, 146, 190);
+        --text-secondary: rgba(249, 250, 251, 0.7);
+        --accent-primary: #F59E0B;
+        --accent-secondary: #059669;
+        --pattern-color: rgba(255, 255, 255, 0.1);
+        --blur-opacity: 0.2;
+        --overlay-opacity: 0.1;
+        --icon-bg: rgba(255, 255, 255, 0.15);
+        --icon-stroke: #E5E7EB;
+        --btn-bg: rgba(249, 250, 251, 0.1);
+        --btn-text:rgb(206, 218, 230);
+        --btn-hover: rgba(249, 250, 251, 0.2);
+        --highlight-color: rgba(249, 250, 251, 0.1);
+      }
+      
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-gradient-start: #1E40AF;
+          --bg-gradient-middle: #581C87;
+          --bg-gradient-end: #9D174D;
+          --text-primary: #F9FAFB;
+          --text-secondary: rgba(249, 250, 251, 0.7);
+          --accent-primary: #F59E0B;
+          --accent-secondary: #059669;
+          --pattern-color: rgba(255, 255, 255, 0.1);
+          --blur-opacity: 0.2;
+          --overlay-opacity: 0.1;
+          --icon-bg: rgba(255, 255, 255, 0.15);
+          --icon-stroke: #E5E7EB;
+          --btn-bg: rgba(249, 250, 251, 0.1);
+          --btn-text: #F9FAFB;
+          --btn-hover: rgba(249, 250, 251, 0.2);
+          --highlight-color: rgba(249, 250, 251, 0.1);
+        }
+      }
+    </style>
+    
+    <!-- Gradients -->
+    <linearGradient id="banner-bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="var(--bg-gradient-start)">
+        <animate attributeName="stop-color" values="var(--bg-gradient-start); var(--bg-gradient-middle); var(--bg-gradient-start)" dur="15s" repeatCount="indefinite" />
+      </stop>
+      <stop offset="50%" stop-color="var(--bg-gradient-middle)">
+        <animate attributeName="stop-color" values="var(--bg-gradient-middle); var(--bg-gradient-end); var(--bg-gradient-middle)" dur="15s" repeatCount="indefinite" />
+      </stop>
+      <stop offset="100%" stop-color="var(--bg-gradient-end)">
+        <animate attributeName="stop-color" values="var(--bg-gradient-end); var(--bg-gradient-start); var(--bg-gradient-end)" dur="15s" repeatCount="indefinite" />
+      </stop>
+    </linearGradient>
+    
+    <linearGradient id="btn-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="var(--accent-primary)" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="var(--accent-primary)" stop-opacity="0" />
+    </linearGradient>
+    
+    <linearGradient id="highlight-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="var(--accent-primary)" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="var(--accent-primary)" stop-opacity="0" />
+    </linearGradient>
+    
+    <!-- Patterns -->
+    <pattern id="dot-pattern" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+      <circle cx="15" cy="15" r="1" fill="var(--pattern-color)" />
+    </pattern>
+    
+    <pattern id="grid-pattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--pattern-color)" stroke-width="0.5" />
+    </pattern>
+    
+    <!-- Filters -->
+    <filter id="blur-effect" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="30" />
+    </filter>
+    
+    <filter id="glow-effect" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="5" />
+      <feColorMatrix type="matrix" values="
+        1 0 0 0 0
+        0 1 0 0 0
+        0 0 1 0 0
+        0 0 0 15 -6
+      "/>
+      <feComposite in="SourceGraphic" operator="over" />
+    </filter>
+    
+    <filter id="shadow-effect" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-opacity="0.2" />
+    </filter>
+    
+    <!-- Clip paths -->
+    <clipPath id="rounded-rect">
+      <rect x="0" y="0" width="1200" height="400" rx="20" ry="20" />
+    </clipPath>
+    
+    <!-- Merchant Icon Definitions -->
+    <symbol id="store-icon" viewBox="0 0 48 48">
+      <path d="M40 12H8c-1.1 0-2 .9-2 2v4c0 3.3 2.7 6 6 6v14c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V24c3.3 0 6-2.7 6-6v-4c0-1.1-.9-2-2-2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+      <path d="M34 24v14H14V24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+      <path d="M8 12V8c0-1.1.9-2 2-2h28c1.1 0 2 .9 2 2v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+    </symbol>
+    
+    <symbol id="cafe-icon" viewBox="0 0 48 48">
+      <path d="M10 14h28v16c0 4.4-3.6 8-8 8H18c-4.4 0-8-3.6-8-8V14z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+      <path d="M38 18h2c2.2 0 4 1.8 4 4s-1.8 4-4 4h-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+      <path d="M10 38h28" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+      <path d="M20 14v-4M28 14v-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+    </symbol>
+    
+    <symbol id="market-icon" viewBox="0 0 48 48">
+      <path d="M6 12h36l-3 12c-.4 1.7-2 3-3.8 3H14.8c-1.8 0-3.4-1.3-3.8-3L8 18l-2-6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+      <circle cx="16" cy="36" r="4" fill="none" stroke="currentColor" stroke-width="2" />
+      <circle cx="34" cy="36" r="4" fill="none" stroke="currentColor" stroke-width="2" />
+      <path d="M20 36h10" fill="none" stroke="currentColor" stroke-width="2" />
+    </symbol>
+    
+    <symbol id="craft-icon" viewBox="0 0 48 48">
+      <rect x="10" y="6" width="28" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+      <path d="M18 16h12M18 24h12M18 32h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+    </symbol>
+    
+    <symbol id="food-icon" viewBox="0 0 48 48">
+      <path d="M15 6v36M15 12h-5a5 5 0 000 10h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M38 6v10c0 4.4-3.6 8-8 8h-3v18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+  </defs>
+  
+  <!-- Main Container with Clip Path -->
+  <g clip-path="url(#rounded-rect)">
+    <!-- Background Gradient -->
+    <rect width="1200" height="400" fill="url(#banner-bg-gradient)" />
+    
+    <!-- Background Patterns -->
+    <rect width="1200" height="400" fill="url(#dot-pattern)" />
+    <rect width="1200" height="400" fill="url(#grid-pattern)" />
+    
+    <!-- Animated Blurred Background Elements -->
+    <g opacity="var(--blur-opacity)" filter="url(#blur-effect)">
+      <!-- Floating Circles -->
+      <circle cx="200" cy="100" r="100" fill="var(--accent-primary)">
+        <animate attributeName="cy" values="100;80;100" dur="10s" repeatCount="indefinite" />
+        <animate attributeName="r" values="100;110;100" dur="15s" repeatCount="indefinite" />
+      </circle>
+      
+      <circle cx="1000" cy="300" r="150" fill="var(--accent-secondary)">
+        <animate attributeName="cy" values="300;270;300" dur="12s" repeatCount="indefinite" />
+        <animate attributeName="r" values="150;170;150" dur="18s" repeatCount="indefinite" />
+      </circle>
+      
+      <circle cx="600" cy="450" r="120" fill="var(--bg-gradient-middle)">
+        <animate attributeName="cy" values="450;420;450" dur="14s" repeatCount="indefinite" />
+        <animate attributeName="r" values="120;140;120" dur="16s" repeatCount="indefinite" />
+      </circle>
+    </g>
+    
+    <!-- Abstract Overlay Shapes -->
+    <g fill="var(--pattern-color)" opacity="var(--overlay-opacity)">
+      <path d="M0,0 L1200,0 L1200,100 C900,200 600,100 300,200 L0,100 Z" />
+      <path d="M0,200 L1200,140 L1200,240 C1000,340 600,260 200,340 L0,240 Z" />
+      <path d="M0,300 L1200,300 L1200,400 L0,400 Z" />
+    </g>
+  </g>
+  
+  <!-- Content Container -->
+  <g>
+    <!-- Left Content Section -->
+    <g transform="translate(100, 80)">
+      <!-- Animated Badge -->
+      <g>
+        <rect x="0" y="0" width="140" height="36" rx="18" fill="var(--highlight-color)" />
+        <circle cx="18" cy="18" r="4" fill="var(--accent-primary)">
+          <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite" />
+        </circle>
+        <text x="36" y="24" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="var(--text-primary)" letter-spacing="0.05em">NEW FEATURE</text>
+      </g>
+      
+      <!-- Main Heading with Highlight -->
+      <g transform="translate(0, 70)">
+        <text font-family="Arial, sans-serif" font-size="48" font-weight="800" fill="var(--text-primary)" letter-spacing="-0.02em">
+          Discover Local
+          <tspan x="0" y="60">Merchants</tspan>
+        </text>
+        <!-- Highlight effect under "Merchants" -->
+        <rect x="0" y="115" width="260" height="12" fill="var(--accent-primary)" opacity="0.3" rx="6" transform="rotate(-1)" />
+      </g>
+      
+      <!-- Subtitle -->
+      <g transform="translate(0, 160)">
+        <text font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="var(--text-secondary)" line-height="1.6">
+          Support local businesses and find the
+          <tspan x="0" y="30">best merchants in your area.</tspan>
+        </text>
+      </g>
+      
+      <!-- Call to Action Button -->
+      <g transform="translate(0, 230)" filter="url(#shadow-effect)">
+        <rect x="0" y="0" width="200" height="50" rx="25" fill="var(--btn-bg)" stroke="var(--accent-primary)" stroke-width="1" />
+        <!-- Button hover effect -->
+        <rect x="0" y="0" width="0" height="50" rx="25" fill="url(#btn-gradient)">
+          <animate attributeName="width" values="0;200;0" dur="3s" repeatCount="indefinite" />
+        </rect>
+        <text x="40" y="32" font-family="Arial, sans-serif" font-size="16" font-weight="600" fill="var(--btn-text)">Explore Now</text>
+        <!-- Animated Arrow -->
+        <g transform="translate(150, 25)" fill="var(--btn-text)">
+          <path d="M0,-7 L14,0 L0,7 Z" />
+          <animate attributeName="transform" attributeType="XML" type="translate" from="150,25" to="155,25" dur="1s" repeatCount="indefinite" />
+        </g>
+      </g>
+      
+      <!-- Search Box (Optional) -->
+      <g transform="translate(0, 300)">
+        <rect x="0" y="0" width="380" height="60" rx="30" fill="var(--highlight-color)" />
+        <circle cx="30" cy="30" r="15" fill="none" stroke="var(--text-secondary)" stroke-width="2" />
+        <path d="M40 40 L50 50" stroke="var(--text-secondary)" stroke-width="2" stroke-linecap="round" />
+        <text x="60" y="36" font-family="Arial, sans-serif" font-size="16" fill="var(--text-secondary)" opacity="0.8">Search merchants...</text>
+      </g>
+    </g>
+    
+    <!-- Right Section with Merchant Icons -->
+    <g transform="translate(600, 70)">
+      <!-- Central Display -->
+      <g>
+        <!-- Center Circle -->
+        <circle cx="200" cy="130" r="130" fill="none" stroke="var(--pattern-color)" stroke-width="2" stroke-dasharray="4,4">
+          <animateTransform attributeName="transform" type="rotate" from="0 200 130" to="360 200 130" dur="60s" repeatCount="indefinite" />
+        </circle>
+        
+        <!-- Phone/App Mockup -->
+        <g transform="translate(140, 30)" filter="url(#shadow-effect)">
+          <rect x="0" y="0" width="120" height="220" rx="15" fill="var(--highlight-color)" stroke="var(--pattern-color)" stroke-width="2" />
+          
+          <!-- Screen Content -->
+          <rect x="10" y="10" width="100" height="200" rx="5" fill="var(--bg-gradient-start)" opacity="0.9" />
+          
+          <!-- App UI Elements -->
+          <rect x="20" y="25" width="80" height="35" rx="5" fill="var(--accent-primary)" opacity="0.8" />
+          <rect x="25" y="35" width="50" height="5" rx="2" fill="white" opacity="0.7" />
+          <rect x="25" y="45" width="30" height="5" rx="2" fill="white" opacity="0.5" />
+          
+          <!-- List of merchants -->
+          <g transform="translate(20, 75)">
+            <rect x="0" y="0" width="80" height="20" rx="5" fill="white" opacity="0.2" />
+            <rect x="0" y="30" width="80" height="20" rx="5" fill="white" opacity="0.2" />
+            <rect x="0" y="60" width="80" height="20" rx="5" fill="white" opacity="0.2" />
+            <rect x="0" y="90" width="80" height="20" rx="5" fill="white" opacity="0.2" />
+            
+            <!-- Animated highlight -->
+            <rect x="0" y="0" width="80" height="20" rx="5" fill="white" opacity="0">
+              <animate attributeName="opacity" values="0;0.3;0" dur="3s" begin="0s" repeatCount="indefinite" />
+              <animate attributeName="y" values="0;30;60;90;0" dur="6s" begin="0s" repeatCount="indefinite" />
+            </rect>
+          </g>
+          
+          <!-- Navigation Dots -->
+          <circle cx="60" cy="195" r="3" fill="white" />
+          <circle cx="70" cy="195" r="3" fill="white" opacity="0.5" />
+          <circle cx="50" cy="195" r="3" fill="white" opacity="0.5" />
+        </g>
+      </g>
+      
+      <!-- Orbiting Merchant Icons -->
+      <g>
+        <!-- Store Icon -->
+        <g transform="translate(200, 0)" filter="url(#glow-effect)">
+          <circle cx="0" cy="0" r="30" fill="var(--icon-bg)" />
+          <use href="#store-icon" width="36" height="36" x="-18" y="-18" stroke="var(--icon-stroke)" />
+          
+          <animateTransform attributeName="transform" type="rotate" from="0 200 130" to="360 200 130" dur="20s" repeatCount="indefinite" />
+        </g>
+        
+        <!-- Cafe Icon -->
+        <g transform="translate(350, 130)" filter="url(#glow-effect)">
+          <circle cx="0" cy="0" r="30" fill="var(--icon-bg)" />
+          <use href="#cafe-icon" width="36" height="36" x="-18" y="-18" stroke="var(--icon-stroke)" />
+          
+          <animateTransform attributeName="transform" type="rotate" from="72 200 130" to="432 200 130" dur="20s" repeatCount="indefinite" />
+        </g>
+        
+        <!-- Market Icon -->
+        <g transform="translate(200, 260)" filter="url(#glow-effect)">
+          <circle cx="0" cy="0" r="30" fill="var(--icon-bg)" />
+          <use href="#market-icon" width="36" height="36" x="-18" y="-18" stroke="var(--icon-stroke)" />
+          
+          <animateTransform attributeName="transform" type="rotate" from="144 200 130" to="504 200 130" dur="20s" repeatCount="indefinite" />
+        </g>
+        
+        <!-- Craft Icon -->
+        <g transform="translate(50, 130)" filter="url(#glow-effect)">
+          <circle cx="0" cy="0" r="30" fill="var(--icon-bg)" />
+          <use href="#craft-icon" width="36" height="36" x="-18" y="-18" stroke="var(--icon-stroke)" />
+          
+          <animateTransform attributeName="transform" type="rotate" from="216 200 130" to="576 200 130" dur="20s" repeatCount="indefinite" />
+        </g>
+        
+        <!-- Food Icon -->
+        <g transform="translate(120, 35)" filter="url(#glow-effect)">
+          <circle cx="0" cy="0" r="30" fill="var(--icon-bg)" />
+          <use href="#food-icon" width="36" height="36" x="-18" y="-18" stroke="var(--icon-stroke)" />
+          
+          <animateTransform attributeName="transform" type="rotate" from="288 200 130" to="648 200 130" dur="20s" repeatCount="indefinite" />
+        </g>
+      </g>
+      
+      <!-- Floating Stats -->
+      <g transform="translate(330, 40)" filter="url(#shadow-effect)">
+        <rect x="0" y="0" width="100" height="60" rx="10" fill="var(--highlight-color)" />
+        <text x="50" y="25" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="var(--text-primary)" text-anchor="middle">1500+</text>
+        <text x="50" y="45" font-family="Arial, sans-serif" font-size="12" fill="var(--text-secondary)" text-anchor="middle">Local Merchants</text>
+        
+        <animateTransform attributeName="transform" type="translate" values="330,40; 330,30; 330,40" dur="6s" repeatCount="indefinite" />
+      </g>
+      
+      <g transform="translate(50, 220)" filter="url(#shadow-effect)">
+        <rect x="0" y="0" width="100" height="60" rx="10" fill="var(--highlight-color)" />
+        <text x="50" y="25" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="var(--text-primary)" text-anchor="middle">4.9/5</text>
+        <text x="50" y="45" font-family="Arial, sans-serif" font-size="12" fill="var(--text-secondary)" text-anchor="middle">User Rating</text>
+        
+        <animateTransform attributeName="transform" type="translate" values="50,220; 50,210; 50,220" dur="5s" repeatCount="indefinite" />
+      </g>
+    </g>
+  </g>
+  
+  <!-- Border -->
+  <rect x="0" y="0" width="1200" height="400" rx="20" ry="20" fill="none" stroke="var(--pattern-color)" stroke-width="1" />
+</svg>
